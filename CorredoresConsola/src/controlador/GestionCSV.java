@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package modelo;
+package controlador;
 
-import modelo.Corredor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -14,12 +13,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.Corredor;
 
 /**
  *
@@ -34,12 +33,10 @@ public class GestionCSV {
     private BufferedReader registro = null;
     private BufferedWriter fsalida = null;
 
-    private List<Corredor> corredores = new ArrayList();
 //borrar todas las anotaciones para borrar
-
     public void tokenizar(String linea) throws ParseException {
-        StringTokenizer tokens = new StringTokenizer(linea, ", ");
-        //while (tokens.hasMoreTokens()) {
+        StringTokenizer tokens = new StringTokenizer(linea, ",");
+        while (tokens.hasMoreTokens()) {
             String nombre = tokens.nextToken();
             String dni = tokens.nextToken();
             String fechaNacimientoString = tokens.nextToken();
@@ -48,10 +45,9 @@ public class GestionCSV {
             int telefono = Integer.parseInt(tokens.nextToken());
             Corredor corredor = new Corredor(nombre, dni, fechaNacimiento, direccion, telefono);
             System.out.println(corredor.toString());
-        //}
+        }
     }
 
-    //Se ve el ranking de jugadores ordenado
     public void visualizarCorredores() throws ParseException {
         try {
             fr = new FileReader("corredores.csv");
@@ -72,25 +68,20 @@ public class GestionCSV {
         }
     }
 
-    public void grabarFicheroCSV() throws ParseException, IOException {
-        FileWriter fw = null;
-        /*for (int j = 0; j < corredores.size(); j++) {
-            String cadena = "";
-            fw = new FileWriter("corredores.csv");
-            System.out.println(cadena);
-            fw.write(cadena);
+    public void grabarFicheroCSV(List<Corredor> corredores) throws ParseException, IOException {
+        fw = null;
 
-            
-        }*/
         fw = new FileWriter("corredores.csv");
-        for (Corredor corredor : corredores) {
+        fsalida = new BufferedWriter(fw);
 
-            fw.write(corredor.getNombre() + ", ");
-            fw.write(corredor.getDni() + ", ");
-            fw.write(sdf.format(corredor.getFechaNacimiento()) + ", ");
-            fw.write(corredor.getDireccion() + ", ");
-            fw.write(corredor.getTelefono() + "\n");
+        for (int i = 0; i < corredores.size(); i++) {
+            fsalida.write(corredores.get(i).getNombre() + ",");
+            fsalida.write(corredores.get(i).getDni() + ",");
+            fsalida.write(sdf.format(corredores.get(i).getFechaNacimiento()) + ",");
+            fsalida.write(corredores.get(i).getDireccion() + ",");
+            fsalida.write(corredores.get(i).getTelefono() + "\n");
         }
+        fsalida.close();
         fw.close();
     }
 

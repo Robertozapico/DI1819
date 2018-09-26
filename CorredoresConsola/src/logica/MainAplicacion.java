@@ -25,7 +25,7 @@ public class MainAplicacion {
 
         
         Controladora gestionCorredores = new Controladora();
-        gestionCorredores.darAltaCorredor();
+        gestionCorredores.ejecucion();
         
     }
     

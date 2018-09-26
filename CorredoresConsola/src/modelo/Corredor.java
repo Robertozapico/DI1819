@@ -85,6 +85,10 @@ public class Corredor implements Comparable<Corredor>{
     public int compareTo(Corredor o) {
         return this.dni.compareTo(o.dni);
     }
+    
+    public int compareToFechaNac(Corredor o) {
+        return this.fechaNacimiento.compareTo(o.fechaNacimiento);
+    }
 
     @Override
     public int hashCode() {
