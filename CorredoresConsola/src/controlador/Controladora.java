@@ -24,22 +24,37 @@ public class Controladora {
 gestionar corredores. La aplicación permitirá dar de alta, baja, modificar y
 borrar corredores. Se deberá de validar la entrada de datos por parte del
 usuario. La aplicación permitirá salvar y cargar los datos de un archivo CSV.
-Existirá la funcionalidad de ordenar corredores por fecha de nacimiento y
+Existirá la mariova15funcionalidad de ordenar corredores por fecha de nacimiento y
 mostrarlos por pantalla.*/
     public static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yy");
     private List<Corredor> corredores = new ArrayList<Corredor>();
 
     public void darAltaCorredor() throws ParseException {
         Scanner miTeclado = new Scanner(System.in);
+        String nombre;
+        String dni;
         System.out.println("Va a dar de alta a un corredor:");
         System.out.println("Introduzca nombre del corredor:");
-        String nombre = miTeclado.nextLine();
+        nombre = miTeclado.nextLine();
+        
+        do{
         System.out.println("Introduzca dni del corredor");
-        String dni = miTeclado.nextLine();
+        dni = miTeclado.nextLine();
+        if(dni.length()!=9){
+            System.out.println("Error, el número del caracteres es incorrecto");
+        }
+        }while(dni.length()!=9);
+        
+        
         System.out.println("Introduzca fecha de nacimiento del corredor(Formato dd/mm/aa)");
         Date fechaNacimiento = sdf.parse(miTeclado.nextLine());
+        
+        
+        
         System.out.println("Introduzca dirección del corredor");
         String direccion = miTeclado.nextLine();
+        
+        
         System.out.println("Introduzca teléfono del corredor");
         int telefono = miTeclado.nextInt();
 
