@@ -85,11 +85,11 @@ public class GestionCSV {
         fw = new FileWriter("corredores.csv");
         for (Corredor corredor : corredores) {
 
-            fw.write(corredor.getNombre());
-            fw.write(corredor.getDni());
-            fw.write(sdf.format(corredor.getFechaNacimiento()));
-            fw.write(corredor.getDireccion());
-            fw.write(corredor.getTelefono());
+            fw.write(corredor.getNombre() + ", ");
+            fw.write(corredor.getDni() + ", ");
+            fw.write(sdf.format(corredor.getFechaNacimiento()) + ", ");
+            fw.write(corredor.getDireccion() + ", ");
+            fw.write(corredor.getTelefono() + "\n");
         }
         fw.close();
     }
