@@ -39,7 +39,7 @@ public class GestionCSV {
 
     public void tokenizar(String linea) throws ParseException {
         StringTokenizer tokens = new StringTokenizer(linea, ", ");
-        while (tokens.hasMoreTokens()) {
+        //while (tokens.hasMoreTokens()) {
             String nombre = tokens.nextToken();
             String dni = tokens.nextToken();
             String fechaNacimientoString = tokens.nextToken();
@@ -48,7 +48,7 @@ public class GestionCSV {
             int telefono = Integer.parseInt(tokens.nextToken());
             Corredor corredor = new Corredor(nombre, dni, fechaNacimiento, direccion, telefono);
             System.out.println(corredor.toString());
-        }
+        //}
     }
 
     //Se ve el ranking de jugadores ordenado
