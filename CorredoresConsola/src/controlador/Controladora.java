@@ -169,9 +169,9 @@ mostrarlos por pantalla.*/
             if (soloLetras(nombre) == false) {
                 throw new IllegalArgumentException("No puede introducir numeros");
             }
-            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setNombre(nombre);
+
             do {
-                System.out.println("Introduzca dni:");
+                //System.out.println("Introduzca dni:");
                 System.out.println("Introduzca número del dni del corredor que quiere modificar");
                 int numDni = miTeclado.nextInt();
                 dni = Integer.toString(numDni);
@@ -188,7 +188,8 @@ mostrarlos por pantalla.*/
                     throw new IllegalArgumentException("Error, ha introducido un DNI erroneo");
                 }
             } while (dni.length() != 9);
-            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setDni(dni);
+
+            miTeclado.nextLine();
 
             boolean res = true;
             System.out.println("Introduzca fecha de nacimiento del corredor(Formato dd/mm/aa)");
@@ -198,15 +199,22 @@ mostrarlos por pantalla.*/
                 System.out.println("La fecha no es valida");
                 throw new IllegalArgumentException("Error, la fecha no es válida");
             }
-            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setFechaNacimiento(fechaNacimiento);
+            
 
             System.out.println("Introduzca dirección");
             String direccion = miTeclado.nextLine();
-            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setDireccion(direccion);
+            
             do {
                 System.out.println("Introduzca teléfono");
                 telefono = miTeclado.nextInt();
             } while (telefono < 000000000 && telefono > 999999999);
+            
+            
+            
+            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setNombre(nombre);
+            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setDni(dni);
+            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setFechaNacimiento(fechaNacimiento);
+            corredores.get(Collections.binarySearch(corredores, corredorModificar)).setDireccion(direccion);
             corredores.get(Collections.binarySearch(corredores, corredorModificar)).setTelefono(telefono);
         } catch (Exception ex) {
             System.out.println("Error");
