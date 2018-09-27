@@ -75,13 +75,15 @@ mostrarlos por pantalla.*/
                 throw new IllegalArgumentException("Error, ha introducido un DNI erroneo");
             }
             miTeclado.nextLine();
-            try {
-                System.out.println("Introduzca fecha de nacimiento del corredor(Formato dd/mm/aa)");
-                fechaNacimiento = sdf.parse(miTeclado.nextLine());
-            } catch (Exception ex) {
+
+            boolean res = true;
+            System.out.println("Introduzca fecha de nacimiento del corredor(Formato dd/mm/aa)");
+            //fechaNacimiento = sdf.parse(miTeclado.nextLine());
+            res = validarFecha(miTeclado.nextLine());
+            if (res == false) {
+                System.out.println("La fecha no es valida");
                 throw new IllegalArgumentException("Error, la fecha no es válida");
             }
-
             System.out.println("Introduzca dirección del corredor");
             String direccion = miTeclado.nextLine();
 
@@ -187,10 +189,13 @@ mostrarlos por pantalla.*/
                 }
             } while (dni.length() != 9);
             corredores.get(Collections.binarySearch(corredores, corredorModificar)).setDni(dni);
-            try {
-                System.out.println("Introduzca fecha de nacimiento del corredor(Formato dd/mm/aa)");
-                fechaNacimiento = sdf.parse(miTeclado.nextLine());
-            } catch (Exception ex) {
+
+            boolean res = true;
+            System.out.println("Introduzca fecha de nacimiento del corredor(Formato dd/mm/aa)");
+            //fechaNacimiento = sdf.parse(miTeclado.nextLine());
+            res = validarFecha(miTeclado.nextLine());
+            if (res == false) {
+                System.out.println("La fecha no es valida");
                 throw new IllegalArgumentException("Error, la fecha no es válida");
             }
             corredores.get(Collections.binarySearch(corredores, corredorModificar)).setFechaNacimiento(fechaNacimiento);
@@ -244,6 +249,17 @@ mostrarlos por pantalla.*/
             }
         }
         return resultado;
+    }
+
+    public static boolean validarFecha(String fecha) {
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            formatoFecha.setLenient(false);
+            formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 
     public void ejecucion() {
