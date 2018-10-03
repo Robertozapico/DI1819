@@ -213,7 +213,11 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
 
         Corredor corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
         listaCorredores.add(corredorNuevo);
-        System.out.println(listaCorredores.toString());
+        //System.out.println(listaCorredores.toString());
+
+    //Para cerrar la pantalla
+        dispose();
+
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed

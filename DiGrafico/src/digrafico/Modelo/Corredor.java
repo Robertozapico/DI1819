@@ -1,7 +1,5 @@
 package digrafico.Modelo;
 
-
-
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,12 +9,12 @@ import java.util.Objects;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author alumnop
  */
-public class Corredor implements Comparable<Corredor>{
+public class Corredor implements Comparable<Corredor> {
+
     private String nombre;
     private String dni;
     private Date fechaNacimiento;
@@ -25,7 +23,6 @@ public class Corredor implements Comparable<Corredor>{
 
     public Corredor() {
     }
-    
 
     public Corredor(String nombre, String dni, Date fechaNacimiento, String direccion, int telefono) {
         this.nombre = nombre;
@@ -34,10 +31,7 @@ public class Corredor implements Comparable<Corredor>{
         this.direccion = direccion;
         this.telefono = telefono;
     }
-    
-    
-    
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -78,16 +72,23 @@ public class Corredor implements Comparable<Corredor>{
         this.telefono = telefono;
     }
 
+    /*
     @Override
     public String toString() {
         return "Corredor{" + "nombre=" + nombre + ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", telefono=" + telefono + '}';
+    }
+     */
+
+    @Override
+    public String toString() {
+        return "Corredor{" + "nombre=" + nombre + ", dni=" + dni + '}';
     }
 
     @Override
     public int compareTo(Corredor o) {
         return this.dni.compareTo(o.dni);
     }
-    
+
     public int compareToFechaNac(Corredor o) {
         return this.fechaNacimiento.compareTo(o.fechaNacimiento);
     }
@@ -116,10 +117,5 @@ public class Corredor implements Comparable<Corredor>{
         }
         return true;
     }
-    
-    
-    
-    
-    
-    
+
 }
