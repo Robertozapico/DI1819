@@ -52,6 +52,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jTextFieldDniLetraCorredor = new javax.swing.JTextField();
         jButtonLimpiar = new javax.swing.JButton();
         jButtonDarAltaCorredor = new javax.swing.JButton();
+        jLabelAltaCorredor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,6 +112,9 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
             }
         });
 
+        jLabelAltaCorredor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelAltaCorredor.setText("Alta Corredor");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -142,11 +146,17 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                         .addComponent(jButtonLimpiar)
                         .addGap(41, 41, 41)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(118, 118, 118))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addContainerGap()
+                .addComponent(jLabelAltaCorredor)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombreCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -169,7 +179,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                             .addComponent(jLabelTelefono)
                             .addComponent(jTextFieldTelefonoCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jTextFieldDireccionCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(jButtonDarAltaCorredor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonLimpiar)
@@ -237,6 +247,7 @@ JOptionPane.showMessageDialog(this, "Corredor añadido");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonDarAltaCorredor;
     private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JLabel jLabelAltaCorredor;
     private javax.swing.JLabel jLabelDireccion;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelFechaNacimiento;

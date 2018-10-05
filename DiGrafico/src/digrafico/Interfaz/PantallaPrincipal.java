@@ -6,6 +6,7 @@
 package digrafico.Interfaz;
 
 import digrafico.Modelo.Corredor;
+import digrafico.Modelo.Carrera;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,15 +23,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      * Creates new form PantallaPrincipal
      */
     private java.util.List<Corredor> corredores;
+    private java.util.List<Carrera> carreras;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
-
+    
     public PantallaPrincipal() {
         initComponents();
         corredores = new ArrayList<Corredor>();
-
+        carreras = new ArrayList<Carrera>();
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +46,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabelGestionCorredores = new javax.swing.JLabel();
         jButtonCorredoresListado = new javax.swing.JButton();
         jButtonCarreraAlta = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonListadoCarrera = new javax.swing.JButton();
         jLabelCorredores = new javax.swing.JLabel();
         jLabelCarreras = new javax.swing.JLabel();
 
@@ -76,15 +76,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Listado Carreras");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonListadoCarrera.setText("Listado Carreras");
+        jButtonListadoCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButtonListadoCarreraActionPerformed(evt);
             }
         });
 
+        jLabelCorredores.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelCorredores.setText("Corredores");
 
+        jLabelCarreras.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelCarreras.setText("Carreras");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -108,7 +110,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addComponent(jButtonCarreraAlta))
                         .addGap(119, 119, 119)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonListadoCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(261, Short.MAX_VALUE))
         );
@@ -117,18 +119,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabelGestionCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(jLabelCorredores)
-                .addGap(11, 11, 11)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addComponent(jLabelCarreras)
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCarreraAlta)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonListadoCarrera))
                 .addGap(100, 100, 100))
         );
 
@@ -160,12 +162,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         listadoCorredores.setVisible(true);
     }//GEN-LAST:event_jButtonCorredoresListadoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButtonListadoCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListadoCarreraActionPerformed
+        ListadoCarreras listadoCarreras = new ListadoCarreras(this, true, carreras);
+        listadoCarreras.setVisible(true);
+    }//GEN-LAST:event_jButtonListadoCarreraActionPerformed
 
     private void jButtonCarreraAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarreraAltaActionPerformed
         // TODO add your handling code here:
+        DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, corredores, carreras);
+        pantallaDeCarreras.setVisible(true);
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     /**
@@ -204,10 +209,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButtonCarreraAlta;
     private javax.swing.JButton jButtonCorredoresListado;
     private javax.swing.JButton jButtonDarAltaCorredor;
+    private javax.swing.JButton jButtonListadoCarrera;
     private javax.swing.JLabel jLabelCarreras;
     private javax.swing.JLabel jLabelCorredores;
     private javax.swing.JLabel jLabelGestionCorredores;
