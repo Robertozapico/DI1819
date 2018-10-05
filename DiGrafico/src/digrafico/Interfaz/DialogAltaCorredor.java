@@ -9,6 +9,7 @@ import digrafico.Modelo.Corredor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +26,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.listaCorredores = listaCorredores;
+        
     }
 
     /**
@@ -214,7 +216,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         Corredor corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
         listaCorredores.add(corredorNuevo);
         //System.out.println(listaCorredores.toString());
-
+JOptionPane.showMessageDialog(this, "Corredor añadido");
     //Para cerrar la pantalla
         dispose();
 
