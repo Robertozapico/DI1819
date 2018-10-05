@@ -45,9 +45,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButtonDarAltaCorredor = new javax.swing.JButton();
         jLabelGestionCorredores = new javax.swing.JLabel();
         jButtonCorredoresListado = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCarreraAlta = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabelCorredores = new javax.swing.JLabel();
+        jLabelCarreras = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,18 +62,30 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabelGestionCorredores.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelGestionCorredores.setText("Gestión de corredores");
 
-        jButtonCorredoresListado.setText("Listado");
+        jButtonCorredoresListado.setText("Listado Corredores");
         jButtonCorredoresListado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCorredoresListadoActionPerformed(evt);
             }
         });
 
-        jButton2.setText("jButton2");
+        jButtonCarreraAlta.setText("Dar alta a carrera");
+        jButtonCarreraAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCarreraAltaActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Listado Carreras");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabelCorredores.setText("Corredores");
+
+        jLabelCarreras.setText("Carreras");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,23 +94,23 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jButtonDarAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119)
-                        .addComponent(jButtonCorredoresListado))
+                        .addGap(328, 328, 328)
+                        .addComponent(jLabelGestionCorredores))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(379, 379, 379)
-                        .addComponent(jLabelCorredores))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelCarreras)
+                            .addComponent(jLabelCorredores)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(328, 328, 328)
-                        .addComponent(jLabelGestionCorredores)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(249, 249, 249))
+                        .addGap(155, 155, 155)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonDarAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonCarreraAlta))
+                        .addGap(119, 119, 119)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(261, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,11 +123,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(jLabelCarreras)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(jButtonCarreraAlta)
                     .addComponent(jButton3))
-                .addGap(65, 65, 65))
+                .addGap(100, 100, 100))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,6 +159,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         ListadoCorredores listadoCorredores = new ListadoCorredores(this, true, corredores);
         listadoCorredores.setVisible(true);
     }//GEN-LAST:event_jButtonCorredoresListadoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonCarreraAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarreraAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,10 +204,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonCarreraAlta;
     private javax.swing.JButton jButtonCorredoresListado;
     private javax.swing.JButton jButtonDarAltaCorredor;
+    private javax.swing.JLabel jLabelCarreras;
     private javax.swing.JLabel jLabelCorredores;
     private javax.swing.JLabel jLabelGestionCorredores;
     private javax.swing.JPanel jPanel1;
