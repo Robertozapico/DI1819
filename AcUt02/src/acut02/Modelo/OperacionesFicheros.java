@@ -175,11 +175,20 @@ iv.Crear dos  excepciones personalizadas
         }
     }
 
-    public ArrayList<File>  listarFicheros(FilenameFilter  filtro){
-        
+    public ArrayList<File> listarFicheros(FilenameFilter filtro) {
+        File file = new File("\\");
+        FilenameFilter filtroGif = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".gif");
+            }
+
+        };
+    
+
         return null;
     }
-    
+
     /*Crear  los  siguientes  filtros  implementado  la  interface  FileNameFilter  (Se  puede  crear  una  clase  Filtros):  
     i.Filtro  ficheros  de  imágenes  (jpg,  gif,  tiff,  ...)  
     ii.Filtro  ficheros  de  video  (avi,  mp4,  mkv,  ...)  
@@ -187,5 +196,4 @@ iv.Crear dos  excepciones personalizadas
     v.Filtro  fichero  modificados  en  las  últimas  24  horas.    
     vi.Probar  el  correcto  funcionamiento  desde  un  método  main().  
     vii.Generar  Javadoc. */
-    
 }
