@@ -5,13 +5,19 @@
  */
 package digrafico.Interfaz;
 
+import digrafico.Logica.GestionCSV;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Carrera;
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -25,11 +31,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private java.util.List<Corredor> corredores;
     private java.util.List<Carrera> carreras;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
+    private GestionCSV gcsv = new GestionCSV();
     
     public PantallaPrincipal() {
         initComponents();
         corredores = new ArrayList<Corredor>();
         carreras = new ArrayList<Carrera>();
+        try {
+            gcsv.annadirListaCorredores(corredores);
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -149,11 +163,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
-        DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, corredores);
-        pantallaDeFormulario.setVisible(true);
-        //System.out.println(corredores.toString());
-        //jListCorredores.setModel(new DefaultListModel<String>());
-        //rellenarTablaCorredores();
+        try {
+            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, corredores);
+            pantallaDeFormulario.setVisible(true);
+            //System.out.println(corredores.toString());
+            //jListCorredores.setModel(new DefaultListModel<String>());
+            //rellenarTablaCorredores();
+            gcsv.grabarFicheroCSV(corredores);
+        } catch (ParseException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
 
     private void jButtonCorredoresListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCorredoresListadoActionPerformed
@@ -171,6 +192,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, corredores, carreras);
         pantallaDeCarreras.setVisible(true);
+        
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     /**

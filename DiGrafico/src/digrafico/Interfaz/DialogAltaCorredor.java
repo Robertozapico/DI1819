@@ -26,7 +26,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.listaCorredores = listaCorredores;
-        
+
     }
 
     /**
@@ -148,8 +148,8 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
+                .addComponent(jLabelAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(123, 123, 123))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,8 +226,8 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         Corredor corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
         listaCorredores.add(corredorNuevo);
         //System.out.println(listaCorredores.toString());
-JOptionPane.showMessageDialog(this, "Corredor añadido");
-    //Para cerrar la pantalla
+        JOptionPane.showMessageDialog(this, "Corredor añadido");
+        //Para cerrar la pantalla
         dispose();
 
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
