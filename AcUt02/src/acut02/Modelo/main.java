@@ -6,6 +6,7 @@
 package acut02.Modelo;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,10 +18,11 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String[] lista = null;
         File[] archivos = null;
         OperacionesFicheros of = new OperacionesFicheros();
+        Cifrado cifrar = new Cifrado();
         //Filtros
         //prueba de que el ejercicio 1.A funciona entero, falta javadoc
         //of.ListarFicheros("/home/alumnop/Carpetavacia/docu.txt", true, true);
@@ -40,8 +42,11 @@ public class main {
         }
          */
         //of.ListarFicheros("", true, true);
-         of.listarArchivosRecursivamente("/");
+         //of.listarArchivosRecursivamente("/");
          //of.listarFicheros(filtro);
+         System.out.println(cifrar.cifrar());
+         System.out.println(cifrar.descifrar());
+         
 
     }
 
