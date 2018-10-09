@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package digrafico.Interfaz;
+package digrafico.Logica;
 
+import digrafico.Interfaz.DialogAltaCarrera;
+import digrafico.Interfaz.DialogAltaCorredor;
+import digrafico.Interfaz.ListadoCarreras;
+import digrafico.Interfaz.ListadoCorredores;
 import digrafico.Logica.GestionCSV;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Carrera;
