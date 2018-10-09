@@ -38,8 +38,8 @@ public class main {
             System.out.print(of.fibonacci(i) + " ");
         }
          */
-        
-         of.listarArchivosRecursivamente("/home/alumnop/Carpetavacia");
+        //of.ListarFicheros("", true, true);
+         of.listarArchivosRecursivamente("/");
 
     }
 

@@ -11,6 +11,8 @@ package acut02.Modelo;
  */
 public class Filtros {
     
+    
+    
     public void imagenes(){
         
     }

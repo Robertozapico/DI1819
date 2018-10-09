@@ -25,11 +25,12 @@ public class OperacionesFicheros {
     //Ejercicio 1.A
     public File[] ListarFicheros(String ruta, boolean ordenadosPorTamanio, boolean soloDirectorios) {
         File[] lista = null;
-        File archivos = new File(ruta);
 
         if (ruta.equals("")) {
             rutasFicheros = File.listRoots();
+            ruta = rutasFicheros[0].toString();
         }
+        File archivos = new File(ruta);
 
         lista = archivos.listFiles();
         //HACER ESTAS EXCEPCIONES COMO PROPIAS
@@ -176,6 +177,7 @@ iv.Crear dos  excepciones personalizadas
     }
 
     public ArrayList<File> listarFicheros(FilenameFilter filtro) {
+        /*EJEMPLO
         File file = new File("\\");
         FilenameFilter filtroGif = new FilenameFilter() {
             @Override
@@ -183,10 +185,91 @@ iv.Crear dos  excepciones personalizadas
                 return name.endsWith(".gif");
             }
 
-        };
-    
+        };*/
+        File file = new File("\\");
+        ArrayList<File> listaDeFicheros = new ArrayList<File>();
+        FilenameFilter filtroGif = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return name.endsWith(".gif");
+            }
 
-        return null;
+        };
+        FilenameFilter filtroJpg = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return name.endsWith(".jpg");
+            }
+
+        };
+        FilenameFilter filtroTiff = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return name.endsWith(".tiff");
+            }
+
+        };
+        FilenameFilter filtroAvi = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return name.endsWith(".avi");
+            }
+
+        };
+        FilenameFilter filtroMkv = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return name.endsWith(".mkv");
+            }
+
+        };
+        FilenameFilter filtroMp4 = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String name) {
+                return name.endsWith(".mp4");
+            }
+
+        };
+        if (filtro.equals(filtroGif)||filtro.accept(file, "aquivaelnombre")) {
+            File[] listaFicherosGif = file.listFiles(filtroGif);
+            for (File file1 : listaFicherosGif) {
+                listaDeFicheros.add(file1);
+            }
+            return listaDeFicheros;
+            //listaDeFicheros.add(listaFicherosGif);
+        } else if (filtro.equals(filtroJpg)) {
+            File[] listaFicherosJpg = file.listFiles(filtroJpg);
+            for (File file1 : listaFicherosJpg) {
+                listaDeFicheros.add(file1);
+            }
+            return listaDeFicheros;
+        } else if (filtro.equals(filtroTiff)) {
+            File[] listaFicherosTiff = file.listFiles(filtroTiff);
+            for (File file1 : listaFicherosTiff) {
+                listaDeFicheros.add(file1);
+            }
+            return listaDeFicheros;
+        } else if (filtro.equals(filtroMp4)) {
+            File[] listaFicherosMp4 = file.listFiles(filtroMp4);
+            for (File file1 : listaFicherosMp4) {
+                listaDeFicheros.add(file1);
+            }
+            return listaDeFicheros;
+        } else if (filtro.equals(filtroMkv)) {
+            File[] listaFicherosMkv = file.listFiles(filtroMkv);
+            for (File file1 : listaFicherosMkv) {
+                listaDeFicheros.add(file1);
+            }
+            return listaDeFicheros;
+        } else if (filtro.equals(filtroAvi)) {
+            File[] listaFicherosAvi = file.listFiles(filtroAvi);
+            for (File file1 : listaFicherosAvi) {
+                listaDeFicheros.add(file1);
+            }
+            return listaDeFicheros;
+        }
+
+        return listaDeFicheros;
     }
 
     /*Crear  los  siguientes  filtros  implementado  la  interface  FileNameFilter  (Se  puede  crear  una  clase  Filtros):  
