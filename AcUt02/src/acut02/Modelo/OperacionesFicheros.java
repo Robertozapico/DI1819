@@ -188,13 +188,13 @@ iv.Crear dos  excepciones personalizadas
         };*/
         File file = new File("\\");
         ArrayList<File> listaDeFicheros = new ArrayList<File>();
-        FilenameFilter filtroGif = new FilenameFilter() {
+        /*FilenameFilter filtroGif = new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
                 return name.endsWith(".gif");
             }
 
-        };
+        };*/
         FilenameFilter filtroJpg = new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
@@ -230,8 +230,8 @@ iv.Crear dos  excepciones personalizadas
             }
 
         };
-        if (filtro.equals(filtroGif)||filtro.accept(file, "aquivaelnombre")) {
-            File[] listaFicherosGif = file.listFiles(filtroGif);
+        if (filtro.accept(file, file.getName())) {
+            File[] listaFicherosGif = file.listFiles(filtro);
             for (File file1 : listaFicherosGif) {
                 listaDeFicheros.add(file1);
             }

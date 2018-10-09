@@ -21,6 +21,7 @@ public class main {
         String[] lista = null;
         File[] archivos = null;
         OperacionesFicheros of = new OperacionesFicheros();
+        //Filtros
         //prueba de que el ejercicio 1.A funciona entero, falta javadoc
         //of.ListarFicheros("/home/alumnop/Carpetavacia/docu.txt", true, true);
 
@@ -40,6 +41,7 @@ public class main {
          */
         //of.ListarFicheros("", true, true);
          of.listarArchivosRecursivamente("/");
+         //of.listarFicheros(filtro);
 
     }
 
