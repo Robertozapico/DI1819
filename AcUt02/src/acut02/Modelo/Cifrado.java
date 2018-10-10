@@ -18,68 +18,59 @@ import java.util.Map;
  */
 public class Cifrado {
 //Ejercicio 3
-    private FileInputStream in = null;
-    private FileOutputStream out = null;
-    private Map<String,Integer> distribucionLetras = new HashMap<>();
+    //FALTA GENERAR JAVADOC
 
-    public int cifrar() throws FileNotFoundException, IOException {
+    private FileInputStream FicheroALeer = null;
+    private FileOutputStream FicheroAGrabar = null;
+    private Map<String, Integer> distribucionLetras = new HashMap<>();
+//Controlar solo para alfabeto español
+//variables mas descriptivas
+
+    /**
+     *
+     * @param ficheroOriginal
+     * @param ficheroCodificado
+     * @param codigo
+     * @return caracteresCifrados
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public int cifrar(String ficheroOriginal, String ficheroCodificado, int codigo, boolean descifrar) throws FileNotFoundException, IOException {
         int caracteresCifrados = 0;
-        try {
-            in = new FileInputStream("archivo.csv");
-            out = new FileOutputStream("archivoCifrado.csv");
-            int c;
-            
-            while ((c = in.read()) != -1) {
-                int contadorLetras=1;
-                out.write(c + 3);
+
+        FicheroALeer = new FileInputStream(ficheroOriginal);
+        FicheroAGrabar = new FileOutputStream(ficheroCodificado);
+        int caracterLeido;
+        if (descifrar == true) {
+            while ((caracterLeido = FicheroALeer.read()) != -1) {
+                int contadorLetras = 1;
+
+                FicheroAGrabar.write(caracterLeido + codigo);
                 caracteresCifrados++;
-                if(distribucionLetras.get(c)){
-                    System.out.println("quiero que funcione");
-                    contadorLetras=contadorLetras+Integer.parseInt(distribucionLetras.values().toString());
-                    System.out.println("El integer: "+Integer.parseInt(distribucionLetras.values().toString()));
+                if (distribucionLetras.containsKey(Character.toString((char) caracterLeido))) {
+                    contadorLetras += distribucionLetras.get(Character.toString((char) caracterLeido));
+
                 }
-                System.out.println("Contador:" + contadorLetras);
-                distribucionLetras.put(Character.toString((char) c), contadorLetras);
-                System.out.println(contadorLetras);
-                System.out.println(distribucionLetras.toString());
-                
+                distribucionLetras.put(Character.toString((char) caracterLeido), contadorLetras);
             }
-        } finally {
-            if (in != null) {
-                in.close();
+            FicheroALeer.close();
+            FicheroAGrabar.close();
+        } else {
+            while ((caracterLeido = FicheroALeer.read()) != -1) {
+                int contadorLetras = 1;
+                FicheroAGrabar.write(caracterLeido - codigo);
+                caracteresCifrados++;
+                if (distribucionLetras.containsKey(Character.toString((char) caracterLeido))) {
+                    contadorLetras += distribucionLetras.get(Character.toString((char) caracterLeido));
+
+                }
+                distribucionLetras.put(Character.toString((char) caracterLeido), contadorLetras);
             }
-            if (out != null) {
-                out.close();
-            }
+            FicheroALeer.close();
+            FicheroAGrabar.close();
         }
         System.out.println(distribucionLetras.toString());
         return caracteresCifrados;
     }
 
-    public int descifrar() throws FileNotFoundException, IOException {
-        int caracteresDescifrados = 0;
-        try {
-            in = new FileInputStream("archivoCifrado.csv");
-            out = new FileOutputStream("archivoDescifrado.csv");
-            int c;
-
-            while ((c = in.read()) != -1) {
-                out.write(c - 3);
-                caracteresDescifrados++;
-                distribucionLetras.put(Character.toString((char) c), 5);
-                
-            }
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-            if (out != null) {
-                out.close();
-            }
-        }
-        
-        return caracteresDescifrados;
-    }
-    
-    
 }

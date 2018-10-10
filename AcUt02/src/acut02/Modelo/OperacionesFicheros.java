@@ -19,6 +19,9 @@ import java.util.logging.Logger;
  */
 public class OperacionesFicheros {
 //http://bit.ly/JJCMAD2018
+    //FALTA GENERAR JAVADOC
+    //Ejercicio 1 y 2
+    //Falta ejercicio 2 el filtro
 
     private File[] rutasFicheros;
 

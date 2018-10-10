@@ -8,6 +8,8 @@ package acut02.Modelo;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,7 +20,7 @@ public class main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         String[] lista = null;
         File[] archivos = null;
         OperacionesFicheros of = new OperacionesFicheros();
@@ -44,8 +46,12 @@ public class main {
         //of.ListarFicheros("", true, true);
          //of.listarArchivosRecursivamente("/");
          //of.listarFicheros(filtro);
-         System.out.println(cifrar.cifrar());
-         System.out.println(cifrar.descifrar());
+        try {
+            System.out.println(cifrar.cifrar("archivo.csv", "archivoCifrado.csv", 3, true));
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
          
 
     }
