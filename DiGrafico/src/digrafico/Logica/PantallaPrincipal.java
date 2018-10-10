@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author alumnop
@@ -36,7 +35,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private java.util.List<Carrera> carreras;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
     private GestionCSV gcsv = new GestionCSV();
-    
+
     public PantallaPrincipal() {
         initComponents();
         corredores = new ArrayList<Corredor>();
@@ -196,7 +195,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, corredores, carreras);
         pantallaDeCarreras.setVisible(true);
-        
+
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     /**

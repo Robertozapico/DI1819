@@ -54,7 +54,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jTextFieldDniLetraCorredor" min="-2" pref="29" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jSpinnerFechaNacimientoCorredor" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jSpinnerFechaNacimientoCorredor" alignment="0" pref="180" max="32767" attributes="0"/>
                       <Component id="jTextFieldNombreCorredor" min="-2" pref="176" max="-2" attributes="0"/>
                       <Component id="jTextFieldTelefonoCorredor" alignment="1" max="32767" attributes="0"/>
                       <Component id="jTextFieldDireccionCorredor" alignment="1" max="32767" attributes="0"/>
@@ -62,14 +62,13 @@
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="jButtonLimpiar" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonDarAltaCorredor" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="jButtonLimpiar" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jButtonCancelar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
@@ -114,7 +113,10 @@
                       <Component id="jTextFieldDireccionCorredor" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="13" max="32767" attributes="0"/>
-                  <Component id="jButtonDarAltaCorredor" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButtonDarAltaCorredor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButtonLimpiar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -203,6 +205,14 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Alta Corredor"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonCancelar">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

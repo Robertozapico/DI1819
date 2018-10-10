@@ -6,6 +6,7 @@
 package digrafico.Interfaz;
 
 import digrafico.Modelo.Corredor;
+import java.awt.Dialog;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 public class DialogAltaCorredor extends javax.swing.JDialog {
 
     private java.util.List<Corredor> listaCorredores;
+    private Corredor corredorModificable = null;
 
     /**
      * Creates new form DialogAltaCorredor
@@ -27,6 +29,24 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         initComponents();
         this.listaCorredores = listaCorredores;
 
+    }
+
+    public DialogAltaCorredor(Dialog owner, boolean modal, List<Corredor> listaCorredores) {
+        super(owner, modal);
+        initComponents();
+        this.listaCorredores = listaCorredores;
+    }
+
+    public DialogAltaCorredor(Dialog owner, boolean modal, List<Corredor> listaCorredores, Corredor corredorAModificar) {
+        super(owner, modal);
+        initComponents();
+        this.listaCorredores = listaCorredores;
+        this.corredorModificable = corredorAModificar;
+        jTextFieldNombreCorredor.setText(corredorModificable.getNombre());
+        jTextFieldDniNumeroCorredor.setText(corredorModificable.getDni());
+        jTextFieldDireccionCorredor.setText(corredorModificable.getDireccion());
+        jTextFieldTelefonoCorredor.setText(Integer.toString(corredorModificable.getTelefono()));
+        jSpinnerFechaNacimientoCorredor.setValue(corredorModificable.getFechaNacimiento());
     }
 
     /**
@@ -53,6 +73,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jButtonLimpiar = new javax.swing.JButton();
         jButtonDarAltaCorredor = new javax.swing.JButton();
         jLabelAltaCorredor = new javax.swing.JLabel();
+        jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -115,6 +136,13 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jLabelAltaCorredor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelAltaCorredor.setText("Alta Corredor");
 
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -133,18 +161,18 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                         .addComponent(jTextFieldDniNumeroCorredor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldDniLetraCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSpinnerFechaNacimientoCorredor, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSpinnerFechaNacimientoCorredor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                     .addComponent(jTextFieldNombreCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldTelefonoCorredor)
                     .addComponent(jTextFieldDireccionCorredor))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonDarAltaCorredor)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonLimpiar)
-                        .addGap(41, 41, 41)))
+                .addGap(112, 112, 112)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonLimpiar)
+                    .addComponent(jButtonDarAltaCorredor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonCancelar)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -180,7 +208,9 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                             .addComponent(jTextFieldTelefonoCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jTextFieldDireccionCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jButtonDarAltaCorredor)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonDarAltaCorredor)
+                    .addComponent(jButtonCancelar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonLimpiar)
                 .addContainerGap())
@@ -221,12 +251,26 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldTelefonoCorredorActionPerformed
 
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
-        String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
+        Corredor corredorNuevo;
+        if (corredorModificable == null) {
+            String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
+            corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+            listaCorredores.add(corredorNuevo);
+        } else {
+            System.out.println(corredorModificable.toString());
 
-        Corredor corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
-        listaCorredores.add(corredorNuevo);
-        //System.out.println(listaCorredores.toString());
-        JOptionPane.showMessageDialog(this, "Corredor añadido");
+            String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
+
+            corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+
+            corredorModificable.setNombre(jTextFieldNombreCorredor.getText());
+            corredorModificable.setDni(dni);
+            corredorModificable.setFechaNacimiento((Date) jSpinnerFechaNacimientoCorredor.getValue());
+            corredorModificable.setTelefono(Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+            corredorModificable.setDireccion(jTextFieldDireccionCorredor.getText());
+
+            JOptionPane.showMessageDialog(this, "Corredor añadido");
+        }
         //Para cerrar la pantalla
         dispose();
 
@@ -240,11 +284,16 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jTextFieldTelefonoCorredor.setText("");
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonDarAltaCorredor;
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JLabel jLabelAltaCorredor;
