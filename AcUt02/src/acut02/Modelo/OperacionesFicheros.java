@@ -189,8 +189,9 @@ iv.Crear dos  excepciones personalizadas
             }
 
         };*/
-        File file = new File("\\");
-        ArrayList<File> listaDeFicheros = new ArrayList<File>();
+        File file = new File("/home/alumnop/Documentos");
+        ArrayList<File> listaFicherosFiltrados = new ArrayList<File>();
+        File[] listaFicheros;
         /*FilenameFilter filtroGif = new FilenameFilter() {
             @Override
             public boolean accept(File file, String name) {
@@ -233,46 +234,50 @@ iv.Crear dos  excepciones personalizadas
             }
 
         };
-        if (filtro.accept(file, file.getName())) {
-            File[] listaFicherosGif = file.listFiles(filtro);
-            for (File file1 : listaFicherosGif) {
-                listaDeFicheros.add(file1);
-            }
-            return listaDeFicheros;
-            //listaDeFicheros.add(listaFicherosGif);
-        } else if (filtro.equals(filtroJpg)) {
-            File[] listaFicherosJpg = file.listFiles(filtroJpg);
-            for (File file1 : listaFicherosJpg) {
-                listaDeFicheros.add(file1);
-            }
-            return listaDeFicheros;
-        } else if (filtro.equals(filtroTiff)) {
-            File[] listaFicherosTiff = file.listFiles(filtroTiff);
-            for (File file1 : listaFicherosTiff) {
-                listaDeFicheros.add(file1);
-            }
-            return listaDeFicheros;
-        } else if (filtro.equals(filtroMp4)) {
-            File[] listaFicherosMp4 = file.listFiles(filtroMp4);
-            for (File file1 : listaFicherosMp4) {
-                listaDeFicheros.add(file1);
-            }
-            return listaDeFicheros;
-        } else if (filtro.equals(filtroMkv)) {
-            File[] listaFicherosMkv = file.listFiles(filtroMkv);
-            for (File file1 : listaFicherosMkv) {
-                listaDeFicheros.add(file1);
-            }
-            return listaDeFicheros;
-        } else if (filtro.equals(filtroAvi)) {
-            File[] listaFicherosAvi = file.listFiles(filtroAvi);
-            for (File file1 : listaFicherosAvi) {
-                listaDeFicheros.add(file1);
-            }
-            return listaDeFicheros;
-        }
+        listaFicheros = file.listFiles();
+        for (int i = 0; i < listaFicheros.length; i++) {
 
-        return listaDeFicheros;
+            if (filtro.accept(file, listaFicheros[i].getName())) {
+                System.out.println("No llega");
+                File[] listaFicherosGif = file.listFiles(filtro);
+                for (File file1 : listaFicherosGif) {
+                    listaFicherosFiltrados.add(file1);
+                }
+                return listaFicherosFiltrados;
+                //listaDeFicheros.add(listaFicherosGif);
+            } else if (filtro.equals(filtroJpg)) {
+                File[] listaFicherosJpg = file.listFiles(filtroJpg);
+                for (File file1 : listaFicherosJpg) {
+                    listaFicherosFiltrados.add(file1);
+                }
+                return listaFicherosFiltrados;
+            } else if (filtro.equals(filtroTiff)) {
+                File[] listaFicherosTiff = file.listFiles(filtroTiff);
+                for (File file1 : listaFicherosTiff) {
+                    listaFicherosFiltrados.add(file1);
+                }
+                return listaFicherosFiltrados;
+            } else if (filtro.equals(filtroMp4)) {
+                File[] listaFicherosMp4 = file.listFiles(filtroMp4);
+                for (File file1 : listaFicherosMp4) {
+                    listaFicherosFiltrados.add(file1);
+                }
+                return listaFicherosFiltrados;
+            } else if (filtro.equals(filtroMkv)) {
+                File[] listaFicherosMkv = file.listFiles(filtroMkv);
+                for (File file1 : listaFicherosMkv) {
+                    listaFicherosFiltrados.add(file1);
+                }
+                return listaFicherosFiltrados;
+            } else if (filtro.equals(filtroAvi)) {
+                File[] listaFicherosAvi = file.listFiles(filtroAvi);
+                for (File file1 : listaFicherosAvi) {
+                    listaFicherosFiltrados.add(file1);
+                }
+                return listaFicherosFiltrados;
+            }
+        }
+        return listaFicherosFiltrados;
     }
 
     /*Crear  los  siguientes  filtros  implementado  la  interface  FileNameFilter  (Se  puede  crear  una  clase  Filtros):  

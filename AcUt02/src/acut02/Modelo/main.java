@@ -43,15 +43,24 @@ public class main {
             System.out.print(of.fibonacci(i) + " ");
         }
          */
+ 
+ 
+ 
         //of.ListarFicheros("", true, true);
          //of.listarArchivosRecursivamente("/");
-         //of.listarFicheros(filtro);
-        try {
+         Filtros filtro = new Filtros();
+         System.out.println(of.listarFicheros(filtro.filtroGif()));
+         
+       
+
+//Cifrado
+         /*
+         try {
             System.out.println(cifrar.cifrar("archivo.csv", "archivoCifrado.csv", 3, true));
         } catch (IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        */
          
 
     }
