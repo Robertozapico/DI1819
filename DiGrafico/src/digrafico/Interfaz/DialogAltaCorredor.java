@@ -254,20 +254,20 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         Corredor corredorNuevo;
         if (corredorModificable == null) {
             String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
-            corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
-            logicaMetodos.getCorredores().add(corredorNuevo);
+            logicaMetodos.annadirCorredorLista(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+
         } else {
             System.out.println(corredorModificable.toString());
 
             String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
 
-            corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
-
-            corredorModificable.setNombre(jTextFieldNombreCorredor.getText());
+            //corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+            logicaMetodos.modificarCorredor(corredorModificable, jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+            /*corredorModificable.setNombre(jTextFieldNombreCorredor.getText());
             corredorModificable.setDni(dni);
             corredorModificable.setFechaNacimiento((Date) jSpinnerFechaNacimientoCorredor.getValue());
             corredorModificable.setTelefono(Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
-            corredorModificable.setDireccion(jTextFieldDireccionCorredor.getText());
+            corredorModificable.setDireccion(jTextFieldDireccionCorredor.getText());*/
 
             JOptionPane.showMessageDialog(this, "Corredor añadido");
         }
