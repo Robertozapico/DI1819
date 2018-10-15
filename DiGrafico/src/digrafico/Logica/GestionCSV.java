@@ -34,7 +34,7 @@ public class GestionCSV {
     private BufferedReader registro = null;
     private BufferedWriter fsalida = null;
     private List<Corredor> corredores;
-    Corredor corredor;
+    private Corredor corredor;
 //borrar todas las anotaciones para borrar
 
     public void tokenizar(String linea) throws ParseException {

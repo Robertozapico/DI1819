@@ -5,6 +5,7 @@
  */
 package digrafico.Interfaz;
 
+import digrafico.Logica.LogicaAplicacion;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Carrera;
 import java.text.SimpleDateFormat;
@@ -18,18 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class DialogAltaCarrera extends javax.swing.JDialog {
 
-    private java.util.List<Corredor> corredores;
-    private java.util.List<Carrera> carreras;
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
+    private LogicaAplicacion logicaMetodos;
 
     /**
      * Creates new form DialogAltaCarrera
      */
-    public DialogAltaCarrera(java.awt.Frame parent, boolean modal, List<Corredor> listaCorredores, List<Carrera> listadoCarreras) {
+    public DialogAltaCarrera(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(parent, modal);
         initComponents();
-        this.corredores = listaCorredores;
-        this.carreras = listadoCarreras;
+        this.logicaMetodos = logicaAplicacion;
     }
 
     /**
@@ -186,8 +184,8 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
     private void jButtonDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaActionPerformed
         int numMaxParticipantes = (int) jSpinnerCantidadCorredores.getValue();
         Carrera carreraNueva = new Carrera(jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
-        carreraNueva.setCorredores(corredores);
-        carreras.add(carreraNueva);
+        carreraNueva.setCorredores(logicaMetodos.getCorredores());
+        logicaMetodos.getCarreras().add(carreraNueva);
         //System.out.println(listaCorredores.toString());
         JOptionPane.showMessageDialog(this, "Carrera añadida");
         //Para cerrar la pantalla

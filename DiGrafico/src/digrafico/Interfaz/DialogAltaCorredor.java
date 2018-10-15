@@ -5,6 +5,7 @@
  */
 package digrafico.Interfaz;
 
+import digrafico.Logica.LogicaAplicacion;
 import digrafico.Modelo.Corredor;
 import java.awt.Dialog;
 import java.util.ArrayList;
@@ -18,29 +19,28 @@ import javax.swing.JOptionPane;
  */
 public class DialogAltaCorredor extends javax.swing.JDialog {
 
-    private java.util.List<Corredor> listaCorredores;
-    private Corredor corredorModificable = null;
-
+    private LogicaAplicacion logicaMetodos;
+    private Corredor corredorModificable;
     /**
      * Creates new form DialogAltaCorredor
      */
-    public DialogAltaCorredor(java.awt.Frame parent, boolean modal, List<Corredor> listaCorredores) {
+    public DialogAltaCorredor(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(parent, modal);
         initComponents();
-        this.listaCorredores = listaCorredores;
+        this.logicaMetodos = logicaAplicacion;
 
     }
 
-    public DialogAltaCorredor(Dialog owner, boolean modal, List<Corredor> listaCorredores) {
+    public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(owner, modal);
         initComponents();
-        this.listaCorredores = listaCorredores;
+        this.logicaMetodos = logicaAplicacion;
     }
 
-    public DialogAltaCorredor(Dialog owner, boolean modal, List<Corredor> listaCorredores, Corredor corredorAModificar) {
+    public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion, Corredor corredorAModificar) {
         super(owner, modal);
         initComponents();
-        this.listaCorredores = listaCorredores;
+        this.logicaMetodos = logicaAplicacion;
         this.corredorModificable = corredorAModificar;
         jTextFieldNombreCorredor.setText(corredorModificable.getNombre());
         jTextFieldDniNumeroCorredor.setText(corredorModificable.getDni());
@@ -255,7 +255,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         if (corredorModificable == null) {
             String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
             corredorNuevo = new Corredor(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
-            listaCorredores.add(corredorNuevo);
+            logicaMetodos.getCorredores().add(corredorNuevo);
         } else {
             System.out.println(corredorModificable.toString());
 

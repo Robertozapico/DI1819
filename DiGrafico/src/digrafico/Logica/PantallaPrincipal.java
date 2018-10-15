@@ -31,17 +31,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPrincipal
      */
-    private java.util.List<Corredor> corredores;
-    private java.util.List<Carrera> carreras;
+    private LogicaAplicacion logicaMetodos = new LogicaAplicacion();
+    //private java.util.List<Corredor> corredores;
+    //private java.util.List<Carrera> carreras;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
     private GestionCSV gcsv = new GestionCSV();
 
     public PantallaPrincipal() {
         initComponents();
-        corredores = new ArrayList<Corredor>();
-        carreras = new ArrayList<Carrera>();
         try {
-            gcsv.annadirListaCorredores(corredores);
+            gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
         } catch (IOException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -167,12 +166,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
         try {
-            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, corredores);
+            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
             pantallaDeFormulario.setVisible(true);
             //System.out.println(corredores.toString());
             //jListCorredores.setModel(new DefaultListModel<String>());
             //rellenarTablaCorredores();
-            gcsv.grabarFicheroCSV(corredores);
+            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
         } catch (ParseException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -182,18 +181,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jButtonCorredoresListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCorredoresListadoActionPerformed
         // TODO add your handling code here:
-        ListadoCorredores listadoCorredores = new ListadoCorredores(this, true, corredores);
+        ListadoCorredores listadoCorredores = new ListadoCorredores(this, true, logicaMetodos);
         listadoCorredores.setVisible(true);
     }//GEN-LAST:event_jButtonCorredoresListadoActionPerformed
 
     private void jButtonListadoCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListadoCarreraActionPerformed
-        ListadoCarreras listadoCarreras = new ListadoCarreras(this, true, carreras);
+        ListadoCarreras listadoCarreras = new ListadoCarreras(this, true, logicaMetodos);
         listadoCarreras.setVisible(true);
     }//GEN-LAST:event_jButtonListadoCarreraActionPerformed
 
     private void jButtonCarreraAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarreraAltaActionPerformed
         // TODO add your handling code here:
-        DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, corredores, carreras);
+        DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, logicaMetodos);
         pantallaDeCarreras.setVisible(true);
 
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed

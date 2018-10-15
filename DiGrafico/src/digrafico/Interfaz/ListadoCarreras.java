@@ -5,26 +5,29 @@
  */
 package digrafico.Interfaz;
 
+import digrafico.Logica.LogicaAplicacion;
+import static digrafico.Logica.LogicaAplicacion.getSdf;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-
+//añadir boton para borrar de la tabla
+//añadir todos los metodos en una clase de logica
 /**
  *
  * @author zapia
  */
 public class ListadoCarreras extends javax.swing.JDialog {
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
-    private java.util.List<Carrera> listaCarreras;
+    
+    private LogicaAplicacion logicaMetodos;
     /**
      * Creates new form ListadoCarreras
      */
-    public ListadoCarreras(java.awt.Frame parent, boolean modal, List<Carrera> listaCarreras) {
+    public ListadoCarreras(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(parent, modal);
         initComponents();
-        this.listaCarreras = listaCarreras;
+        this.logicaMetodos = logicaAplicacion;
         rellenarTablaCarreras();
     }
     
@@ -32,12 +35,12 @@ public class ListadoCarreras extends javax.swing.JDialog {
      private void rellenarTablaCarreras() {
         String[] columnas = {"Nombre", "Fecha", "Lugar", "Num Max Participantes", "Lista corredores"};
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
-        for (Carrera carrera : listaCarreras) {
+        for (Carrera carrera : logicaMetodos.getCarreras()) {
             //String[] a = new String[]{alumno.getNombre(),
             //                          alumno.getCurso()};
             String[] a = new String[5];
             a[0] = carrera.getNombreDeCarrera();
-            a[1] = sdf.format(carrera.getFechaDeCarrera());
+            a[1] = getSdf().format(carrera.getFechaDeCarrera());
             a[2] = carrera.getLugarDeCarrera();
             a[3] = Integer.toString(carrera.getNumMaxParticipantes());
             a[4] = carrera.getCorredores().toString();

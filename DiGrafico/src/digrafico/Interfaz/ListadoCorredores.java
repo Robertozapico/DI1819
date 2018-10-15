@@ -6,10 +6,11 @@
 package digrafico.Interfaz;
 
 import digrafico.Logica.GestionCSV;
+import digrafico.Logica.LogicaAplicacion;
+import static digrafico.Logica.LogicaAplicacion.getSdf;
 import digrafico.Modelo.Corredor;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,17 +22,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ListadoCorredores extends javax.swing.JDialog {
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
-    private java.util.List<Corredor> listaCorredores;
+    private LogicaAplicacion logicaMetodos;
     private GestionCSV gcsv = new GestionCSV();
 
     /**
      * Creates new form ListadoCorredores
      */
-    public ListadoCorredores(java.awt.Frame parent, boolean modal, List<Corredor> listaCorredores) {
+    public ListadoCorredores(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(parent, modal);
         initComponents();
-        this.listaCorredores = listaCorredores;
+        this.logicaMetodos = logicaAplicacion;
         rellenarTablaCorredores();
 
     }
@@ -39,13 +39,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
     private void rellenarTablaCorredores() {
         String[] columnas = {"Nombre", "Dni", "Fecha de nacimiento", "Dirección", "Teléfono"};
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
-        for (Corredor corredor : listaCorredores) {
+        for (Corredor corredor : logicaMetodos.getCorredores()) {
             //String[] a = new String[]{alumno.getNombre(),
             //                          alumno.getCurso()};
             String[] a = new String[5];
             a[0] = corredor.getNombre();
             a[1] = corredor.getDni();
-            a[2] = sdf.format(corredor.getFechaNacimiento());
+            a[2] = getSdf().format(corredor.getFechaNacimiento());
             a[3] = corredor.getDireccion();
             a[4] = Integer.toString(corredor.getTelefono());
             dtm.addRow(a);
@@ -165,12 +165,12 @@ public class ListadoCorredores extends javax.swing.JDialog {
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
 
         try {
-            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, listaCorredores);
+            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
             pantallaDeFormulario.setVisible(true);
             //System.out.println(corredores.toString());
             //jListCorredores.setModel(new DefaultListModel<String>());
             //rellenarTablaCorredores();
-            gcsv.grabarFicheroCSV(listaCorredores);
+            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
         } catch (ParseException ex) {
             Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -186,10 +186,10 @@ public class ListadoCorredores extends javax.swing.JDialog {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         try {
             int corredorSeleccionado = jTableCorredores.getSelectedRow();
-            Corredor corredorAModificar = listaCorredores.get(corredorSeleccionado);
-            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, listaCorredores, corredorAModificar);
+            Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
+            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos, corredorAModificar);
             pantallaDeFormulario.setVisible(true);
-            gcsv.grabarFicheroCSV(listaCorredores);
+            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
             rellenarTablaCorredores();
         } catch (ParseException ex) {
             Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
