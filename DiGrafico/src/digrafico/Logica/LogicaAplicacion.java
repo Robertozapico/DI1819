@@ -54,4 +54,10 @@ public class LogicaAplicacion {
     return true;
     }
 
+    
+    public boolean eliminarCorredor(Corredor corredorModificable){
+        corredores.remove(corredorModificable);
+        
+        return true;
+    }
 }

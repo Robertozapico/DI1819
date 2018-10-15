@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -69,6 +70,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         jButtonDarAltaCorredor = new javax.swing.JButton();
         jButtonCerrar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
+        jButtonEliminarCorredor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -109,6 +111,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
             }
         });
 
+        jButtonEliminarCorredor.setText("Eliminar Corredor");
+        jButtonEliminarCorredor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarCorredorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,9 +130,11 @@ public class ListadoCorredores extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonDarAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(166, 166, 166)
+                        .addGap(74, 74, 74)
                         .addComponent(jButtonModificar)
-                        .addGap(219, 219, 219)
+                        .addGap(143, 143, 143)
+                        .addComponent(jButtonEliminarCorredor)
+                        .addGap(95, 95, 95)
                         .addComponent(jButtonCerrar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 64, Short.MAX_VALUE))
@@ -139,7 +150,8 @@ public class ListadoCorredores extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCerrar)
-                    .addComponent(jButtonModificar))
+                    .addComponent(jButtonModificar)
+                    .addComponent(jButtonEliminarCorredor))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -148,7 +160,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(271, 271, 271))
         );
@@ -198,6 +210,22 @@ public class ListadoCorredores extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
+    private void jButtonEliminarCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCorredorActionPerformed
+        try {
+            int corredorSeleccionado = jTableCorredores.getSelectedRow();
+            Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
+            logicaMetodos.eliminarCorredor(corredorAModificar);
+            
+            JOptionPane.showMessageDialog(this, "Corredor borrado");
+            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
+            rellenarTablaCorredores();
+        } catch (ParseException ex) {
+            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonEliminarCorredorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -205,6 +233,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonDarAltaCorredor;
+    private javax.swing.JButton jButtonEliminarCorredor;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelListado;
     private javax.swing.JPanel jPanel1;
