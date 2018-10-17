@@ -6,12 +6,17 @@
 package digrafico.Interfaz;
 
 import digrafico.Logica.LogicaAplicacion;
+import static digrafico.Logica.LogicaAplicacion.validarDni;
 import digrafico.Modelo.Corredor;
 import java.awt.Dialog;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
+import org.netbeans.validation.api.ui.ValidationGroup;
 
 /**
  *
@@ -29,6 +34,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.logicaMetodos = logicaAplicacion;
+        validar();
 
     }
 
@@ -36,6 +42,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         super(owner, modal);
         initComponents();
         this.logicaMetodos = logicaAplicacion;
+        validar();
     }
 
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion, Corredor corredorAModificar) {
@@ -48,6 +55,29 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jTextFieldDireccionCorredor.setText(corredorModificable.getDireccion());
         jTextFieldTelefonoCorredor.setText(Integer.toString(corredorModificable.getTelefono()));
         jSpinnerFechaNacimientoCorredor.setValue(corredorModificable.getFechaNacimiento());
+        validar();
+    }
+
+    public void validar() {
+        jButtonDarAltaCorredor.setEnabled(false);
+        ValidationGroup group = validationPanelUser.getValidationGroup();
+        group.add(jTextFieldNombreCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
+
+        //validarDni(dni);
+        group.add(jTextFieldTelefonoCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING, StringValidators.REQUIRE_NON_NEGATIVE_NUMBER, StringValidators.REQUIRE_VALID_INTEGER);
+
+        validationPanelUser.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (validationPanelUser.getProblem() == null || validarDni(dni)) {
+                    jButtonDarAltaCorredor.setEnabled(true);
+                } else {
+                    jButtonDarAltaCorredor.setEnabled(false);
+                }
+
+            }
+        });
     }
 
     /**
@@ -75,6 +105,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jButtonDarAltaCorredor = new javax.swing.JButton();
         jLabelAltaCorredor = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
+        validationPanelUser = new org.netbeans.validation.api.ui.swing.ValidationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -162,7 +193,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                         .addComponent(jTextFieldDniNumeroCorredor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldDniLetraCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSpinnerFechaNacimientoCorredor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(jSpinnerFechaNacimientoCorredor, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextFieldNombreCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldTelefonoCorredor)
                     .addComponent(jTextFieldDireccionCorredor))
@@ -176,16 +207,21 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                 .addComponent(jButtonCancelar)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(validationPanelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(123, 123, 123))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelAltaCorredor)
-                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelAltaCorredor))
+                    .addComponent(validationPanelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
                     .addComponent(jTextFieldNombreCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -301,5 +337,6 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldDniNumeroCorredor;
     private javax.swing.JTextField jTextFieldNombreCorredor;
     private javax.swing.JTextField jTextFieldTelefonoCorredor;
+    private org.netbeans.validation.api.ui.swing.ValidationPanel validationPanelUser;
     // End of variables declaration//GEN-END:variables
 }

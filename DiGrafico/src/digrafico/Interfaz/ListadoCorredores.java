@@ -179,9 +179,6 @@ public class ListadoCorredores extends javax.swing.JDialog {
         try {
             DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
             pantallaDeFormulario.setVisible(true);
-            //System.out.println(corredores.toString());
-            //jListCorredores.setModel(new DefaultListModel<String>());
-            //rellenarTablaCorredores();
             gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
         } catch (ParseException ex) {
             Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
