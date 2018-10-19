@@ -34,7 +34,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.logicaMetodos = logicaAplicacion;
-        validar();
+        validarCorredor();
 
     }
 
@@ -42,7 +42,8 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         super(owner, modal);
         initComponents();
         this.logicaMetodos = logicaAplicacion;
-        validar();
+        validarCorredor();
+
     }
 
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion, Corredor corredorAModificar) {
@@ -55,22 +56,32 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jTextFieldDireccionCorredor.setText(corredorModificable.getDireccion());
         jTextFieldTelefonoCorredor.setText(Integer.toString(corredorModificable.getTelefono()));
         jSpinnerFechaNacimientoCorredor.setValue(corredorModificable.getFechaNacimiento());
-        validar();
-    }
-
-    public void validar() {
         jButtonDarAltaCorredor.setEnabled(false);
         ValidationGroup group = validationPanelUser.getValidationGroup();
         group.add(jTextFieldNombreCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
         String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
 
+        validarCorredor();
+
+    }
+
+    public void validarCorredor() {
+        jButtonDarAltaCorredor.setEnabled(false);
+        ValidationGroup group = validationPanelUser.getValidationGroup();
+        group.add(jTextFieldNombreCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        
+
         //validarDni(dni);
         group.add(jTextFieldTelefonoCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING, StringValidators.REQUIRE_NON_NEGATIVE_NUMBER, StringValidators.REQUIRE_VALID_INTEGER);
-
+        group.add(jTextFieldNombreCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        group.add(jTextFieldDireccionCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        group.add(jTextFieldDniNumeroCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        group.add(jTextFieldDniLetraCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
         validationPanelUser.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (validationPanelUser.getProblem() == null || validarDni(dni)) {
+                String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
+                if (validationPanelUser.getProblem() == null && validarDni(dni)) {
                     jButtonDarAltaCorredor.setEnabled(true);
                 } else {
                     jButtonDarAltaCorredor.setEnabled(false);
@@ -180,47 +191,49 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelDni)
-                    .addComponent(jLabelFechaNacimiento)
-                    .addComponent(jLabelNombre)
-                    .addComponent(jLabelDireccion)
-                    .addComponent(jLabelTelefono))
-                .addGap(57, 57, 57)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldDniNumeroCorredor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldDniLetraCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jSpinnerFechaNacimientoCorredor, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldNombreCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldTelefonoCorredor)
-                    .addComponent(jTextFieldDireccionCorredor))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonLimpiar)
-                    .addComponent(jButtonDarAltaCorredor))
+                .addContainerGap()
+                .addComponent(jButtonDarAltaCorredor)
+                .addGap(14, 14, 14)
+                .addComponent(jButtonLimpiar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonCancelar)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(validationPanelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(160, 160, 160)
                 .addComponent(jLabelAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(validationPanelUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelDni)
+                            .addComponent(jLabelFechaNacimiento)
+                            .addComponent(jLabelNombre)
+                            .addComponent(jLabelDireccion)
+                            .addComponent(jLabelTelefono))
+                        .addGap(57, 57, 57)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jTextFieldDniNumeroCorredor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldDniLetraCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jSpinnerFechaNacimientoCorredor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNombreCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldTelefonoCorredor)
+                            .addComponent(jTextFieldDireccionCorredor))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelAltaCorredor))
-                    .addComponent(validationPanelUser, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jLabelAltaCorredor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(validationPanelUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNombre)
@@ -244,12 +257,11 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                             .addComponent(jLabelTelefono)
                             .addComponent(jTextFieldTelefonoCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jTextFieldDireccionCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonLimpiar)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCancelar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButtonLimpiar)
                 .addContainerGap())
         );
 
