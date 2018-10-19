@@ -5,13 +5,18 @@
  */
 package digrafico.Logica;
 
+import digrafico.Interfaz.DialogAltaCorredor;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
+import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
+import org.netbeans.validation.api.ui.ValidationGroup;
 
 /**
  *
@@ -83,8 +88,5 @@ public class LogicaAplicacion {
         return letraNIF == secuenciaLetrasNIF.charAt(i);
     }
     
-    //completarlo
-    public void validarCorredor(){
-        
-    }
+   
 }
