@@ -179,7 +179,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         try {
             DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
             pantallaDeFormulario.setVisible(true);
-            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
         } catch (ParseException ex) {
             Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -198,7 +198,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
             Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
             DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos, corredorAModificar);
             pantallaDeFormulario.setVisible(true);
-            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
             rellenarTablaCorredores();
         } catch (ParseException ex) {
             Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,7 +214,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
             logicaMetodos.eliminarCorredor(corredorAModificar);
             
             JOptionPane.showMessageDialog(this, "Corredor borrado");
-            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
             rellenarTablaCorredores();
         } catch (ParseException ex) {
             Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);

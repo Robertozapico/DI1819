@@ -37,7 +37,7 @@ public class GestionCSV {
     private Corredor corredor;
 //borrar todas las anotaciones para borrar
 
-    public void tokenizar(String linea) throws ParseException {
+    public void tokenizarCorredores(String linea) throws ParseException {
         StringTokenizer tokens = new StringTokenizer(linea, ",");
         while (tokens.hasMoreTokens()) {
             String nombre = tokens.nextToken();
@@ -58,7 +58,7 @@ public class GestionCSV {
         String cadena = registro.readLine(); //leemos el primer registro
         while (cadena != null) {
 
-            tokenizar(cadena); //llamamos al método que nos permite tokenizar
+            tokenizarCorredores(cadena); //llamamos al método que nos permite tokenizar
             corredores.add(corredor);
             cadena = registro.readLine(); //leemos el siguiente registro
 
@@ -73,7 +73,7 @@ public class GestionCSV {
             registro = new BufferedReader(fr);
             String cadena = registro.readLine(); //leemos el primer registro
             while (cadena != null) {
-                tokenizar(cadena); //llamamos al método que nos permite tokenizar
+                tokenizarCorredores(cadena); //llamamos al método que nos permite tokenizar
                 cadena = registro.readLine(); //leemos el siguiente registro
 
             }
@@ -87,7 +87,7 @@ public class GestionCSV {
         }
     }
 
-    public void grabarFicheroCSV(List<Corredor> corredores) throws ParseException, IOException {
+    public void grabarFicheroCSVCorredores(List<Corredor> corredores) throws ParseException, IOException {
         fw = null;
 
         fw = new FileWriter("corredores.csv");

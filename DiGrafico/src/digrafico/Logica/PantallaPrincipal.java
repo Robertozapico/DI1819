@@ -172,7 +172,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             //System.out.println(corredores.toString());
             //jListCorredores.setModel(new DefaultListModel<String>());
             //rellenarTablaCorredores();
-            gcsv.grabarFicheroCSV(logicaMetodos.getCorredores());
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
         } catch (ParseException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
