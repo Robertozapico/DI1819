@@ -49,35 +49,34 @@ public class LogicaAplicacion {
         corredores.add(nuevoCorredor);
         return true;
     }
-    
-    public boolean modificarCorredor(Corredor corredorModificable, String nombre, String dni, Date fechaNacimiento, String direccion, int telefono){
+
+    public boolean modificarCorredor(Corredor corredorModificable, String nombre, String dni, Date fechaNacimiento, String direccion, int telefono) {
         corredorModificable.setNombre(nombre);
         corredorModificable.setDni(dni);
         corredorModificable.setFechaNacimiento(fechaNacimiento);
         corredorModificable.setDireccion(direccion);
         corredorModificable.setTelefono(telefono);
-    return true;
-    }
-
-    
-    public boolean eliminarCorredor(Corredor corredorModificable){
-        corredores.remove(corredorModificable);
-        
         return true;
     }
-    
-    public static boolean validarDni(String nif){
+
+    public boolean eliminarCorredor(Corredor corredorModificable) {
+        corredores.remove(corredorModificable);
+
+        return true;
+    }
+
+    public static boolean validarDni(String nif) {
         //Si el largo del NIF es diferente a 9, acaba el método.
-        if (nif.length()!=9){
+        if (nif.length() != 9) {
             return false;
         }
 
-        String secuenciaLetrasNIF = "TRWAGMYFPDXBNJZSQVHLCKE"; 
+        String secuenciaLetrasNIF = "TRWAGMYFPDXBNJZSQVHLCKE";
         nif = nif.toUpperCase();
 
         //Posición inicial: 0 (primero en la cadena de texto).
         //Longitud: cadena de texto menos última posición. Así obtenemos solo el número.
-        String numeroNIF = nif.substring(0, nif.length()-1);
+        String numeroNIF = nif.substring(0, nif.length() - 1);
 
         //Si es un NIE reemplazamos letra inicial por su valor numérico.
         numeroNIF = numeroNIF.replace("X", "0").replace("Y", "1").replace("Z", "2");
@@ -87,6 +86,25 @@ public class LogicaAplicacion {
         int i = Integer.parseInt(numeroNIF) % 23;
         return letraNIF == secuenciaLetrasNIF.charAt(i);
     }
-    
-   
+
+    public boolean annadirCarreraLista(String nombreDeCarrera, Date fechaCarrera, String lugarDeCarrera, int numMaxParticipantes) {
+        Carrera nuevaCarrera = new Carrera(nombreDeCarrera, fechaCarrera, lugarDeCarrera, numMaxParticipantes);
+        carreras.add(nuevaCarrera);
+        return true;
+    }
+
+    public boolean modificarCarrera(Carrera carreraModificable, String nombreDeCarrera, Date fechaCarrera, String lugarDeCarrera, int numMaxParticipantes) {
+        carreraModificable.setNombreDeCarrera(nombreDeCarrera);
+        carreraModificable.setFechaDeCarrera(fechaCarrera);
+        carreraModificable.setLugarDeCarrera(lugarDeCarrera);
+        carreraModificable.setNumMaxParticipantes(numMaxParticipantes);
+        return true;
+    }
+
+    public boolean eliminarCarrera(Carrera carreraModificable) {
+        carreras.remove(carreraModificable);
+
+        return true;
+    }
+
 }

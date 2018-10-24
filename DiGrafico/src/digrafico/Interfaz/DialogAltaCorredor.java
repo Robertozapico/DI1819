@@ -63,8 +63,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     public void validarCorredor() {
         jButtonDarAltaCorredor.setEnabled(false);
         ValidationGroup group = validationPanelUser.getValidationGroup();
-        
-        
+
         //validarDni(dni);
         group.add(jTextFieldTelefonoCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING, StringValidators.REQUIRE_NON_NEGATIVE_NUMBER, StringValidators.REQUIRE_VALID_INTEGER);
         group.add(jTextFieldNombreCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
@@ -74,17 +73,17 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         validationPanelUser.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                
+
                 //String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
                 //System.out.println("Dni funciona: " +validarDni(dni));
                 //System.out.println("DNI " +dni);
                 //System.out.println("DNI con tostring " +dni);
                 System.out.println(validarDni(jTextFieldDniCompleto.getText()));
-                System.out.println("DNI " +jTextFieldDniCompleto.getText());
+                System.out.println("DNI " + jTextFieldDniCompleto.getText());
                 System.out.println("POR QUE TRUE");
-                System.out.println("DNI 2: " +jTextFieldDniCompleto.getText().toString());
+                System.out.println("DNI 2: " + jTextFieldDniCompleto.getText().toString());
                 System.out.println(validarDni(jTextFieldDniCompleto.getText().toString()));
-                
+
                 if (validationPanelUser.getProblem() == null /*&& validarDni(jTextFieldDniCompleto.getText())*//*&& validarDni(dni)*/) {
                     jButtonDarAltaCorredor.setEnabled(true);
                 } else {

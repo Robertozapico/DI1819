@@ -5,6 +5,7 @@
  */
 package digrafico.Logica;
 
+import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,6 +36,8 @@ public class GestionCSV {
     private BufferedWriter fsalida = null;
     private List<Corredor> corredores;
     private Corredor corredor;
+    private Carrera carrera;
+    private List<Carrera> carreras;
 //borrar todas las anotaciones para borrar
 
     public void tokenizarCorredores(String linea) throws ParseException {
@@ -51,6 +54,19 @@ public class GestionCSV {
         }
     }
 
+    public void tokenizarCarreras(String linea) throws ParseException {
+        StringTokenizer tokens = new StringTokenizer(linea, ",");
+        while (tokens.hasMoreTokens()) {
+            String nombre = tokens.nextToken();
+            String fechaCarreraString = tokens.nextToken();
+            Date fechaCarrera = sdf.parse(fechaCarreraString);
+            String lugar = tokens.nextToken();
+            int numeroMaxParticipantes = Integer.parseInt(tokens.nextToken());
+            carrera = new Carrera(nombre, fechaCarrera, lugar, numeroMaxParticipantes);
+            //System.out.println(corredor.toString());
+        }
+    }
+
     public void annadirListaCorredores(List<Corredor> corredoresLista) throws FileNotFoundException, IOException, ParseException {
         fr = new FileReader("corredores.csv");
         registro = new BufferedReader(fr);
@@ -60,6 +76,22 @@ public class GestionCSV {
 
             tokenizarCorredores(cadena); //llamamos al método que nos permite tokenizar
             corredores.add(corredor);
+            cadena = registro.readLine(); //leemos el siguiente registro
+
+        }
+        registro.close();
+        fr.close();
+    }
+
+    public void annadirListaCarreras(List<Carrera> carrerasLista) throws FileNotFoundException, IOException, ParseException {
+        fr = new FileReader("carreras.csv");
+        registro = new BufferedReader(fr);
+        carreras = carrerasLista;
+        String cadena = registro.readLine(); //leemos el primer registro
+        while (cadena != null) {
+
+            tokenizarCarreras(cadena); //llamamos al método que nos permite tokenizar
+            carreras.add(carrera);
             cadena = registro.readLine(); //leemos el siguiente registro
 
         }
@@ -87,6 +119,26 @@ public class GestionCSV {
         }
     }
 
+    public void visualizarCarreras() throws ParseException {
+        try {
+            fr = new FileReader("carreras.csv");
+            registro = new BufferedReader(fr);
+            String cadena = registro.readLine(); //leemos el primer registro
+            while (cadena != null) {
+                tokenizarCarreras(cadena); //llamamos al método que nos permite tokenizar
+                cadena = registro.readLine(); //leemos el siguiente registro
+
+            }
+            registro.close();
+            fr.close();
+
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(GestionCSV.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(GestionCSV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void grabarFicheroCSVCorredores(List<Corredor> corredores) throws ParseException, IOException {
         fw = null;
 
@@ -94,11 +146,27 @@ public class GestionCSV {
         fsalida = new BufferedWriter(fw);
 
         for (int i = 0; i < corredores.size(); i++) {
-            fsalida.write(corredores.get(i).getNombre() + ",");
+            fsalida.write(corredor.getNombre() + ",");
             fsalida.write(corredores.get(i).getDni() + ",");
             fsalida.write(sdf.format(corredores.get(i).getFechaNacimiento()) + ",");
             fsalida.write(corredores.get(i).getDireccion() + ",");
             fsalida.write(corredores.get(i).getTelefono() + "\n");
+        }
+        fsalida.close();
+        fw.close();
+    }
+
+    public void grabarFicheroCSVCarreras(List<Carrera> carreras) throws ParseException, IOException {
+        fw = null;
+
+        fw = new FileWriter("carreras.csv");
+        fsalida = new BufferedWriter(fw);
+
+        for (int i = 0; i < carreras.size(); i++) {
+            fsalida.write(carreras.get(i).getNombreDeCarrera() + ",");
+            fsalida.write(sdf.format(carreras.get(i).getFechaDeCarrera()) + ",");
+            fsalida.write(carreras.get(i).getLugarDeCarrera() + ",");
+            fsalida.write(carreras.get(i).getNumMaxParticipantes() + "\n");
         }
         fsalida.close();
         fw.close();

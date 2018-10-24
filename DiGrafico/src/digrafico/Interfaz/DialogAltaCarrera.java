@@ -8,6 +8,7 @@ package digrafico.Interfaz;
 import digrafico.Logica.LogicaAplicacion;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Carrera;
+import java.awt.Dialog;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 public class DialogAltaCarrera extends javax.swing.JDialog {
 
     private LogicaAplicacion logicaMetodos;
+    private Carrera carreraModificable;
 
     /**
      * Creates new form DialogAltaCarrera
@@ -28,6 +30,23 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.logicaMetodos = logicaAplicacion;
+    }
+
+    public DialogAltaCarrera(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion) {
+        super(owner, modal);
+        initComponents();
+        this.logicaMetodos = logicaAplicacion;
+    }
+
+    public DialogAltaCarrera(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion, Carrera carreraAModificar) {
+        super(owner, modal);
+        initComponents();
+        this.logicaMetodos = logicaAplicacion;
+        this.carreraModificable = carreraAModificar;
+        jTextFieldNombreCarrera.setText(carreraModificable.getNombreDeCarrera());
+        jTextFieldLugarCarrera.setText(carreraModificable.getLugarDeCarrera());
+        jSpinnerCantidadCorredores.setValue(carreraModificable.getNumMaxParticipantes());
+        jSpinnerFechaCarrera.setValue(carreraModificable.getFechaDeCarrera());
     }
 
     /**
@@ -44,15 +63,14 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
         jLabelFechaCarrera = new javax.swing.JLabel();
         jLabelLugarCarrera = new javax.swing.JLabel();
         jLabelNumeroMaximo = new javax.swing.JLabel();
-        jLabelListadoCorredores = new javax.swing.JLabel();
         jTextFieldNombreCarrera = new javax.swing.JTextField();
         jTextFieldLugarCarrera = new javax.swing.JTextField();
         jSpinnerFechaCarrera = new javax.swing.JSpinner();
         jSpinnerCantidadCorredores = new javax.swing.JSpinner();
-        jComboBoxListaCorredores = new javax.swing.JComboBox<>();
         jButtonDarAlta = new javax.swing.JButton();
         jButtonLimpiar = new javax.swing.JButton();
         jLabelTituloCarrera = new javax.swing.JLabel();
+        jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -64,21 +82,17 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
 
         jLabelNumeroMaximo.setText("Numero maximo de participantes");
 
-        jLabelListadoCorredores.setText("Listado de corredores y dorsal");
-
         jTextFieldNombreCarrera.setName("Nombre_Carera"); // NOI18N
+        jTextFieldNombreCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNombreCarreraActionPerformed(evt);
+            }
+        });
 
         jTextFieldLugarCarrera.setName("Lugar_Carrera"); // NOI18N
 
         jSpinnerFechaCarrera.setModel(new javax.swing.SpinnerDateModel());
         jSpinnerFechaCarrera.setToolTipText("");
-
-        jComboBoxListaCorredores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lista 1", "Lista 2", "Lista 3", "Lista 4" }));
-        jComboBoxListaCorredores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxListaCorredoresActionPerformed(evt);
-            }
-        });
 
         jButtonDarAlta.setText("Dar alta carrera");
         jButtonDarAlta.addActionListener(new java.awt.event.ActionListener() {
@@ -97,37 +111,40 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
         jLabelTituloCarrera.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTituloCarrera.setText("Alta Carrera");
 
+        jButtonCancelar.setText("cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelListadoCorredores)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(jButtonDarAlta)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonLimpiar)
-                                    .addComponent(jComboBoxListaCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelFechaCarrera)
-                                    .addComponent(jLabelLugarCarrera)
-                                    .addComponent(jLabelNumeroMaximo)
-                                    .addComponent(jLabelNombreCarrera))
-                                .addGap(35, 35, 35)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextFieldLugarCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinnerCantidadCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinnerFechaCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldNombreCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(53, 53, 53)
+                            .addComponent(jButtonDarAlta)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButtonLimpiar)
+                            .addGap(18, 18, 18)
+                            .addComponent(jButtonCancelar))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGap(42, 42, 42)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelFechaCarrera)
+                                .addComponent(jLabelLugarCarrera)
+                                .addComponent(jLabelNumeroMaximo)
+                                .addComponent(jLabelNombreCarrera))
+                            .addGap(35, 35, 35)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jTextFieldLugarCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSpinnerCantidadCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jSpinnerFechaCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldNombreCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(181, 181, 181)
                         .addComponent(jLabelTituloCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -154,15 +171,12 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumeroMaximo)
                     .addComponent(jSpinnerCantidadCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelListadoCorredores)
-                    .addComponent(jComboBoxListaCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAlta)
-                    .addComponent(jButtonLimpiar))
-                .addGap(22, 22, 22))
+                    .addComponent(jButtonLimpiar)
+                    .addComponent(jButtonCancelar))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -196,20 +210,24 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButtonDarAltaActionPerformed
 
-    private void jComboBoxListaCorredoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxListaCorredoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxListaCorredoresActionPerformed
+    private void jTextFieldNombreCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreCarreraActionPerformed
+
+
+    }//GEN-LAST:event_jTextFieldNombreCarreraActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonDarAlta;
     private javax.swing.JButton jButtonLimpiar;
-    private javax.swing.JComboBox<String> jComboBoxListaCorredores;
     private javax.swing.JLabel jLabelFechaCarrera;
-    private javax.swing.JLabel jLabelListadoCorredores;
     private javax.swing.JLabel jLabelLugarCarrera;
     private javax.swing.JLabel jLabelNombreCarrera;
     private javax.swing.JLabel jLabelNumeroMaximo;

@@ -42,6 +42,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         initComponents();
         try {
             gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
+            gcsv.annadirListaCarreras(logicaMetodos.getCarreras());
         } catch (IOException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -193,9 +194,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jButtonCarreraAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarreraAltaActionPerformed
         // TODO add your handling code here:
+        try {
         DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, logicaMetodos);
         pantallaDeCarreras.setVisible(true);
-
+            gcsv.grabarFicheroCSVCarreras(logicaMetodos.getCarreras());
+        } catch (ParseException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     /**
