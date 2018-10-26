@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.logging.Logger;
  *
  * @author zapia
  */
-public class GestionCSV {
+public class GestionCSV implements Serializable{
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
 
@@ -62,7 +63,9 @@ public class GestionCSV {
             Date fechaCarrera = sdf.parse(fechaCarreraString);
             String lugar = tokens.nextToken();
             int numeroMaxParticipantes = Integer.parseInt(tokens.nextToken());
-            carrera = new Carrera(nombre, fechaCarrera, lugar, numeroMaxParticipantes);
+            
+            //String listadoDeCorredores = tokens.nextToken();
+            carrera = new Carrera(nombre, fechaCarrera, lugar, numeroMaxParticipantes/*, listadoDeCorredores*/);
             //System.out.println(corredor.toString());
         }
     }
@@ -146,7 +149,7 @@ public class GestionCSV {
         fsalida = new BufferedWriter(fw);
 
         for (int i = 0; i < corredores.size(); i++) {
-            fsalida.write(corredor.getNombre() + ",");
+            fsalida.write(corredores.get(i).getNombre() + ",");
             fsalida.write(corredores.get(i).getDni() + ",");
             fsalida.write(sdf.format(corredores.get(i).getFechaNacimiento()) + ",");
             fsalida.write(corredores.get(i).getDireccion() + ",");

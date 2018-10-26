@@ -35,7 +35,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         initComponents();
         this.logicaMetodos = logicaAplicacion;
         validarCorredor();
-
+jTextFieldDniCompleto.setVisible(false);
     }
 
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion) {
@@ -43,7 +43,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         initComponents();
         this.logicaMetodos = logicaAplicacion;
         validarCorredor();
-
+jTextFieldDniCompleto.setVisible(false);
     }
 
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion, Corredor corredorAModificar) {
@@ -57,7 +57,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         jTextFieldTelefonoCorredor.setText(Integer.toString(corredorModificable.getTelefono()));
         jSpinnerFechaNacimientoCorredor.setValue(corredorModificable.getFechaNacimiento());
         validarCorredor();
-
+jTextFieldDniCompleto.setVisible(false);
     }
 
     public void validarCorredor() {
@@ -78,12 +78,12 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
                 //System.out.println("Dni funciona: " +validarDni(dni));
                 //System.out.println("DNI " +dni);
                 //System.out.println("DNI con tostring " +dni);
-                System.out.println(validarDni(jTextFieldDniCompleto.getText()));
+                /*System.out.println(validarDni(jTextFieldDniCompleto.getText()));
                 System.out.println("DNI " + jTextFieldDniCompleto.getText());
                 System.out.println("POR QUE TRUE");
                 System.out.println("DNI 2: " + jTextFieldDniCompleto.getText().toString());
                 System.out.println(validarDni(jTextFieldDniCompleto.getText().toString()));
-
+*/
                 if (validationPanelUser.getProblem() == null /*&& validarDni(jTextFieldDniCompleto.getText())*//*&& validarDni(dni)*/) {
                     jButtonDarAltaCorredor.setEnabled(true);
                 } else {
@@ -331,8 +331,8 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
             System.out.println(corredorModificable.toString());
             String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
             logicaMetodos.modificarCorredor(corredorModificable, jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
-            JOptionPane.showMessageDialog(this, "Corredor añadido");
         }
+        JOptionPane.showMessageDialog(this, "Corredor añadido");
         //Para cerrar la pantalla
         dispose();
 
@@ -351,7 +351,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldDniCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDniCompletoActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextFieldDniCompletoActionPerformed
 
     /**

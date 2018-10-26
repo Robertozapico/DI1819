@@ -5,19 +5,30 @@
  */
 package digrafico.Interfaz;
 
+import digrafico.Logica.GestionCSV;
 import digrafico.Logica.LogicaAplicacion;
 import static digrafico.Logica.LogicaAplicacion.getSdf;
+import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
 import java.awt.Dialog;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
 
 /**
  *
  * @author alumnop
  */
 public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
-private LogicaAplicacion logicaMetodos;
+
+    private LogicaAplicacion logicaMetodos;
+    private Carrera carreraEscogida;
+    private GestionCSV gcsv = new GestionCSV();
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
+
     /**
      * Creates new form ListadoCorredoresEnCarrera
      */
@@ -26,12 +37,13 @@ private LogicaAplicacion logicaMetodos;
         initComponents();
     }
 
-    public ListadoCorredoresEnCarrera(Dialog owner, boolean modal, LogicaAplicacion logicaMetodos) {
+    public ListadoCorredoresEnCarrera(Dialog owner, boolean modal, LogicaAplicacion logicaMetodos, Carrera carreraSeleccionada) {
         super(owner, modal);
-        this.logicaMetodos=logicaMetodos;
+        initComponents();
+        this.logicaMetodos = logicaMetodos;
+        this.carreraEscogida = carreraSeleccionada;
+        rellenarTablaCarreras();
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +99,11 @@ private LogicaAplicacion logicaMetodos;
         }
 
         jButtonAnnadirCorredor.setText(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jButtonAnnadirCorredor.text")); // NOI18N
+        jButtonAnnadirCorredor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnadirCorredorActionPerformed(evt);
+            }
+        });
 
         jButtonCerrar.setText(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jButtonCerrar.text")); // NOI18N
         jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +129,7 @@ private LogicaAplicacion logicaMetodos;
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonAnnadirCorredor)
@@ -123,7 +140,7 @@ private LogicaAplicacion logicaMetodos;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,13 +148,13 @@ private LogicaAplicacion logicaMetodos;
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnadirCorredor)
                     .addComponent(jButtonEliminarCorredor)
                     .addComponent(jButtonCerrar))
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGap(241, 241, 241))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -155,69 +172,66 @@ private LogicaAplicacion logicaMetodos;
     }// </editor-fold>//GEN-END:initComponents
 
     private void rellenarTablaCarreras() {
+        String inscripcion = "";
         String[] columnas = {"Nombre", "Dni", "Dorsal", "Inscrito"};
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
         for (Corredor corredor : logicaMetodos.getCorredores()) {
+            if (carreraEscogida.getCorredores().contains(corredor)) {
+                inscripcion = "si";
+            } else {
+                inscripcion = "no";
+            }
             String[] a = new String[4];
             a[0] = corredor.getNombre();
             a[1] = corredor.getDni();
             //meter boolean si o no y dorsales
             a[2] = "0";
-            a[3] = "no";
+            a[3] = inscripcion;
             dtm.addRow(a);
         }
         jTableCorredoresCarrera.setModel(dtm);
     }
-    
+
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void jButtonEliminarCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCorredorActionPerformed
-        // TODO add your handling code here:
+        int[] intCorredoresSeleccionados = jTableCorredoresCarrera.getSelectedRows();
+
+        for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
+            carreraEscogida.getCorredores().remove(logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]));
+        }
+        if (logicaMetodos.getCarreras().size() < 1) {
+            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        } else {
+            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        }
+        rellenarTablaCarreras();
     }//GEN-LAST:event_jButtonEliminarCorredorActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ListadoCorredoresEnCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ListadoCorredoresEnCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ListadoCorredoresEnCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ListadoCorredoresEnCarrera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButtonAnnadirCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnadirCorredorActionPerformed
+        int[] intCorredoresSeleccionados = jTableCorredoresCarrera.getSelectedRows();
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ListadoCorredoresEnCarrera dialog = new ListadoCorredoresEnCarrera(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+        for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
+            carreraEscogida.getCorredores().add(logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]));
+        }
+        if (logicaMetodos.getCarreras().size() < 1) {
+            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        } else {
+            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        }
+        rellenarTablaCarreras();
+    }//GEN-LAST:event_jButtonAnnadirCorredorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAnnadirCorredor;

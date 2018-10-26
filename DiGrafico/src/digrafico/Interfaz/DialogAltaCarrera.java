@@ -201,13 +201,18 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
 
     private void jButtonDarAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaActionPerformed
         int numMaxParticipantes = (int) jSpinnerCantidadCorredores.getValue();
-        Carrera carreraNueva = new Carrera(jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
-        carreraNueva.setCorredores(logicaMetodos.getCorredores());
-        logicaMetodos.getCarreras().add(carreraNueva);
-        //System.out.println(listaCorredores.toString());
+        if (carreraModificable == null) {
+            Carrera carreraNueva = new Carrera(jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
+            carreraNueva.setCorredores(logicaMetodos.getCorredores());
+            logicaMetodos.getCarreras().add(carreraNueva);
+            //System.out.println(listaCorredores.toString());
+        } else {
+            logicaMetodos.modificarCarrera(carreraModificable, jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
+        }
         JOptionPane.showMessageDialog(this, "Carrera añadida");
         //Para cerrar la pantalla
         dispose();
+
     }//GEN-LAST:event_jButtonDarAltaActionPerformed
 
     private void jTextFieldNombreCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreCarreraActionPerformed

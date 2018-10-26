@@ -8,6 +8,7 @@ package digrafico.Logica;
 import digrafico.Interfaz.DialogAltaCorredor;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,11 +23,12 @@ import org.netbeans.validation.api.ui.ValidationGroup;
  *
  * @author alumnop
  */
-public class LogicaAplicacion {
+public class LogicaAplicacion implements Serializable{
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
     private List<Corredor> corredores = new ArrayList<Corredor>();
     private List<Carrera> carreras = new ArrayList<Carrera>();
+    
 
     public static SimpleDateFormat getSdf() {
         return sdf;

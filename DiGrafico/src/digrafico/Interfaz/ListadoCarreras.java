@@ -8,6 +8,7 @@ package digrafico.Interfaz;
 import digrafico.Logica.GestionCSV;
 import digrafico.Logica.LogicaAplicacion;
 import static digrafico.Logica.LogicaAplicacion.getSdf;
+import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class ListadoCarreras extends javax.swing.JDialog {
 
     private LogicaAplicacion logicaMetodos;
     private GestionCSV gcsv = new GestionCSV();
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
 
     /**
      * Creates new form ListadoCarreras
@@ -188,31 +190,39 @@ public class ListadoCarreras extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAltaCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaCarreraActionPerformed
-        try {
-            DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos);
-            pantallaDeFormulario.setVisible(true);
-            gcsv.grabarFicheroCSVCarreras(logicaMetodos.getCarreras());
-        } catch (ParseException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
+
+        DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos);
+        pantallaDeFormulario.setVisible(true);
+        if (logicaMetodos.getCarreras().size() < 1) {
+            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        } else {
+            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
         }
+
         rellenarTablaCarreras();
     }//GEN-LAST:event_jButtonAltaCarreraActionPerformed
 
     private void jButtonModificarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarCarreraActionPerformed
-        try {
-            int carreraSeleccionada = jTableCarreras.getSelectedRow();
-            Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
-            DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos, carreraAModificar);
-            pantallaDeFormulario.setVisible(true);
-            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
-            rellenarTablaCarreras();
-        } catch (ParseException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
+
+        int carreraSeleccionada = jTableCarreras.getSelectedRow();
+        Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
+        DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos, carreraAModificar);
+        pantallaDeFormulario.setVisible(true);
+        if (logicaMetodos.getCarreras().size() < 1) {
+            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        } else {
+            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
         }
+        rellenarTablaCarreras();
+
     }//GEN-LAST:event_jButtonModificarCarreraActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -220,24 +230,29 @@ public class ListadoCarreras extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void jButtonEliminarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCarreraActionPerformed
-        try {
-            int carreraSeleccionada = jTableCarreras.getSelectedRow();
-            Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
-            logicaMetodos.eliminarCarrera(carreraAModificar);
 
-            JOptionPane.showMessageDialog(this, "Carrera borrada");
-            gcsv.grabarFicheroCSVCarreras(logicaMetodos.getCarreras());
-            rellenarTablaCarreras();
-        } catch (ParseException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
+        int carreraSeleccionada = jTableCarreras.getSelectedRow();
+        Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
+        logicaMetodos.eliminarCarrera(carreraAModificar);
+
+        JOptionPane.showMessageDialog(this, "Carrera borrada");
+        if (logicaMetodos.getCarreras().size() < 1) {
+            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        } else {
+            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
         }
+        rellenarTablaCarreras();
+
     }//GEN-LAST:event_jButtonEliminarCarreraActionPerformed
 
     private void jButtonGestionCorredoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGestionCorredoresActionPerformed
-        //ListadoCorredoresEnCarrera tablaCorredoresEnCarrera = new ListadoCorredoresEnCarrera(this, true, logicaMetodos);
-       // tablaCorredoresEnCarrera.setVisible(true);
+        int carreraSeleccionada = jTableCarreras.getSelectedRow();
+        ListadoCorredoresEnCarrera tablaCorredoresEnCarrera = new ListadoCorredoresEnCarrera(this, true, logicaMetodos, logicaMetodos.getCarreras().get(carreraSeleccionada));
+        tablaCorredoresEnCarrera.setVisible(true);
     }//GEN-LAST:event_jButtonGestionCorredoresActionPerformed
 
 

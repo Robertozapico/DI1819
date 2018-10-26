@@ -1,5 +1,6 @@
 package digrafico.Modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author alumnop
  */
-public class Carrera {
+public class Carrera implements Serializable{
 
     /*DEJO ESTO COMO POSIBLE FUTURO*/
     private String nombreDeCarrera;
@@ -21,7 +22,7 @@ public class Carrera {
     private String lugarDeCarrera;
     private int numMaxParticipantes;
 
-    private List<Corredor> corredores = new ArrayList<Corredor>();
+    private List<Corredor> corredores;
 
     public Carrera() {
     }
@@ -31,7 +32,18 @@ public class Carrera {
         this.fechaDeCarrera = fechaCarrera;
         this.lugarDeCarrera = lugarDeCarrera;
         this.numMaxParticipantes = numMaxParticipantes;
+        corredores = new ArrayList<Corredor>();
     }
+
+    public Carrera(String nombreDeCarrera, Date fechaDeCarrera, String lugarDeCarrera, int numMaxParticipantes, List<Corredor> corredores) {
+        this.nombreDeCarrera = nombreDeCarrera;
+        this.fechaDeCarrera = fechaDeCarrera;
+        this.lugarDeCarrera = lugarDeCarrera;
+        this.numMaxParticipantes = numMaxParticipantes;
+        this.corredores = corredores;
+    }
+    
+    
 
     public String getNombreDeCarrera() {
         return nombreDeCarrera;
