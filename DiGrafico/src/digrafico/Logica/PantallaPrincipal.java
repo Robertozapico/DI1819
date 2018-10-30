@@ -41,13 +41,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private GestionCSV gcsv = new GestionCSV();
     private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos(logicaMetodos.getCarreras());
 
-    public PantallaPrincipal() {
+    public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
         //CONVERTIR EL REGISTRO EN EL LOGICA METODO
         mgfo.abrirFicheroLecturaObjetos("Carreras.dat");
-        mgfo.leerFicheroCarreras();
+        //mgfo.leerFicheroCarreras();
+
+        //System.out.println(logicaMetodos.getCarreras());
+        logicaMetodos = (LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
         mgfo.cerrarFicherosLecturaObjetos();
-        System.out.println(logicaMetodos.getCarreras());
         try {
             gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
         } catch (IOException ex) {
@@ -247,8 +249,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Locale.setDefault(new Locale("es", "ES"));
-                new PantallaPrincipal().setVisible(true);
+                try {
+                    Locale.setDefault(new Locale("es", "ES"));
+                    new PantallaPrincipal().setVisible(true);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                } catch (ClassNotFoundException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
             }
         });
     }
