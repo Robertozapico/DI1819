@@ -11,6 +11,7 @@ import static digrafico.Logica.LogicaAplicacion.getSdf;
 import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,7 +31,7 @@ public class ListadoCarreras extends javax.swing.JDialog {
 
     private LogicaAplicacion logicaMetodos;
     private GestionCSV gcsv = new GestionCSV();
-    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos(logicaMetodos.getCarreras());
 
     /**
      * Creates new form ListadoCarreras
@@ -193,7 +194,8 @@ public class ListadoCarreras extends javax.swing.JDialog {
 
         DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos);
         pantallaDeFormulario.setVisible(true);
-        if (logicaMetodos.getCarreras().size() < 1) {
+        File fichero = new File("Carreras.dat");
+        if (!fichero.exists()) {
             mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
             mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
             mgfo.cerrarFicherosEscrituraObjetos();
@@ -212,7 +214,8 @@ public class ListadoCarreras extends javax.swing.JDialog {
         Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
         DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos, carreraAModificar);
         pantallaDeFormulario.setVisible(true);
-        if (logicaMetodos.getCarreras().size() < 1) {
+        File fichero = new File("Carreras.dat");
+        if (!fichero.exists()) {
             mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
             mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
             mgfo.cerrarFicherosEscrituraObjetos();
@@ -236,7 +239,8 @@ public class ListadoCarreras extends javax.swing.JDialog {
         logicaMetodos.eliminarCarrera(carreraAModificar);
 
         JOptionPane.showMessageDialog(this, "Carrera borrada");
-        if (logicaMetodos.getCarreras().size() < 1) {
+        File fichero = new File("Carreras.dat");
+        if (!fichero.exists()) {
             mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
             mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
             mgfo.cerrarFicherosEscrituraObjetos();

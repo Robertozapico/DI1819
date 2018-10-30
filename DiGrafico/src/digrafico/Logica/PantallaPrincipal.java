@@ -39,32 +39,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     //private java.util.List<Carrera> carreras;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
     private GestionCSV gcsv = new GestionCSV();
-    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos(logicaMetodos.getCarreras());
 
     public PantallaPrincipal() {
         initComponents();
-
-            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
-            Carrera carrerita = new Carrera();
-            carrerita.setNombreDeCarrera("Prueba");
-            carrerita.setNumMaxParticipantes(20);
-            carrerita.setLugarDeCarrera("ParqueMierda");
-
-            mgfo.grabarObjetoFicheroObjetos(carrerita);
-            mgfo.cerrarFicherosEscrituraObjetos();
-
-            //CONVERTIR EL REGISTRO EN EL LOGICA METODO
-            mgfo.abrirFicheroLecturaObjetos("Carreras.dat");
-            //hacer un bucle para leer el fichero de objetos y pasarlo a una lista
-            //while(){
-                
-            //}
-            //logicaMetodos=(LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
-            mgfo.cerrarFicherosLecturaObjetos();
-
+        //CONVERTIR EL REGISTRO EN EL LOGICA METODO
+        mgfo.abrirFicheroLecturaObjetos("Carreras.dat");
+        mgfo.leerFicheroCarreras();
+        mgfo.cerrarFicherosLecturaObjetos();
+        System.out.println(logicaMetodos.getCarreras());
         try {
             gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
-            //gcsv.annadirListaCarreras(logicaMetodos.getCarreras());
         } catch (IOException ex) {
             Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -219,7 +204,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, logicaMetodos);
         pantallaDeCarreras.setVisible(true);
-        if (logicaMetodos.getCarreras().size() < 1) {
+        File fichero = new File("Carreras.dat");
+        if (!fichero.exists()) {
             mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
             mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
             mgfo.cerrarFicherosEscrituraObjetos();
@@ -228,6 +214,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
             mgfo.cerrarFicherosEscrituraObjetos();
         }
+
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     /**

@@ -27,7 +27,7 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
     private LogicaAplicacion logicaMetodos;
     private Carrera carreraEscogida;
     private GestionCSV gcsv = new GestionCSV();
-    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos(logicaMetodos.getCarreras());
 
     /**
      * Creates new form ListadoCorredoresEnCarrera
