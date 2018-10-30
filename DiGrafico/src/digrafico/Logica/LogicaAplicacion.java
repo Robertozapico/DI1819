@@ -109,4 +109,7 @@ public class LogicaAplicacion implements Serializable{
         return true;
     }
 
+    public boolean importarListaCarreras(){
+        return true;
+    }
 }

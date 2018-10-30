@@ -35,7 +35,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
         initComponents();
         this.logicaMetodos = logicaAplicacion;
         validarCorredor();
-jTextFieldDniCompleto.setVisible(false);
+        jTextFieldDniCompleto.setVisible(false);
     }
 
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion) {
@@ -43,7 +43,7 @@ jTextFieldDniCompleto.setVisible(false);
         initComponents();
         this.logicaMetodos = logicaAplicacion;
         validarCorredor();
-jTextFieldDniCompleto.setVisible(false);
+        jTextFieldDniCompleto.setVisible(false);
     }
 
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion, Corredor corredorAModificar) {
@@ -57,7 +57,7 @@ jTextFieldDniCompleto.setVisible(false);
         jTextFieldTelefonoCorredor.setText(Integer.toString(corredorModificable.getTelefono()));
         jSpinnerFechaNacimientoCorredor.setValue(corredorModificable.getFechaNacimiento());
         validarCorredor();
-jTextFieldDniCompleto.setVisible(false);
+        jTextFieldDniCompleto.setVisible(false);
     }
 
     public void validarCorredor() {
@@ -83,7 +83,7 @@ jTextFieldDniCompleto.setVisible(false);
                 System.out.println("POR QUE TRUE");
                 System.out.println("DNI 2: " + jTextFieldDniCompleto.getText().toString());
                 System.out.println(validarDni(jTextFieldDniCompleto.getText().toString()));
-*/
+                 */
                 if (validationPanelUser.getProblem() == null /*&& validarDni(jTextFieldDniCompleto.getText())*//*&& validarDni(dni)*/) {
                     jButtonDarAltaCorredor.setEnabled(true);
                 } else {
@@ -351,7 +351,7 @@ jTextFieldDniCompleto.setVisible(false);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jTextFieldDniCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDniCompletoActionPerformed
-        
+
     }//GEN-LAST:event_jTextFieldDniCompletoActionPerformed
 
     /**

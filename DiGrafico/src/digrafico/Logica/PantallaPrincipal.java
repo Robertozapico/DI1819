@@ -34,7 +34,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPrincipal
      */
-    private LogicaAplicacion logicaMetodos/* = new LogicaAplicacion()*/;
+    private LogicaAplicacion logicaMetodos = new LogicaAplicacion();
     //private java.util.List<Corredor> corredores;
     //private java.util.List<Carrera> carreras;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
@@ -43,8 +43,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     public PantallaPrincipal() {
         initComponents();
-
-        try {
 
             mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
             Carrera carrerita = new Carrera();
@@ -57,13 +55,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
             //CONVERTIR EL REGISTRO EN EL LOGICA METODO
             mgfo.abrirFicheroLecturaObjetos("Carreras.dat");
-            logicaMetodos=(LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
+            //hacer un bucle para leer el fichero de objetos y pasarlo a una lista
+            //while(){
+                
+            //}
+            //logicaMetodos=(LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
             mgfo.cerrarFicherosLecturaObjetos();
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (ClassNotFoundException ex) {
-            Exceptions.printStackTrace(ex);
-        }
+
         try {
             gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
             //gcsv.annadirListaCarreras(logicaMetodos.getCarreras());
