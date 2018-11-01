@@ -15,6 +15,7 @@ import java.awt.Dialog;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.openide.util.Exceptions;
 
@@ -23,7 +24,7 @@ import org.openide.util.Exceptions;
  * @author alumnop
  */
 public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
-
+//FALTA ELIMINAR CORREDORES DE UNA LISTA Y ASIGNAR EL DORSAL
     private LogicaAplicacion logicaMetodos;
     private Carrera carreraEscogida;
     private GestionCSV gcsv = new GestionCSV();
@@ -179,17 +180,29 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         String inscripcion = "";
         String[] columnas = {"Nombre", "Dni", "Dorsal", "Inscrito"};
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
+        Integer[] dorsales = new Integer[carreraEscogida.getDorsales().size()];
+        int contadorDeDorsales=0;
+        for (Integer dorsalDeCarrera : carreraEscogida.getDorsales()) {
+            dorsales[contadorDeDorsales]=dorsalDeCarrera;
+            contadorDeDorsales++;
+        }
+        String dorsalesAsignados = "";
+        int contadorDorsales = 0;
         for (Corredor corredor : logicaMetodos.getCorredores()) {
             if (carreraEscogida.getCorredores().contains(corredor)) {
                 inscripcion = "si";
+                //dorsalesAsignados = Integer.toString(dorsales[contadorDorsales]);
+                contadorDorsales++;
             } else {
                 inscripcion = "no";
+                dorsalesAsignados="";
             }
+
             String[] a = new String[4];
             a[0] = corredor.getNombre();
             a[1] = corredor.getDni();
             //meter dorsales
-            a[2] = "0";
+            a[2] = dorsalesAsignados;
             a[3] = inscripcion;
             dtm.addRow(a);
         }
@@ -202,16 +215,17 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
 
     private void jButtonEliminarCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCorredorActionPerformed
         int[] intCorredoresSeleccionados = jTableCorredoresCarrera.getSelectedRows();
-
-        for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
-            carreraEscogida.getCorredores().remove(logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]));
+        if (carreraEscogida.getCorredores().size() < carreraEscogida.getNumMaxParticipantes()) {
+            for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
+                carreraEscogida.getCorredores().remove(logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]));
+            }
+            File fichero = new File("gestionCarreras.dat");
+            fichero.delete();
+            mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+            rellenarTablaCarreras();
         }
-        File fichero = new File("gestionCarreras.dat");
-        fichero.delete();
-        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
-        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-        mgfo.cerrarFicherosEscrituraObjetos();
-        rellenarTablaCarreras();
     }//GEN-LAST:event_jButtonEliminarCorredorActionPerformed
 
     private void jButtonAnnadirCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnadirCorredorActionPerformed
@@ -226,6 +240,7 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
         mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCarreras();
+
     }//GEN-LAST:event_jButtonAnnadirCorredorActionPerformed
 
 

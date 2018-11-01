@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -23,12 +24,11 @@ import org.netbeans.validation.api.ui.ValidationGroup;
  *
  * @author alumnop
  */
-public class LogicaAplicacion implements Serializable{
+public class LogicaAplicacion implements Serializable {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
     private List<Corredor> corredores = new ArrayList<Corredor>();
     private List<Carrera> carreras = new ArrayList<Carrera>();
-    
 
     public static SimpleDateFormat getSdf() {
         return sdf;
@@ -107,6 +107,20 @@ public class LogicaAplicacion implements Serializable{
         carreras.remove(carreraModificable);
 
         return true;
+    }
+
+    public int crearDorsales(int cantidadDeDorsales, LinkedHashSet<Integer> dorsales) {
+        int cantidadDorsales = 0;
+        int dorsalCreado = 0;
+        for (Integer dorsal : dorsales) {
+
+            while (dorsales.contains(dorsalCreado)) {
+                dorsalCreado = (int) Math.random() * cantidadDeDorsales;
+                dorsal = dorsalCreado;
+            }
+            cantidadDeDorsales++;
+        }
+        return cantidadDorsales;
     }
 
 }

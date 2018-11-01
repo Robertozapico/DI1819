@@ -3,6 +3,7 @@ package digrafico.Modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /*
@@ -14,18 +15,15 @@ import java.util.List;
  *
  * @author alumnop
  */
-public class Carrera implements Serializable{
+public class Carrera implements Serializable {
 
     /*DEJO ESTO COMO POSIBLE FUTURO*/
     private String nombreDeCarrera;
     private Date fechaDeCarrera;
     private String lugarDeCarrera;
     private int numMaxParticipantes;
-
+    private LinkedHashSet<Integer> dorsales = new LinkedHashSet<Integer>();
     private List<Corredor> corredores;
-
-    public Carrera() {
-    }
 
     public Carrera(String nombreDeCarrera, Date fechaCarrera, String lugarDeCarrera, int numMaxParticipantes) {
         this.nombreDeCarrera = nombreDeCarrera;
@@ -33,6 +31,7 @@ public class Carrera implements Serializable{
         this.lugarDeCarrera = lugarDeCarrera;
         this.numMaxParticipantes = numMaxParticipantes;
         corredores = new ArrayList<Corredor>();
+
     }
 
     public Carrera(String nombreDeCarrera, Date fechaDeCarrera, String lugarDeCarrera, int numMaxParticipantes, List<Corredor> corredores) {
@@ -41,9 +40,16 @@ public class Carrera implements Serializable{
         this.lugarDeCarrera = lugarDeCarrera;
         this.numMaxParticipantes = numMaxParticipantes;
         this.corredores = corredores;
+
     }
-    
-    
+
+    public LinkedHashSet<Integer> getDorsales() {
+        return dorsales;
+    }
+
+    public void setDorsales(LinkedHashSet<Integer> dorsales) {
+        this.dorsales = dorsales;
+    }
 
     public String getNombreDeCarrera() {
         return nombreDeCarrera;
@@ -84,8 +90,6 @@ public class Carrera implements Serializable{
     public void setCorredores(List<Corredor> corredores) {
         this.corredores = corredores;
     }
-    
-    
 
     @Override
     public String toString() {
