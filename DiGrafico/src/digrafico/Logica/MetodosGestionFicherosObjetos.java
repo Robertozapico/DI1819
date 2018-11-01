@@ -1,14 +1,12 @@
 package digrafico.Logica;
 
 import digrafico.Logica.ClaseAnhadirObjectOutputStream;
-import digrafico.Modelo.Carrera;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
 
 public class MetodosGestionFicherosObjetos {
 
@@ -16,11 +14,6 @@ public class MetodosGestionFicherosObjetos {
     private FileInputStream fis = null;
     private ObjectInputStream ois = null;
     private ObjectOutputStream oos = null;
-    private List<Carrera> carreras;
-
-    public MetodosGestionFicherosObjetos(List<Carrera> carreras) {
-        this.carreras = carreras;
-    }
 
     //apertura de fichero de objetos para grabar
     public void abrirFicheroEscrituraObjetos(String f) {
@@ -95,23 +88,7 @@ public class MetodosGestionFicherosObjetos {
         //leo el registro del archivo y lo devuelvo si hay un error se lo paso al padre
         //para que lo gestione
         registro = ois.readObject();
-
         return registro; //devuelve el registro leido
-    }
-
-    public void leerFicheroCarreras() {
-        try {
-            while (true) {
-                Carrera carrera = (Carrera) ois.readObject();
-                if (!carreras.contains(carrera)) {
-                    carreras.add(carrera);
-                }
-            }
-        } catch (IOException ex) {
-            System.out.println("No hay más objetos");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Clase no encontrada");
-        }
     }
 
     //cerrar fichero de objeto de lectura

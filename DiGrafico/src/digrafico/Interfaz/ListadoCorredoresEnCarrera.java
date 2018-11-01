@@ -27,7 +27,7 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
     private LogicaAplicacion logicaMetodos;
     private Carrera carreraEscogida;
     private GestionCSV gcsv = new GestionCSV();
-    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos(logicaMetodos.getCarreras());
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
 
     /**
      * Creates new form ListadoCorredoresEnCarrera
@@ -43,6 +43,8 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         this.logicaMetodos = logicaMetodos;
         this.carreraEscogida = carreraSeleccionada;
         rellenarTablaCarreras();
+        System.out.println(logicaMetodos.getCorredores());
+        System.out.println(carreraEscogida.getCorredores());
     }
 
     /**
@@ -119,6 +121,7 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jLabel1.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -126,21 +129,22 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(27, 27, 27))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButtonAnnadirCorredor)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonEliminarCorredor)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButtonCerrar))))
+                        .addGap(79, 79, 79)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27))
+                        .addContainerGap()
+                        .addComponent(jButtonAnnadirCorredor)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonEliminarCorredor)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonCerrar)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,13 +152,13 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAnnadirCorredor)
                     .addComponent(jButtonEliminarCorredor)
                     .addComponent(jButtonCerrar))
-                .addGap(241, 241, 241))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,7 +188,7 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
             String[] a = new String[4];
             a[0] = corredor.getNombre();
             a[1] = corredor.getDni();
-            //meter boolean si o no y dorsales
+            //meter dorsales
             a[2] = "0";
             a[3] = inscripcion;
             dtm.addRow(a);
@@ -202,15 +206,11 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
             carreraEscogida.getCorredores().remove(logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]));
         }
-        if (logicaMetodos.getCarreras().size() < 1) {
-            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        } else {
-            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        }
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCarreras();
     }//GEN-LAST:event_jButtonEliminarCorredorActionPerformed
 
@@ -220,15 +220,11 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
             carreraEscogida.getCorredores().add(logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]));
         }
-        if (logicaMetodos.getCarreras().size() < 1) {
-            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        } else {
-            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        }
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCarreras();
     }//GEN-LAST:event_jButtonAnnadirCorredorActionPerformed
 

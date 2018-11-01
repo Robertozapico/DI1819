@@ -203,9 +203,7 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
         int numMaxParticipantes = (int) jSpinnerCantidadCorredores.getValue();
         if (carreraModificable == null) {
             Carrera carreraNueva = new Carrera(jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
-            carreraNueva.setCorredores(logicaMetodos.getCorredores());
             logicaMetodos.getCarreras().add(carreraNueva);
-            //System.out.println(listaCorredores.toString());
         } else {
             logicaMetodos.modificarCarrera(carreraModificable, jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
         }

@@ -8,7 +8,9 @@ package digrafico.Interfaz;
 import digrafico.Logica.GestionCSV;
 import digrafico.Logica.LogicaAplicacion;
 import static digrafico.Logica.LogicaAplicacion.getSdf;
+import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Corredor;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -25,6 +27,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
 
     private LogicaAplicacion logicaMetodos;
     private GestionCSV gcsv = new GestionCSV();
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
 
     /**
      * Creates new form ListadoCorredores
@@ -178,15 +181,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
 
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
 
-        try {
-            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
-            pantallaDeFormulario.setVisible(true);
-            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
-        } catch (ParseException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
+        pantallaDeFormulario.setVisible(true);
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCorredores();
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
 
@@ -195,34 +196,34 @@ public class ListadoCorredores extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        try {
-            int corredorSeleccionado = jTableCorredores.getSelectedRow();
-            Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
-            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos, corredorAModificar);
-            pantallaDeFormulario.setVisible(true);
-            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
-            rellenarTablaCorredores();
-        } catch (ParseException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        int corredorSeleccionado = jTableCorredores.getSelectedRow();
+        Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
+        DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos, corredorAModificar);
+        pantallaDeFormulario.setVisible(true);
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
+        rellenarTablaCorredores();
+
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonEliminarCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCorredorActionPerformed
-        try {
-            int corredorSeleccionado = jTableCorredores.getSelectedRow();
-            Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
-            logicaMetodos.eliminarCorredor(corredorAModificar);
 
-            JOptionPane.showMessageDialog(this, "Corredor borrado");
-            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
-            rellenarTablaCorredores();
-        } catch (ParseException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ListadoCorredores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        int corredorSeleccionado = jTableCorredores.getSelectedRow();
+        Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
+        logicaMetodos.eliminarCorredor(corredorAModificar);
+
+        JOptionPane.showMessageDialog(this, "Corredor borrado");
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
+        rellenarTablaCorredores();
+
     }//GEN-LAST:event_jButtonEliminarCorredorActionPerformed
 
     /**

@@ -35,29 +35,22 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      * Creates new form PantallaPrincipal
      */
     private LogicaAplicacion logicaMetodos = new LogicaAplicacion();
-    //private java.util.List<Corredor> corredores;
-    //private java.util.List<Carrera> carreras;
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
     private GestionCSV gcsv = new GestionCSV();
-    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos(logicaMetodos.getCarreras());
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
 
     public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
-        //CONVERTIR EL REGISTRO EN EL LOGICA METODO
-        mgfo.abrirFicheroLecturaObjetos("Carreras.dat");
-        //mgfo.leerFicheroCarreras();
-
-        //System.out.println(logicaMetodos.getCarreras());
-        logicaMetodos = (LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
-        mgfo.cerrarFicherosLecturaObjetos();
-        try {
-            gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
-        } catch (IOException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        File fichero = new File("gestionCarreras.dat");
+        if (!fichero.exists()) {
+            mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
         }
 
+        mgfo.abrirFicheroLecturaObjetos("gestionCarreras.dat");
+        this.logicaMetodos = (LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
+        mgfo.cerrarFicherosLecturaObjetos();
     }
 
     /**
@@ -177,18 +170,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
-        try {
-            DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
-            pantallaDeFormulario.setVisible(true);
-            //System.out.println(corredores.toString());
-            //jListCorredores.setModel(new DefaultListModel<String>());
-            //rellenarTablaCorredores();
-            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
-        } catch (ParseException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        DialogAltaCorredor pantallaDeFormulario = new DialogAltaCorredor(this, true, logicaMetodos);
+        pantallaDeFormulario.setVisible(true);
+
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
+
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
 
     private void jButtonCorredoresListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCorredoresListadoActionPerformed
@@ -206,17 +196,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         DialogAltaCarrera pantallaDeCarreras = new DialogAltaCarrera(this, true, logicaMetodos);
         pantallaDeCarreras.setVisible(true);
-        File fichero = new File("Carreras.dat");
-        if (!fichero.exists()) {
-            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        } else {
-            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        }
-
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     /**

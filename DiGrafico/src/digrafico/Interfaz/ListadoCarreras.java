@@ -31,7 +31,7 @@ public class ListadoCarreras extends javax.swing.JDialog {
 
     private LogicaAplicacion logicaMetodos;
     private GestionCSV gcsv = new GestionCSV();
-    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos(logicaMetodos.getCarreras());
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
 
     /**
      * Creates new form ListadoCarreras
@@ -194,17 +194,11 @@ public class ListadoCarreras extends javax.swing.JDialog {
 
         DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos);
         pantallaDeFormulario.setVisible(true);
-        File fichero = new File("Carreras.dat");
-        if (!fichero.exists()) {
-            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        } else {
-            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        }
-
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCarreras();
     }//GEN-LAST:event_jButtonAltaCarreraActionPerformed
 
@@ -214,16 +208,11 @@ public class ListadoCarreras extends javax.swing.JDialog {
         Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
         DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos, carreraAModificar);
         pantallaDeFormulario.setVisible(true);
-        File fichero = new File("Carreras.dat");
-        if (!fichero.exists()) {
-            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        } else {
-            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        }
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCarreras();
 
     }//GEN-LAST:event_jButtonModificarCarreraActionPerformed
@@ -239,16 +228,11 @@ public class ListadoCarreras extends javax.swing.JDialog {
         logicaMetodos.eliminarCarrera(carreraAModificar);
 
         JOptionPane.showMessageDialog(this, "Carrera borrada");
-        File fichero = new File("Carreras.dat");
-        if (!fichero.exists()) {
-            mgfo.abrirFicheroEscrituraObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        } else {
-            mgfo.abrirFicheroParaAnhadirObjetos("Carreras.dat");
-            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-            mgfo.cerrarFicherosEscrituraObjetos();
-        }
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCarreras();
 
     }//GEN-LAST:event_jButtonEliminarCarreraActionPerformed
