@@ -5,6 +5,7 @@
  */
 package digrafico.Logica;
 
+import digrafico.Interfaz.Configuracion;
 import digrafico.Interfaz.DialogAltaCarrera;
 import digrafico.Interfaz.DialogAltaCorredor;
 import digrafico.Interfaz.ListadoCarreras;
@@ -22,6 +23,8 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.openide.util.Exceptions;
 
@@ -41,6 +44,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
+        cambiarLF();
         File fichero = new File("gestionCarreras.dat");
         if (!fichero.exists()) {
             mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
@@ -51,6 +55,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.abrirFicheroLecturaObjetos("gestionCarreras.dat");
         this.logicaMetodos = (LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
         mgfo.cerrarFicherosLecturaObjetos();
+    }
+
+    public void cambiarLF() {
+        try {
+            //UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+            UIManager.setLookAndFeel(com.jtattoo.plaf.smart.SmartLookAndFeel.class.getCanonicalName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -70,6 +84,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButtonListadoCarrera = new javax.swing.JButton();
         jLabelCorredores = new javax.swing.JLabel();
         jLabelCarreras = new javax.swing.JLabel();
+        jButtonConfi = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,20 +125,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabelCarreras.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelCarreras.setText("Carreras");
 
+        jButtonConfi.setText("Configuración");
+        jButtonConfi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(328, 328, 328)
-                        .addComponent(jLabelGestionCorredores))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(379, 379, 379)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCarreras)
-                            .addComponent(jLabelCorredores)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(155, 155, 155)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,27 +146,44 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addGap(119, 119, 119)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButtonListadoCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(261, Short.MAX_VALUE))
+                            .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(351, 351, 351)
+                        .addComponent(jLabelCarreras))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(366, 366, 366)
+                        .addComponent(jLabelCorredores)))
+                .addContainerGap(162, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonConfi)
+                        .addGap(324, 324, 324))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelGestionCorredores)
+                        .addGap(295, 295, 295))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabelGestionCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelCorredores)
-                .addGap(21, 21, 21)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(jLabelCarreras)
-                .addGap(60, 60, 60)
+                .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCarreraAlta)
                     .addComponent(jButtonListadoCarrera))
-                .addGap(100, 100, 100))
+                .addGap(43, 43, 43)
+                .addComponent(jButtonConfi)
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -203,6 +234,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.cerrarFicherosEscrituraObjetos();
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
+    private void jButtonConfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfiActionPerformed
+        Configuracion confi = new Configuracion(this, true);
+        confi.setVisible(true);
+    }//GEN-LAST:event_jButtonConfiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -247,6 +283,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCarreraAlta;
+    private javax.swing.JButton jButtonConfi;
     private javax.swing.JButton jButtonCorredoresListado;
     private javax.swing.JButton jButtonDarAltaCorredor;
     private javax.swing.JButton jButtonListadoCarrera;
