@@ -26,7 +26,7 @@ import org.netbeans.validation.api.ui.ValidationGroup;
  */
 public class LogicaAplicacion implements Serializable {
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     private List<Corredor> corredores = new ArrayList<Corredor>();
     private List<Carrera> carreras = new ArrayList<Carrera>();
 

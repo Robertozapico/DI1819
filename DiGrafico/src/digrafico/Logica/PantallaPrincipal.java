@@ -38,7 +38,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      * Creates new form PantallaPrincipal
      */
     private LogicaAplicacion logicaMetodos = new LogicaAplicacion();
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     private GestionCSV gcsv = new GestionCSV();
     private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
 

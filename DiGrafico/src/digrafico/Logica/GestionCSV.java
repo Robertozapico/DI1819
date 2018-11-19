@@ -29,7 +29,7 @@ import java.util.logging.Logger;
  */
 public class GestionCSV implements Serializable{
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/aa");
+    private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 
     private FileReader fr = null;
     private FileWriter fw = null;
