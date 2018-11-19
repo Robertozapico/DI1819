@@ -118,5 +118,32 @@ public class Corredor implements Comparable<Corredor>, Serializable {
         }
         return true;
     }
+    
+    /*
+    private String ruta;
+    private List<String> palabras= new ArrayList<String>;
+    
+    //constructor
+    
+        public int getRuta() {
+        return ruta;
+    }
+
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
+    }
+    
+    public void aniadirPalabra(String palabra){
+        palabras.add(palabra);
+    }
+    */
+    
+    //run(){
+     //   if(listaPalabras.contains(getText())){
+      //  csv.abrir();
+       // csv.grabar(getText() + " " + cal/*calendario fecha actual*/);
+       // csv.cerrar();
+       // }
+   // }
 
 }
