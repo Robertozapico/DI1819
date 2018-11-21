@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package componentes;
+package componentes.temporizador;
+
+import java.awt.Color;
 
 /**
  *
@@ -18,6 +20,16 @@ public class PanelinPropi extends javax.swing.JPanel {
         initComponents();
     }
 
+    public ClaseColorTexto getPropiedadSeleccionada() {
+        if (!TextoAlFinalizar.getText().equals("") && jColorChooserColor.getColor() != null) {
+            String texto = TextoAlFinalizar.getText();
+            Color colorTexto = jColorChooserColor.getColor();
+            return new ClaseColorTexto(colorTexto, texto);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +41,7 @@ public class PanelinPropi extends javax.swing.JPanel {
 
         TextoAlFinalizar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jColorChooser1 = new javax.swing.JColorChooser();
+        jColorChooserColor = new javax.swing.JColorChooser();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
 
         jLabel1.setText("Texto al finalizar:");
@@ -46,11 +58,11 @@ public class PanelinPropi extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TextoAlFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TextoAlFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jColorChooserColor, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -62,9 +74,9 @@ public class PanelinPropi extends javax.swing.JPanel {
                     .addComponent(TextoAlFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jColorChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jColorChooserColor, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -72,7 +84,7 @@ public class PanelinPropi extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TextoAlFinalizar;
     private javax.swing.Box.Filler filler1;
-    private javax.swing.JColorChooser jColorChooser1;
+    private javax.swing.JColorChooser jColorChooserColor;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

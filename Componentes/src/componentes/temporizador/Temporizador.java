@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package componentes;
+package componentes.temporizador;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -20,7 +20,7 @@ import javax.swing.JLabel;
  * @author alumnop
  */
 public class Temporizador extends JLabel implements Serializable {
-
+    
     private int segundos;
     private int segundosRestantes;
     private double segundosRestantesDouble;
@@ -28,52 +28,61 @@ public class Temporizador extends JLabel implements Serializable {
     private Color colorComponente;
     private boolean decimales;
     private File imagenFinal;
-
+    private ClaseColorTexto textoYColor;
+    
     public Temporizador() {
     }
-
+    
+    public ClaseColorTexto getTextoYColor() {
+        return textoYColor;
+    }
+    
+    public void setTextoYColor(ClaseColorTexto textoYColor) {
+        this.textoYColor = textoYColor;
+    }
+    
     public String getTextoFinal() {
         return textoFinal;
     }
-
+    
     public void setTextoFinal(String textoFinal) {
         this.textoFinal = textoFinal;
     }
-
+    
     public Color getColorComponente() {
         return colorComponente;
     }
-
+    
     public void setColorComponente(Color colorComponente) {
         this.colorComponente = colorComponente;
     }
-
+    
     public boolean isDecimales() {
         return decimales;
     }
-
+    
     public void setDecimales(boolean decimales) {
         this.decimales = decimales;
     }
-
+    
     public File getImagenFinal() {
         return imagenFinal;
     }
-
+    
     public void setImagenFinal(File imagenFinal) {
         this.imagenFinal = imagenFinal;
     }
-
+    
     public int getSegundos() {
         return segundos;
     }
-
+    
     public void setSegundos(int segundos) {
         this.segundos = segundos;
     }
-
+    
     public void start() {
-
+        
         DecimalFormat decimalFormat = new DecimalFormat("####.#");
         segundosRestantes = segundos;
         segundosRestantesDouble = segundos;
@@ -83,13 +92,13 @@ public class Temporizador extends JLabel implements Serializable {
         } else {
             milisegundos = 1000;
         }
-
+        
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 if (decimales != true) {
-
+                    
                     setText(Integer.toString(segundos));
                     setText(Integer.toString(segundosRestantes--));
                 } else {
@@ -113,14 +122,18 @@ public class Temporizador extends JLabel implements Serializable {
                         //REDIMENSIONAR IMAGEN
                         Image img = new ImageIcon(imagenFinal.getAbsolutePath()).getImage();
                         ImageIcon img2 = new ImageIcon(img.getScaledInstance(78, 124, Image.SCALE_SMOOTH));
-
+                        
                         setIcon(img2);
+                    }
+                    if (textoYColor != null) {
+                        setText(textoYColor.getTextoFinal());
+                        setForeground(textoYColor.getColorTexto());
                     }
                     cancel();
                 }
             }
         }, 0, milisegundos);
-
+        
     }
-
+    
 }

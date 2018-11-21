@@ -25,12 +25,12 @@
               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="TextoAlFinalizar" min="-2" pref="93" max="-2" attributes="0"/>
+              <Component id="TextoAlFinalizar" min="-2" pref="149" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jColorChooser1" min="-2" pref="631" max="-2" attributes="0"/>
+              <Component id="jColorChooserColor" min="-2" pref="631" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -45,9 +45,9 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="filler1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jColorChooser1" min="-2" pref="305" max="-2" attributes="0"/>
-              <EmptySpace pref="51" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jColorChooserColor" min="-2" pref="305" max="-2" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,7 +60,7 @@
         <Property name="text" type="java.lang.String" value="Texto al finalizar:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JColorChooser" name="jColorChooser1">
+    <Component class="javax.swing.JColorChooser" name="jColorChooserColor">
     </Component>
     <Component class="javax.swing.Box$Filler" name="filler1">
       <Properties>
