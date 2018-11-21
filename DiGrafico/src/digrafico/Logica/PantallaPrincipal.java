@@ -44,7 +44,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
-        cambiarLF();
+        //cambiarLF();
         File fichero = new File("gestionCarreras.dat");
         if (!fichero.exists()) {
             mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
