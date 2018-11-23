@@ -17,6 +17,9 @@ public class Participante extends Corredor implements Serializable {
     private double tiempo;
     private int dorsal;
 
+    public Participante() {
+    }
+
     public Participante(String nombre, String dni, Date fechaNacimiento, String direccion, int telefono) {
         super(nombre, dni, fechaNacimiento, direccion, telefono);
     }

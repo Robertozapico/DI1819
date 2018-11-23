@@ -16,6 +16,8 @@ import java.awt.Dialog;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.openide.util.Exceptions;
@@ -187,34 +189,38 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         int dorsal = 0;
         //MODIFICAR CORREDORES POR PARTICIPANTES
 
-        for (Corredor corredor : logicaMetodos.getCorredores()) {
-            if (carreraEscogida.getCorredores().contains(corredor)) {
+        //for (Corredor corredor : logicaMetodos.getCorredores()) {
+            for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
+                int key = entry.getKey();
+                Participante value = entry.getValue();
+                
+                if (carreraEscogida.getCorredores().contains(corredor)) {
 
-                Participante participante = new Participante(corredor.getNombre(), corredor.getDni(), corredor.getFechaNacimiento(), corredor.getDireccion(), corredor.getTelefono());
-                dorsal++;
-                if (participante.getDorsal() == 0) {
-                    participante.setDorsal(dorsal);
+                    Participante participante = new Participante(corredor.getNombre(), corredor.getDni(), corredor.getFechaNacimiento(), corredor.getDireccion(), corredor.getTelefono());
+                    dorsal++;
+                    if (participante.getDorsal() == 0) {
+                        participante.setDorsal(dorsal);
+                    }
+                    carreraEscogida.getParticipantes().put(participante.getDorsal(), participante);
+
+                    inscripcion = "si";
+                    dorsalesAsignados = Integer.toString(carreraEscogida.getParticipantes().get(dorsal).getDorsal());
+                    contadorDorsales++;
+                } else {
+                    inscripcion = "no";
+                    dorsalesAsignados = "";
                 }
-                carreraEscogida.getParticipantes().put(participante.getDorsal(), participante);
 
-                inscripcion = "si";
-                dorsalesAsignados = Integer.toString(carreraEscogida.getParticipantes().get(dorsal).getDorsal());
-                contadorDorsales++;
-            } else {
-                inscripcion = "no";
-                dorsalesAsignados = "";
+                String[] a = new String[4];
+                a[0] = corredor.getNombre();
+                a[1] = corredor.getDni();
+
+                a[2] = dorsalesAsignados;
+                a[3] = inscripcion;
+                dtm.addRow(a);
             }
-
-            String[] a = new String[4];
-            a[0] = corredor.getNombre();
-            a[1] = corredor.getDni();
-
-            a[2] = dorsalesAsignados;
-            a[3] = inscripcion;
-            dtm.addRow(a);
+            jTableCorredoresCarrera.setModel(dtm);
         }
-        jTableCorredoresCarrera.setModel(dtm);
-    }
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
         dispose();
