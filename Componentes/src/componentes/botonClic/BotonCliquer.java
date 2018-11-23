@@ -5,6 +5,7 @@
  */
 package componentes.botonClic;
 
+import util.GestionRegistro;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
