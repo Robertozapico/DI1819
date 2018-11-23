@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.openide.util.Exceptions;
 
 /**
  *
@@ -192,6 +193,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
         mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
         mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCorredores();
+        try {
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -210,6 +218,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
         mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
         mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCorredores();
+        try {
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
 
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
@@ -226,6 +241,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
         mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
         mgfo.cerrarFicherosEscrituraObjetos();
         rellenarTablaCorredores();
+        try {
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
 
     }//GEN-LAST:event_jButtonEliminarCorredorActionPerformed
 

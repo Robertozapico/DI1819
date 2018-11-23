@@ -5,20 +5,17 @@
  */
 package digrafico.Logica;
 
-import digrafico.Interfaz.DialogAltaCorredor;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
+import digrafico.Modelo.Participante;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.table.DefaultTableModel;
-import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
-import org.netbeans.validation.api.ui.ValidationGroup;
+import java.util.Map;
 
 /**
  *
@@ -29,6 +26,7 @@ public class LogicaAplicacion implements Serializable {
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     private List<Corredor> corredores = new ArrayList<Corredor>();
     private List<Carrera> carreras = new ArrayList<Carrera>();
+
 
     public static SimpleDateFormat getSdf() {
         return sdf;

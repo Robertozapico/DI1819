@@ -3,8 +3,10 @@ package digrafico.Modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,8 +24,9 @@ public class Carrera implements Serializable {
     private Date fechaDeCarrera;
     private String lugarDeCarrera;
     private int numMaxParticipantes;
-    private LinkedHashSet<Integer> dorsales = new LinkedHashSet<Integer>();
+    //private LinkedHashSet<Integer> dorsales = new LinkedHashSet<Integer>();
     private List<Corredor> corredores;
+    private Map<Integer, Participante> participantes = new HashMap<Integer, Participante>();
 
     public Carrera(String nombreDeCarrera, Date fechaCarrera, String lugarDeCarrera, int numMaxParticipantes) {
         this.nombreDeCarrera = nombreDeCarrera;
@@ -43,14 +46,22 @@ public class Carrera implements Serializable {
 
     }
 
+    public Map<Integer, Participante> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(Map<Integer, Participante> participantes) {
+        this.participantes = participantes;
+    }
+
+    /*
     public LinkedHashSet<Integer> getDorsales() {
         return dorsales;
     }
 
     public void setDorsales(LinkedHashSet<Integer> dorsales) {
         this.dorsales = dorsales;
-    }
-
+    }*/
     public String getNombreDeCarrera() {
         return nombreDeCarrera;
     }

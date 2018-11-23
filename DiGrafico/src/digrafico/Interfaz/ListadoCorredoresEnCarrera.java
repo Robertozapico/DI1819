@@ -11,6 +11,7 @@ import static digrafico.Logica.LogicaAplicacion.getSdf;
 import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
+import digrafico.Modelo.Participante;
 import java.awt.Dialog;
 import java.io.File;
 import java.io.IOException;
@@ -181,16 +182,23 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         String inscripcion = "";
         String[] columnas = {"Nombre", "Dni", "Dorsal", "Inscrito"};
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
-        Integer[] dorsales = new Integer[carreraEscogida.getCorredores().size()];
-        System.out.println("Tamaño dorsales: " + dorsales.length);
-        System.out.println("Dorsales de la carrera:" + carreraEscogida.getDorsales());
-
-        String dorsalesAsignados = "";
         int contadorDorsales = 0;
+        String dorsalesAsignados = "";
+        int dorsal = 0;
+        //MODIFICAR CORREDORES POR PARTICIPANTES
+
         for (Corredor corredor : logicaMetodos.getCorredores()) {
             if (carreraEscogida.getCorredores().contains(corredor)) {
+
+                Participante participante = new Participante(corredor.getNombre(), corredor.getDni(), corredor.getFechaNacimiento(), corredor.getDireccion(), corredor.getTelefono());
+                dorsal++;
+                if (participante.getDorsal() == 0) {
+                    participante.setDorsal(dorsal);
+                }
+                carreraEscogida.getParticipantes().put(participante.getDorsal(), participante);
+
                 inscripcion = "si";
-                dorsalesAsignados = Integer.toString(contadorDorsales + 1);
+                dorsalesAsignados = Integer.toString(carreraEscogida.getParticipantes().get(dorsal).getDorsal());
                 contadorDorsales++;
             } else {
                 inscripcion = "no";

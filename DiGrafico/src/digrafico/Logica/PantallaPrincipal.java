@@ -14,6 +14,7 @@ import digrafico.Logica.GestionCSV;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Carrera;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,6 +56,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.abrirFicheroLecturaObjetos("gestionCarreras.dat");
         this.logicaMetodos = (LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
         mgfo.cerrarFicherosLecturaObjetos();
+        try {
+            gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
+            gcsv.cerrarFicheroLectura();
+        } catch (FileNotFoundException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        }
     }
 
     public void cambiarLF() {
@@ -209,6 +218,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
         mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
         mgfo.cerrarFicherosEscrituraObjetos();
+        try {
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
 
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
 

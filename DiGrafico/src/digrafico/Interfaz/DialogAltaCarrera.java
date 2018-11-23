@@ -203,11 +203,11 @@ public class DialogAltaCarrera extends javax.swing.JDialog {
         int numMaxParticipantes = (int) jSpinnerCantidadCorredores.getValue();
         if (carreraModificable == null) {
             Carrera carreraNueva = new Carrera(jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
-            logicaMetodos.crearDorsales(carreraNueva.getNumMaxParticipantes(), carreraNueva.getDorsales());
+            //logicaMetodos.crearDorsales(carreraNueva.getNumMaxParticipantes(), carreraNueva.getDorsales());
             logicaMetodos.getCarreras().add(carreraNueva);
         } else {
             logicaMetodos.modificarCarrera(carreraModificable, jTextFieldNombreCarrera.getText(), (Date) jSpinnerFechaCarrera.getValue(), jTextFieldLugarCarrera.getText(), numMaxParticipantes);
-            logicaMetodos.crearDorsales(carreraModificable.getNumMaxParticipantes(), carreraModificable.getDorsales());
+            //logicaMetodos.crearDorsales(carreraModificable.getNumMaxParticipantes(), carreraModificable.getDorsales());
         }
         JOptionPane.showMessageDialog(this, "Carrera añadida");
         //Para cerrar la pantalla
