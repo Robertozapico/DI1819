@@ -140,15 +140,15 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonAnnadirCorredor)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonEliminarCorredor)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonCerrar)))
+                        .addComponent(jButtonCerrar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -186,41 +186,31 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
         int contadorDorsales = 0;
         String dorsalesAsignados = "";
-        int dorsal = 0;
-        //MODIFICAR CORREDORES POR PARTICIPANTES
-
-        //for (Corredor corredor : logicaMetodos.getCorredores()) {
+        System.out.println(logicaMetodos.getCorredores());
+        System.out.println("Participantes:" + carreraEscogida.getParticipantes());
+        for (Corredor corredor : logicaMetodos.getCorredores()) {
+            inscripcion = "no";
+            dorsalesAsignados = "";
             for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
-                int key = entry.getKey();
-                Participante value = entry.getValue();
-                
-                if (carreraEscogida.getCorredores().contains(corredor)) {
-
-                    Participante participante = new Participante(corredor.getNombre(), corredor.getDni(), corredor.getFechaNacimiento(), corredor.getDireccion(), corredor.getTelefono());
-                    dorsal++;
-                    if (participante.getDorsal() == 0) {
-                        participante.setDorsal(dorsal);
-                    }
-                    carreraEscogida.getParticipantes().put(participante.getDorsal(), participante);
+                int dorsal = entry.getKey();
+                Participante participante = entry.getValue();
+                if (participante.getDni().equals(corredor.getDni())) {
 
                     inscripcion = "si";
                     dorsalesAsignados = Integer.toString(carreraEscogida.getParticipantes().get(dorsal).getDorsal());
                     contadorDorsales++;
-                } else {
-                    inscripcion = "no";
-                    dorsalesAsignados = "";
                 }
-
-                String[] a = new String[4];
-                a[0] = corredor.getNombre();
-                a[1] = corredor.getDni();
-
-                a[2] = dorsalesAsignados;
-                a[3] = inscripcion;
-                dtm.addRow(a);
             }
-            jTableCorredoresCarrera.setModel(dtm);
+            String[] a = new String[4];
+            a[0] = corredor.getNombre();
+            a[1] = corredor.getDni();
+
+            a[2] = dorsalesAsignados;
+            a[3] = inscripcion;
+            dtm.addRow(a);
         }
+        jTableCorredoresCarrera.setModel(dtm);
+    }
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
         dispose();
@@ -230,6 +220,16 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         int[] intCorredoresSeleccionados = jTableCorredoresCarrera.getSelectedRows();
 
         for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
+            Corredor corredor = logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]);
+            System.out.println("corredor seleccionado: " +corredor);
+            for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
+                int dorsal = entry.getKey();
+                Participante participante = entry.getValue();
+                System.out.println("Participante:"+participante);
+                if (participante.getDni().equals(corredor.getDni())) {
+                    carreraEscogida.getParticipantes().remove(dorsal);
+                }
+            }
             carreraEscogida.getCorredores().remove(intCorredoresSeleccionados[i]);
         }
         File fichero = new File("gestionCarreras.dat");
@@ -245,7 +245,16 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         int[] intCorredoresSeleccionados = jTableCorredoresCarrera.getSelectedRows();
         if (carreraEscogida.getCorredores().size() < carreraEscogida.getNumMaxParticipantes()) {
             for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
-                carreraEscogida.getCorredores().add(logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]));
+                Corredor corredor = logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]);
+                Participante participante = new Participante(corredor.getNombre(), corredor.getDni(), corredor.getFechaNacimiento(), corredor.getDireccion(), corredor.getTelefono());
+                int dorsal = (int) (Math.random() * carreraEscogida.getNumMaxParticipantes() + 1);
+                if (participante.getDorsal() == 0) {
+                    while (carreraEscogida.getParticipantes().containsKey(dorsal)) {
+                        dorsal = (int) (Math.random() * carreraEscogida.getNumMaxParticipantes() + 1);
+                    }
+                    participante.setDorsal(dorsal);
+                }
+                carreraEscogida.getParticipantes().put(participante.getDorsal(), participante);
             }
             File fichero = new File("gestionCarreras.dat");
             fichero.delete();

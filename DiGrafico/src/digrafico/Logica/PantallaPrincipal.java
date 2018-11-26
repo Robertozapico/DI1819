@@ -57,10 +57,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         this.logicaMetodos = (LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
         mgfo.cerrarFicherosLecturaObjetos();
         try {
-            gcsv.annadirListaCorredores(logicaMetodos.getCorredores());
-            gcsv.cerrarFicheroLectura();
-        } catch (FileNotFoundException ex) {
-            Exceptions.printStackTrace(ex);
+            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
         } catch (ParseException ex) {
             Exceptions.printStackTrace(ex);
         }
