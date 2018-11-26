@@ -221,16 +221,17 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
 
         for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
             Corredor corredor = logicaMetodos.getCorredores().get(intCorredoresSeleccionados[i]);
-            System.out.println("corredor seleccionado: " +corredor);
+            System.out.println("corredor seleccionado: " + corredor);
             for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
                 int dorsal = entry.getKey();
                 Participante participante = entry.getValue();
-                System.out.println("Participante:"+participante);
-                if (participante.getDni().equals(corredor.getDni())) {
-                    carreraEscogida.getParticipantes().remove(dorsal);
+                System.out.println("Participante:" + participante);
+                if (corredor.getDni().equals(participante.getDni())) {
+                    System.out.println(participante.getDni());
+                    System.out.println(corredor.getDni());
+                    //carreraEscogida.getParticipantes().remove(participante.getDorsal());
                 }
             }
-            carreraEscogida.getCorredores().remove(intCorredoresSeleccionados[i]);
         }
         File fichero = new File("gestionCarreras.dat");
         fichero.delete();
