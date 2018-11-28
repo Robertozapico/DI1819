@@ -233,7 +233,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         int corredorSeleccionado = jTableCorredores.getSelectedRow();
         Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
         logicaMetodos.eliminarCorredor(corredorAModificar);
-
+        
         JOptionPane.showMessageDialog(this, "Corredor borrado");
         File fichero = new File("gestionCarreras.dat");
         fichero.delete();

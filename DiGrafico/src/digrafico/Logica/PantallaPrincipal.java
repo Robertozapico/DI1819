@@ -248,7 +248,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
     private void jButtonConfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfiActionPerformed
-        Configuracion confi = new Configuracion(this, true);
+        Configuracion confi = new Configuracion(this, true, logicaMetodos);
         confi.setVisible(true);
     }//GEN-LAST:event_jButtonConfiActionPerformed
 

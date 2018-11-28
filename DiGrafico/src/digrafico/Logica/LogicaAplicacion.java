@@ -8,6 +8,8 @@ package digrafico.Logica;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Participante;
+import java.awt.Component;
+import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -26,7 +29,6 @@ public class LogicaAplicacion implements Serializable {
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     private List<Corredor> corredores = new ArrayList<Corredor>();
     private List<Carrera> carreras = new ArrayList<Carrera>();
-
 
     public static SimpleDateFormat getSdf() {
         return sdf;
@@ -61,6 +63,9 @@ public class LogicaAplicacion implements Serializable {
 
     public boolean eliminarCorredor(Corredor corredorModificable) {
         corredores.remove(corredorModificable);
+        for (Carrera carrera : carreras) {
+            carrera.getParticipantes();
+        }
 
         return true;
     }
@@ -107,18 +112,48 @@ public class LogicaAplicacion implements Serializable {
         return true;
     }
 
-    public int crearDorsales(int cantidadDeDorsales, LinkedHashSet<Integer> dorsales) {
-        int cantidadDorsales = 0;
-        int dorsalCreado = 0;
-        for (Integer dorsal : dorsales) {
+    public boolean annadirCorredoresACarrera(Carrera carreraEscogida, int[] intCorredoresSeleccionados) {
 
-            while (dorsales.contains(dorsalCreado)) {
-                dorsalCreado = (int) Math.random() * cantidadDeDorsales;
-                dorsal = dorsalCreado;
+        for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
+            Corredor corredor = getCorredores().get(intCorredoresSeleccionados[i]);
+            Participante participante = new Participante(corredor.getNombre(), corredor.getDni(), corredor.getFechaNacimiento(), corredor.getDireccion(), corredor.getTelefono());
+            int dorsal = (int) (Math.random() * carreraEscogida.getNumMaxParticipantes() + 1);
+            if (participante.getDorsal() == 0) {
+                while (carreraEscogida.getParticipantes().containsKey(dorsal)) {
+                    dorsal = (int) (Math.random() * carreraEscogida.getNumMaxParticipantes() + 1);
+                }
+                participante.setDorsal(dorsal);
             }
-            cantidadDeDorsales++;
+            carreraEscogida.getParticipantes().put(participante.getDorsal(), participante);
         }
-        return cantidadDorsales;
+        return true;
     }
 
+    public boolean eliminarCorredoresDeUnaCarrera(int[] intCorredoresSeleccionados, Carrera carreraEscogida) {
+        Participante participante;
+        int dorsalABorrar = 0;
+        for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
+            Corredor corredor = getCorredores().get(intCorredoresSeleccionados[i]);
+            System.out.println("corredor seleccionado: " + corredor);
+            for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
+                participante = entry.getValue();
+                if (corredor.getDni().equals(participante.getDni())) {
+                    dorsalABorrar = participante.getDorsal();
+                }
+            }
+            carreraEscogida.getParticipantes().remove(dorsalABorrar);
+        }
+        return true;
+    }
+
+    public File escogerDirectorio(Component pantalla) {
+        File ficheroEscogido = null;
+        JFileChooser escogeSoloCarpetas = new JFileChooser();
+        escogeSoloCarpetas.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int carpetaEscogida = escogeSoloCarpetas.showOpenDialog(pantalla);
+        if (carpetaEscogida == JFileChooser.APPROVE_OPTION) {
+            ficheroEscogido = escogeSoloCarpetas.getSelectedFile();
+        }
+        return ficheroEscogido;
+    }
 }
