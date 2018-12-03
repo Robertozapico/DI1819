@@ -7,13 +7,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class MetodosGestionFicherosObjetos {
+public class MetodosGestionFicherosObjetos{
 
     private File fichero = null;
     private FileInputStream fis = null;
     private ObjectInputStream ois = null;
     private ObjectOutputStream oos = null;
+    private Timer timer;
 
     //apertura de fichero de objetos para grabar
     public void abrirFicheroEscrituraObjetos(String f) {
@@ -109,4 +113,20 @@ public class MetodosGestionFicherosObjetos {
         }
     }
 
+    public void ejecutarAutoguardado(String ruta, int tiempo, LogicaAplicacion logicaMetodos) {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                abrirFicheroEscrituraObjetos(ruta+File.separator+"AutoSave.dat");
+                System.out.println(ruta+"/autosave");
+                grabarObjetoFicheroObjetos(logicaMetodos);
+                cerrarFicherosEscrituraObjetos();
+            }
+        }, 0, tiempo * 60 * 1000);
+    }
+
+    public void pararAutoguardado(){
+        timer.cancel();
+    }
 }

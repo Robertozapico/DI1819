@@ -7,7 +7,10 @@ package digrafico.Interfaz;
 
 import com.jtattoo.plaf.smart.SmartLookAndFeel;
 import digrafico.Logica.LogicaAplicacion;
+import digrafico.Logica.MetodosGestionFicherosObjetos;
+import java.io.File;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -19,13 +22,17 @@ import org.openide.util.Exceptions;
  * @author alumnop
  */
 public class Configuracion extends javax.swing.JDialog {
+
     private LogicaAplicacion logicaMetodos;
+    private File ruta;
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
+
     /**
      * Creates new form Configuracion
      */
     public Configuracion(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaMetodos) {
         super(parent, modal);
-        this.logicaMetodos=logicaMetodos;
+        this.logicaMetodos = logicaMetodos;
         initComponents();
         //UIManager.installLookAndFeel(new UIManager().LookAndFeelInfo("jTattoo", com.jtattoo.plaf.smart.SmartLookAndFeel.class.getName()));
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
@@ -35,7 +42,6 @@ public class Configuracion extends javax.swing.JDialog {
         jComboBoxLF.setModel(dcm);
 
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,6 +57,10 @@ public class Configuracion extends javax.swing.JDialog {
         jLabelTema = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btAutoguardado = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jSpinnerMinutosAutoguardado = new javax.swing.JSpinner();
+        jLabel3 = new javax.swing.JLabel();
+        jCheckBoxActivarAutoguardado = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,6 +82,19 @@ public class Configuracion extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setText(org.openide.util.NbBundle.getMessage(Configuracion.class, "Configuracion.jLabel2.text")); // NOI18N
+
+        jSpinnerMinutosAutoguardado.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jLabel3.setText(org.openide.util.NbBundle.getMessage(Configuracion.class, "Configuracion.jLabel3.text")); // NOI18N
+
+        jCheckBoxActivarAutoguardado.setText(org.openide.util.NbBundle.getMessage(Configuracion.class, "Configuracion.jCheckBoxActivarAutoguardado.text")); // NOI18N
+        jCheckBoxActivarAutoguardado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxActivarAutoguardadoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -79,6 +102,13 @@ public class Configuracion extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jCheckBoxActivarAutoguardado)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(28, 28, 28)
+                        .addComponent(jSpinnerMinutosAutoguardado, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -100,7 +130,14 @@ public class Configuracion extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(btAutoguardado))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jSpinnerMinutosAutoguardado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addComponent(jCheckBoxActivarAutoguardado)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -129,16 +166,38 @@ public class Configuracion extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBoxLFActionPerformed
 
     private void btAutoguardadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAutoguardadoActionPerformed
-        logicaMetodos.escogerDirectorio(this);
+        ruta = logicaMetodos.escogerDirectorio(this);
     }//GEN-LAST:event_btAutoguardadoActionPerformed
 
+    private void jCheckBoxActivarAutoguardadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxActivarAutoguardadoActionPerformed
+        if (ruta != null) {
+
+            if (jCheckBoxActivarAutoguardado.isSelected()) {
+
+                mgfo.ejecutarAutoguardado(ruta.getAbsolutePath(), (int) jSpinnerMinutosAutoguardado.getValue(), logicaMetodos);
+                JOptionPane.showMessageDialog(this, "Autoguardado activado");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Autoguardado desactivado");
+                mgfo.pararAutoguardado();
+            }
+        } else {
+            jCheckBoxActivarAutoguardado.setSelected(false);
+            JOptionPane.showMessageDialog(this, "Tiene que escoger una ruta", "Escoja una ruta", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jCheckBoxActivarAutoguardadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAutoguardado;
+    private javax.swing.JCheckBox jCheckBoxActivarAutoguardado;
     private javax.swing.JComboBox<String> jComboBoxLF;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelTema;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSpinner jSpinnerMinutosAutoguardado;
     // End of variables declaration//GEN-END:variables
 }
