@@ -94,9 +94,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL.toURL());
             HelpBroker hb = helpset.createHelpBroker();
 
-            hb.enableHelpOnButton(jButtonAyuda, "ventana_principal", helpset);
+            hb.enableHelpOnButton(jButtonAyuda, "aplicacion", helpset);
             //Al pulsar F1 salta la ayuda
-            hb.enableHelpKey(getRootPane(), "ventana_principal", helpset);
+            hb.enableHelpKey(getRootPane(), "aplicacion", helpset);
         } catch (URISyntaxException ex) {
             Exceptions.printStackTrace(ex);
         } catch (MalformedURLException ex) {
