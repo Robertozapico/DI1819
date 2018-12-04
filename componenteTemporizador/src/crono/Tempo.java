@@ -32,7 +32,19 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
      */
     public Tempo() {
         initComponents();
-        tiempo = "H:" + h + "-m:" + m + "-s:" + s;
+        String cadenaSegundos = "";
+        String cadenaMinutos = "";
+        if (s < 10) {
+            cadenaSegundos = "0" + s;
+        } else {
+            cadenaSegundos = Integer.toString(s);
+        }
+        if (m < 10) {
+            cadenaMinutos = "0" + m;
+        } else {
+            cadenaMinutos = Integer.toString(m);
+        }
+        tiempo = h + ":" + cadenaMinutos + ":" + cadenaSegundos;
         jLabelTiempo.setText(tiempo);
         jLabelTiempo.addMouseListener(new MouseAdapter() {
             @Override
@@ -146,15 +158,30 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
         s = 0;
         m = 0;
         h = 0;
-        tiempo = "H:" + h + "-m:" + m + "-s:" + s;
+        String cadenaSegundos = "";
+        String cadenaMinutos = "";
+        if (s < 10) {
+            cadenaSegundos = "0" + s;
+        } else {
+            cadenaSegundos = Integer.toString(s);
+        }
+        if (m < 10) {
+            cadenaMinutos = "0" + m;
+        } else {
+            cadenaMinutos = Integer.toString(m);
+        }
+        tiempo = h + ":" + cadenaMinutos + ":" + cadenaSegundos;
         jLabelTiempo.setForeground(Color.black);
         jLabelTiempo.setText(tiempo);
     }//GEN-LAST:event_jbResetActionPerformed
     public void start() {
+
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                String cadenaSegundos = "";
+                String cadenaMinutos = "";
                 s++;
                 if (s == 60) {
                     s = 0;
@@ -164,7 +191,17 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
                     m = 0;
                     h++;
                 }
-                tiempo = "H:" + h + "-m:" + m + "-s:" + s;
+                if (s < 10) {
+                    cadenaSegundos = "0" + s;
+                } else {
+                    cadenaSegundos = Integer.toString(s);
+                }
+                if (m < 10) {
+                    cadenaMinutos = "0" + m;
+                } else {
+                    cadenaMinutos = Integer.toString(m);
+                }
+                tiempo = h + ":" + cadenaMinutos + ":" + cadenaSegundos;
                 jLabelTiempo.setText(tiempo);
                 //System.out.println("H:" + h + "-m:" + m + "-s:" + s);
             }
