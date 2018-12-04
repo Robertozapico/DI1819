@@ -7,6 +7,7 @@ package digrafico.Logica;
 
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
+import digrafico.Modelo.Participante;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,7 +29,7 @@ import java.util.logging.Logger;
  *
  * @author zapia
  */
-public class GestionCSV implements Serializable{
+public class GestionCSV implements Serializable {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 
@@ -54,7 +56,7 @@ public class GestionCSV implements Serializable{
             //System.out.println(corredor.toString());
         }
     }
-
+//borrar
     public void tokenizarCarreras(String linea) throws ParseException {
         StringTokenizer tokens = new StringTokenizer(linea, ",");
         while (tokens.hasMoreTokens()) {
@@ -63,7 +65,7 @@ public class GestionCSV implements Serializable{
             Date fechaCarrera = sdf.parse(fechaCarreraString);
             String lugar = tokens.nextToken();
             int numeroMaxParticipantes = Integer.parseInt(tokens.nextToken());
-            
+
             //String listadoDeCorredores = tokens.nextToken();
             carrera = new Carrera(nombre, fechaCarrera, lugar, numeroMaxParticipantes/*, listadoDeCorredores*/);
             //System.out.println(corredor.toString());
@@ -85,7 +87,7 @@ public class GestionCSV implements Serializable{
         registro.close();
         fr.close();
     }
-
+//borrar
     public void annadirListaCarreras(List<Carrera> carrerasLista) throws FileNotFoundException, IOException, ParseException {
         fr = new FileReader("carreras.csv");
         registro = new BufferedReader(fr);
@@ -121,7 +123,7 @@ public class GestionCSV implements Serializable{
             Logger.getLogger(GestionCSV.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+//borrar
     public void visualizarCarreras() throws ParseException {
         try {
             fr = new FileReader("carreras.csv");
@@ -159,17 +161,18 @@ public class GestionCSV implements Serializable{
         fw.close();
     }
 
-    public void grabarFicheroCSVCarreras(List<Carrera> carreras) throws ParseException, IOException {
+    public void grabarFicheroCSVCarreras(Carrera carrera) throws ParseException, IOException {
         fw = null;
 
-        fw = new FileWriter("carreras.csv");
+        fw = new FileWriter(carrera.getNombreDeCarrera() + ".csv");
         fsalida = new BufferedWriter(fw);
-
-        for (int i = 0; i < carreras.size(); i++) {
-            fsalida.write(carreras.get(i).getNombreDeCarrera() + ",");
-            fsalida.write(sdf.format(carreras.get(i).getFechaDeCarrera()) + ",");
-            fsalida.write(carreras.get(i).getLugarDeCarrera() + ",");
-            fsalida.write(carreras.get(i).getNumMaxParticipantes() + "\n");
+//        fsalida.write(str);
+        for (Map.Entry<Integer, Participante> entry : carrera.getParticipantes().entrySet()) {
+            Participante participante = entry.getValue();
+            fsalida.write(participante.getNombre() + ",");
+            fsalida.write(participante.getDorsal() + ",");
+            fsalida.write(participante.getTiempo() + ",");
+            fsalida.write(participante.getDni() + "\n");
         }
         fsalida.close();
         fw.close();
@@ -179,7 +182,5 @@ public class GestionCSV implements Serializable{
         registro.close();
         fr.close();
     }
-    
-    
 
 }

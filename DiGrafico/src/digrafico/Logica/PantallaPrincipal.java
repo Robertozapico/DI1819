@@ -13,6 +13,10 @@ import digrafico.Interfaz.ListadoCorredores;
 import digrafico.Logica.GestionCSV;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Carrera;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +28,7 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
@@ -62,6 +67,30 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             Exceptions.printStackTrace(ex);
         }
         mgfo.ejecutarAutoguardado("", 1, logicaMetodos);
+
+        ImageIcon interrogante = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/interrogante.png")));
+        Image imgInterrogante = interrogante.getImage();
+        Image imgInterroganteEscalado = imgInterrogante.getScaledInstance(jLabelAyuda.getWidth(), jLabelAyuda.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon iconoInterrogante = new ImageIcon(imgInterroganteEscalado);
+        jLabelAyuda.setIcon(iconoInterrogante);
+        jLabelAyuda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                System.out.println("Hola");
+            }
+        });
+        ImageIcon settings = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/settings.png")));
+        Image imgSettings = settings.getImage();
+        Image imgSettingsEscalado = imgSettings.getScaledInstance(jLabelAyuda.getWidth(), jLabelAyuda.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon iconoSettings = new ImageIcon(imgSettingsEscalado);
+        jLabelSettings.setIcon(iconoSettings);
+        jLabelSettings.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                Configuracion confi = new Configuracion(PantallaPrincipal.this, true, logicaMetodos);
+                confi.setVisible(true);
+            }
+        });
     }
 
     public void cambiarLF() {
@@ -91,7 +120,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButtonListadoCarrera = new javax.swing.JButton();
         jLabelCorredores = new javax.swing.JLabel();
         jLabelCarreras = new javax.swing.JLabel();
-        jButtonConfi = new javax.swing.JButton();
+        jLabelAyuda = new javax.swing.JLabel();
+        jLabelSettings = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,13 +162,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabelCarreras.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelCarreras.setText("Carreras");
 
-        jButtonConfi.setText("Configuración");
-        jButtonConfi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConfiActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -163,34 +186,36 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(162, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButtonConfi)
-                        .addGap(324, 324, 324))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelGestionCorredores)
-                        .addGap(295, 295, 295))))
+                .addComponent(jLabelGestionCorredores)
+                .addGap(219, 219, 219)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelAyuda, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(jLabelSettings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabelGestionCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelGestionCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelCorredores)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(jLabelCarreras)
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCarreraAlta)
                     .addComponent(jButtonListadoCarrera))
-                .addGap(43, 43, 43)
-                .addComponent(jButtonConfi)
-                .addGap(32, 32, 32))
+                .addGap(98, 98, 98))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,11 +273,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.cerrarFicherosEscrituraObjetos();
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
-    private void jButtonConfiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfiActionPerformed
-        Configuracion confi = new Configuracion(this, true, logicaMetodos);
-        confi.setVisible(true);
-    }//GEN-LAST:event_jButtonConfiActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -297,13 +317,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCarreraAlta;
-    private javax.swing.JButton jButtonConfi;
     private javax.swing.JButton jButtonCorredoresListado;
     private javax.swing.JButton jButtonDarAltaCorredor;
     private javax.swing.JButton jButtonListadoCarrera;
+    private javax.swing.JLabel jLabelAyuda;
     private javax.swing.JLabel jLabelCarreras;
     private javax.swing.JLabel jLabelCorredores;
     private javax.swing.JLabel jLabelGestionCorredores;
+    private javax.swing.JLabel jLabelSettings;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
