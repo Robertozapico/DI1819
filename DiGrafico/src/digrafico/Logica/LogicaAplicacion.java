@@ -157,4 +157,14 @@ public class LogicaAplicacion implements Serializable {
         return ficheroEscogido;
     }
 
+    public File escogerFichero(Component pantalla) {
+        File ficheroEscogido = null;
+        JFileChooser escogeFicheros = new JFileChooser();
+        escogeFicheros.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int carpetaEscogida = escogeFicheros.showOpenDialog(pantalla);
+        if (carpetaEscogida == JFileChooser.APPROVE_OPTION) {
+            ficheroEscogido = escogeFicheros.getSelectedFile();
+        }
+        return ficheroEscogido;
+    }
 }

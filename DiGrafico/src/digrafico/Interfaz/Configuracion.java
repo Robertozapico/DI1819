@@ -19,7 +19,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
  * @author alumnop
  */
 public class Configuracion extends javax.swing.JDialog {
-
+    
     private LogicaAplicacion logicaMetodos;
     private File ruta;
     private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
@@ -36,8 +36,9 @@ public class Configuracion extends javax.swing.JDialog {
         for (LookAndFeelInfo lfi : UIManager.getInstalledLookAndFeels()) {
             dcm.addElement(lfi.getName());
         }
+        jCheckBoxActivarAutoguardado.setSelected(true);
         jComboBoxLF.setModel(dcm);
-
+        
     }
 
     /**
@@ -168,7 +169,7 @@ public class Configuracion extends javax.swing.JDialog {
     private void jComboBoxLFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLFActionPerformed
         try {
             UIManager.setLookAndFeel(UIManager.getInstalledLookAndFeels()[jComboBoxLF.getSelectedIndex()].getClassName());
-
+            
             SwingUtilities.updateComponentTreeUI(this.getParent());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Throwable e) {
@@ -182,12 +183,12 @@ public class Configuracion extends javax.swing.JDialog {
 
     private void jCheckBoxActivarAutoguardadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxActivarAutoguardadoActionPerformed
         if (ruta != null) {
-
+            
             if (jCheckBoxActivarAutoguardado.isSelected()) {
                 mgfo.pararAutoguardado();
                 mgfo.ejecutarAutoguardado(ruta.getAbsolutePath(), (int) jSpinnerMinutosAutoguardado.getValue(), logicaMetodos);
                 JOptionPane.showMessageDialog(this, "Autoguardado activado");
-
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Autoguardado desactivado");
                 mgfo.pararAutoguardado();

@@ -18,6 +18,8 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +59,8 @@ public class GestionCSV implements Serializable {
         }
     }
 
-    public void annadirListaCorredores(List<Corredor> corredoresLista) throws FileNotFoundException, IOException, ParseException {
-        fr = new FileReader("corredores.csv");
+    public void annadirListaCorredores(List<Corredor> corredoresLista, String fichero) throws FileNotFoundException, IOException, ParseException {
+        fr = new FileReader(fichero);
         registro = new BufferedReader(fr);
         corredores = corredoresLista;
         String cadena = registro.readLine(); //leemos el primer registro
@@ -115,17 +117,22 @@ public class GestionCSV implements Serializable {
 
         fw = new FileWriter(carrera.getNombreDeCarrera() + ".csv");
         fsalida = new BufferedWriter(fw);
+        List<Participante> participantesOrdenadosPorLlegada = new ArrayList<>(carrera.getParticipantes().values());
+        Collections.sort(participantesOrdenadosPorLlegada, Comparator.comparing(Participante::getTiempoSegundos));
+        Collections.sort(participantesOrdenadosPorLlegada, Comparator.comparing(Participante::getTiempoMinutos));
+        Collections.sort(participantesOrdenadosPorLlegada, Comparator.comparing(Participante::getTiempoHoras));
         fsalida.write("Nombre de la carrera" + "\t" + carrera.getNombreDeCarrera() + "\n"
-                + "Lugar de la carrera" + "\t" + carrera.getLugarDeCarrera() + "\n"
                 + "Fecha de la carrera" + "\t" + carrera.getFechaDeCarrera() + "\n"
-                + "Corredores" + "\n" + "Nombre" + "\t" + "Dorsal" + "\t" + "Tiempo" + "\t\t" + "DNI" + "\n");
-        for (Map.Entry<Integer, Participante> entry : carrera.getParticipantes().entrySet()) {
-            Participante participante = entry.getValue();
-            fsalida.write(participante.getNombre() + ", \t");
+                + "Corredores" + "\n" + "Dorsal" + "\t" + "Tiempo" + "\t\t" + "Nombre" + "\n");
+        //for (Map.Entry<Integer, Participante> entry : carrera.getParticipantes().entrySet()) {
+        //Participante participante = entry.getValue();
+        for (Participante participante : participantesOrdenadosPorLlegada) {
             fsalida.write(participante.getDorsal() + ", \t");
             fsalida.write(participante.getTiempo() + ", \t");
-            fsalida.write(participante.getDni() + "\n");
+            fsalida.write(participante.getNombre() + ", \t\n");
         }
+
+        //}
         fsalida.close();
         fw.close();
     }

@@ -41,12 +41,18 @@ public class EstadoCarrera extends javax.swing.JDialog {
         tempoCarrera.annadirListener(new CronometroListener() {
             @Override
             public void annadirCorredor(String dorsal, int segundos, int minutos, int horas) {
-
+                segundos = tempoCarrera.getS();
+                minutos = tempoCarrera.getM();
+                horas = tempoCarrera.getH();
                 dorsal = JOptionPane.showInputDialog("Introduce dorsal");
                 //System.out.println(Integer.parseInt(dorsalCorredor));
                 carrera.getParticipantes().get(Integer.parseInt(dorsal));
 
                 carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempo(tempoCarrera.getTiempo());
+                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoHoras(horas);
+                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoMinutos(minutos);
+                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoSegundos(segundos);
+
                 //System.out.println(carrera.getParticipantes().get(Integer.parseInt(dorsalCorredor)).getTiempo());
                 rellenarTablaCarreras();
             }

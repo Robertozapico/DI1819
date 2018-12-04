@@ -55,15 +55,14 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
                                           <Component id="jButtonModificar" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jButtonDarAltaCorredor" min="-2" pref="181" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="jButtonEliminarCorredor" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jButtonDarAltaCorredor" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jButtonImportarCorredores" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="jButtonEliminarCorredor" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                                   <Component id="jButtonCerrar" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -90,6 +89,7 @@
                       <Component id="jButtonCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonModificar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jButtonEliminarCorredor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonImportarCorredores" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -190,6 +190,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEliminarCorredorActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonImportarCorredores">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Importar corredores"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonImportarCorredoresActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

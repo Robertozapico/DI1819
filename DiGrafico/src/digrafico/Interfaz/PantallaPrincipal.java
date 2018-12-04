@@ -56,11 +56,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.abrirFicheroLecturaObjetos("gestionCarreras.dat");
         this.logicaMetodos = (LogicaAplicacion) mgfo.leerUnRegistroFicheroObjetos();
         mgfo.cerrarFicherosLecturaObjetos();
-        try {
-            gcsv.grabarFicheroCSVCorredores(logicaMetodos.getCorredores());
-        } catch (ParseException ex) {
-            Exceptions.printStackTrace(ex);
-        }
         mgfo.ejecutarAutoguardado("", 1, logicaMetodos);
 
         ImageIcon interrogante = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/interrogante.png")));

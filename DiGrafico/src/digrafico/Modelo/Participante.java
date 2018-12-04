@@ -16,6 +16,9 @@ public class Participante extends Corredor implements Serializable {
 
     private String tiempo;
     private int dorsal;
+    private int tiempoHoras;
+    private int tiempoMinutos;
+    private int tiempoSegundos;
 
     public Participante() {
     }
@@ -47,5 +50,29 @@ public class Participante extends Corredor implements Serializable {
 
     public void setDorsal(int dorsal) {
         this.dorsal = dorsal;
+    }
+
+    public int getTiempoHoras() {
+        return tiempoHoras;
+    }
+
+    public void setTiempoHoras(int tiempoHoras) {
+        this.tiempoHoras = tiempoHoras;
+    }
+
+    public int getTiempoMinutos() {
+        return tiempoMinutos;
+    }
+
+    public void setTiempoMinutos(int tiempoMinutos) {
+        this.tiempoMinutos = tiempoMinutos;
+    }
+
+    public int getTiempoSegundos() {
+        return tiempoSegundos;
+    }
+
+    public void setTiempoSegundos(int tiempoSegundos) {
+        this.tiempoSegundos = tiempoSegundos;
     }
 }

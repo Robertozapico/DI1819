@@ -75,6 +75,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         jButtonCerrar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonEliminarCorredor = new javax.swing.JButton();
+        jButtonImportarCorredores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -123,6 +124,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
             }
         });
 
+        jButtonImportarCorredores.setText("Importar corredores");
+        jButtonImportarCorredores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImportarCorredoresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,13 +145,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(206, 206, 206)
-                                        .addComponent(jButtonModificar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButtonDarAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButtonEliminarCorredor)
-                                        .addGap(44, 44, 44)))
+                                        .addComponent(jButtonModificar))
+                                    .addComponent(jButtonDarAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonImportarCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonEliminarCorredor)
+                                .addGap(44, 44, 44)
                                 .addComponent(jButtonCerrar))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(308, 308, 308)
@@ -162,7 +170,8 @@ public class ListadoCorredores extends javax.swing.JDialog {
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCerrar)
                     .addComponent(jButtonModificar)
-                    .addComponent(jButtonEliminarCorredor))
+                    .addComponent(jButtonEliminarCorredor)
+                    .addComponent(jButtonImportarCorredores))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -234,7 +243,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         int corredorSeleccionado = jTableCorredores.getSelectedRow();
         Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
         logicaMetodos.eliminarCorredor(corredorAModificar);
-        
+
         JOptionPane.showMessageDialog(this, "Corredor borrado");
         File fichero = new File("gestionCarreras.dat");
         fichero.delete();
@@ -252,6 +261,24 @@ public class ListadoCorredores extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jButtonEliminarCorredorActionPerformed
 
+    private void jButtonImportarCorredoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarCorredoresActionPerformed
+        try {
+            File fichero = logicaMetodos.escogerFichero(this);
+            gcsv.annadirListaCorredores(logicaMetodos.getCorredores(), fichero.getAbsolutePath());
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        } catch (ParseException ex) {
+            Exceptions.printStackTrace(ex);
+        }
+        JOptionPane.showMessageDialog(this, "Corredores importados");
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
+        rellenarTablaCorredores();
+    }//GEN-LAST:event_jButtonImportarCorredoresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +287,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonDarAltaCorredor;
     private javax.swing.JButton jButtonEliminarCorredor;
+    private javax.swing.JButton jButtonImportarCorredores;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelListado;
     private javax.swing.JPanel jPanel1;
