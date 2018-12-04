@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MetodosGestionFicherosObjetos{
+public class MetodosGestionFicherosObjetos {
 
     private File fichero = null;
     private FileInputStream fis = null;
@@ -118,15 +118,22 @@ public class MetodosGestionFicherosObjetos{
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                abrirFicheroEscrituraObjetos(ruta+File.separator+"AutoSave.dat");
-                System.out.println(ruta+"/autosave");
-                grabarObjetoFicheroObjetos(logicaMetodos);
-                cerrarFicherosEscrituraObjetos();
+                if (!ruta.equals("")) {
+                    abrirFicheroEscrituraObjetos(ruta + File.separator + "AutoSave.dat");
+                    grabarObjetoFicheroObjetos(logicaMetodos);
+                    cerrarFicherosEscrituraObjetos();
+                } else {
+                    File archivo = new File("gestionCarreras.dat");
+                    archivo.delete();
+                    abrirFicheroEscrituraObjetos(ruta + File.separator + "gestionCarreras.dat");
+                    grabarObjetoFicheroObjetos(logicaMetodos);
+                    cerrarFicherosEscrituraObjetos();
+                }
             }
         }, 0, tiempo * 60 * 1000);
     }
 
-    public void pararAutoguardado(){
+    public void pararAutoguardado() {
         timer.cancel();
     }
 }

@@ -88,13 +88,13 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
 
         jTableCorredoresCarrera.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Dni", "Dorsal", "Inscrito"
+                "Nombre", "Dni", "Dorsal", "Inscrito", "Tiempo"
             }
         ));
         jScrollPane1.setViewportView(jTableCorredoresCarrera);
@@ -103,6 +103,7 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
             jTableCorredoresCarrera.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jTableCorredoresCarrera.columnModel.title1")); // NOI18N
             jTableCorredoresCarrera.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jTableCorredoresCarrera.columnModel.title2")); // NOI18N
             jTableCorredoresCarrera.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jTableCorredoresCarrera.columnModel.title3")); // NOI18N
+            jTableCorredoresCarrera.getColumnModel().getColumn(4).setHeaderValue(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jTableCorredoresCarrera.columnModel.title4")); // NOI18N
         }
 
         jButtonAnnadirCorredor.setText(org.openide.util.NbBundle.getMessage(ListadoCorredoresEnCarrera.class, "ListadoCorredoresEnCarrera.jButtonAnnadirCorredor.text")); // NOI18N
@@ -196,11 +197,12 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
                     dorsalesAsignados = Integer.toString(carreraEscogida.getParticipantes().get(dorsal).getDorsal());
                 }
             }
-            String[] a = new String[4];
+            String[] a = new String[5];
             a[0] = corredor.getNombre();
             a[1] = corredor.getDni();
             a[2] = dorsalesAsignados;
             a[3] = inscripcion;
+            a[4] = "0:0:0";
             dtm.addRow(a);
         }
         jTableCorredoresCarrera.setModel(dtm);

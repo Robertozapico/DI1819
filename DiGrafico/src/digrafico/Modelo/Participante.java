@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class Participante extends Corredor implements Serializable {
 
-    private double tiempo;
+    private String tiempo;
     private int dorsal;
 
     public Participante() {
@@ -33,11 +33,11 @@ public class Participante extends Corredor implements Serializable {
         this.dorsal = dorsal;
     }
 
-    public double getTiempo() {
+    public String getTiempo() {
         return tiempo;
     }
 
-    public void setTiempo(double tiempo) {
+    public void setTiempo(String tiempo) {
         this.tiempo = tiempo;
     }
 

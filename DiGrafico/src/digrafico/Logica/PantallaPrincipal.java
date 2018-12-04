@@ -61,6 +61,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Exceptions.printStackTrace(ex);
         }
+        mgfo.ejecutarAutoguardado("", 1, logicaMetodos);
     }
 
     public void cambiarLF() {

@@ -173,7 +173,7 @@ public class Configuracion extends javax.swing.JDialog {
         if (ruta != null) {
 
             if (jCheckBoxActivarAutoguardado.isSelected()) {
-
+                mgfo.pararAutoguardado();
                 mgfo.ejecutarAutoguardado(ruta.getAbsolutePath(), (int) jSpinnerMinutosAutoguardado.getValue(), logicaMetodos);
                 JOptionPane.showMessageDialog(this, "Autoguardado activado");
 
