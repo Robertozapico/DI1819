@@ -69,7 +69,7 @@ public class LogicaAplicacion implements Serializable {
 
         return true;
     }
-
+/*
     public static boolean validarDni(String nif) {
         //Si el largo del NIF es diferente a 9, acaba el método.
         if (nif.length() != 9) {
@@ -91,7 +91,7 @@ public class LogicaAplicacion implements Serializable {
         int i = Integer.parseInt(numeroNIF) % 23;
         return letraNIF == secuenciaLetrasNIF.charAt(i);
     }
-
+*/
     public boolean annadirCarreraLista(String nombreDeCarrera, Date fechaCarrera, String lugarDeCarrera, int numMaxParticipantes) {
         Carrera nuevaCarrera = new Carrera(nombreDeCarrera, fechaCarrera, lugarDeCarrera, numMaxParticipantes);
         carreras.add(nuevaCarrera);
