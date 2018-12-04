@@ -125,7 +125,8 @@ public class MetodosGestionFicherosObjetos {
                 } else {
                     File archivo = new File("gestionCarreras.dat");
                     archivo.delete();
-                    abrirFicheroEscrituraObjetos(ruta + File.separator + "gestionCarreras.dat");
+                    //System.out.println("Ejecutando autoguardado");
+                    abrirFicheroEscrituraObjetos("gestionCarreras.dat");
                     grabarObjetoFicheroObjetos(logicaMetodos);
                     cerrarFicherosEscrituraObjetos();
                 }
