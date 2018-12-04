@@ -92,6 +92,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         jTableCorredores.setToolTipText("");
         jScrollPane2.setViewportView(jTableCorredores);
 
+        jLabelListado.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelListado.setText("Listado Corredores");
 
         jButtonDarAltaCorredor.setText("Dar alta al corredor");
@@ -129,9 +130,6 @@ public class ListadoCorredores extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(308, 308, 308)
-                        .addComponent(jLabelListado))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,14 +144,17 @@ public class ListadoCorredores extends javax.swing.JDialog {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButtonEliminarCorredor)
                                         .addGap(44, 44, 44)))
-                                .addComponent(jButtonCerrar)))))
+                                .addComponent(jButtonCerrar))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(308, 308, 308)
+                        .addComponent(jLabelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(jLabelListado)
+                .addGap(22, 22, 22)
+                .addComponent(jLabelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)

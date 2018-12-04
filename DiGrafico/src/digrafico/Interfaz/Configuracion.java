@@ -5,7 +5,6 @@
  */
 package digrafico.Interfaz;
 
-import com.jtattoo.plaf.smart.SmartLookAndFeel;
 import digrafico.Logica.LogicaAplicacion;
 import digrafico.Logica.MetodosGestionFicherosObjetos;
 import java.io.File;
@@ -14,8 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
-import org.openide.util.Exceptions;
 
 /**
  *
@@ -61,6 +58,7 @@ public class Configuracion extends javax.swing.JDialog {
         jSpinnerMinutosAutoguardado = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jCheckBoxActivarAutoguardado = new javax.swing.JCheckBox();
+        jButtonCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -95,6 +93,13 @@ public class Configuracion extends javax.swing.JDialog {
             }
         });
 
+        jButtonCerrar.setText(org.openide.util.NbBundle.getMessage(Configuracion.class, "Configuracion.jButtonCerrar.text")); // NOI18N
+        jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,6 +123,10 @@ public class Configuracion extends javax.swing.JDialog {
                         .addGap(26, 26, 26)
                         .addComponent(jComboBoxLF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(112, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonCerrar)
+                .addGap(37, 37, 37))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +146,9 @@ public class Configuracion extends javax.swing.JDialog {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(jCheckBoxActivarAutoguardado)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(jButtonCerrar)
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -188,9 +199,14 @@ public class Configuracion extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jCheckBoxActivarAutoguardadoActionPerformed
 
+    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonCerrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAutoguardado;
+    private javax.swing.JButton jButtonCerrar;
     private javax.swing.JCheckBox jCheckBoxActivarAutoguardado;
     private javax.swing.JComboBox<String> jComboBoxLF;
     private javax.swing.JLabel jLabel1;

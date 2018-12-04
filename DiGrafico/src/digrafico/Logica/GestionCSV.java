@@ -56,21 +56,6 @@ public class GestionCSV implements Serializable {
             //System.out.println(corredor.toString());
         }
     }
-//borrar
-    public void tokenizarCarreras(String linea) throws ParseException {
-        StringTokenizer tokens = new StringTokenizer(linea, ",");
-        while (tokens.hasMoreTokens()) {
-            String nombre = tokens.nextToken();
-            String fechaCarreraString = tokens.nextToken();
-            Date fechaCarrera = sdf.parse(fechaCarreraString);
-            String lugar = tokens.nextToken();
-            int numeroMaxParticipantes = Integer.parseInt(tokens.nextToken());
-
-            //String listadoDeCorredores = tokens.nextToken();
-            carrera = new Carrera(nombre, fechaCarrera, lugar, numeroMaxParticipantes/*, listadoDeCorredores*/);
-            //System.out.println(corredor.toString());
-        }
-    }
 
     public void annadirListaCorredores(List<Corredor> corredoresLista) throws FileNotFoundException, IOException, ParseException {
         fr = new FileReader("corredores.csv");
@@ -87,22 +72,6 @@ public class GestionCSV implements Serializable {
         registro.close();
         fr.close();
     }
-//borrar
-    public void annadirListaCarreras(List<Carrera> carrerasLista) throws FileNotFoundException, IOException, ParseException {
-        fr = new FileReader("carreras.csv");
-        registro = new BufferedReader(fr);
-        carreras = carrerasLista;
-        String cadena = registro.readLine(); //leemos el primer registro
-        while (cadena != null) {
-
-            tokenizarCarreras(cadena); //llamamos al método que nos permite tokenizar
-            carreras.add(carrera);
-            cadena = registro.readLine(); //leemos el siguiente registro
-
-        }
-        registro.close();
-        fr.close();
-    }
 
     public void visualizarCorredores() throws ParseException {
         try {
@@ -111,26 +80,6 @@ public class GestionCSV implements Serializable {
             String cadena = registro.readLine(); //leemos el primer registro
             while (cadena != null) {
                 tokenizarCorredores(cadena); //llamamos al método que nos permite tokenizar
-                cadena = registro.readLine(); //leemos el siguiente registro
-
-            }
-            registro.close();
-            fr.close();
-
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(GestionCSV.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(GestionCSV.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-//borrar
-    public void visualizarCarreras() throws ParseException {
-        try {
-            fr = new FileReader("carreras.csv");
-            registro = new BufferedReader(fr);
-            String cadena = registro.readLine(); //leemos el primer registro
-            while (cadena != null) {
-                tokenizarCarreras(cadena); //llamamos al método que nos permite tokenizar
                 cadena = registro.readLine(); //leemos el siguiente registro
 
             }
@@ -166,12 +115,15 @@ public class GestionCSV implements Serializable {
 
         fw = new FileWriter(carrera.getNombreDeCarrera() + ".csv");
         fsalida = new BufferedWriter(fw);
-//        fsalida.write(str);
+        fsalida.write("Nombre de la carrera" + "\t" + carrera.getNombreDeCarrera() + "\n"
+                + "Lugar de la carrera" + "\t" + carrera.getLugarDeCarrera() + "\n"
+                + "Fecha de la carrera" + "\t" + carrera.getFechaDeCarrera() + "\n"
+                + "Corredores" + "\n" + "Nombre" + "\t" + "Dorsal" + "\t" + "Tiempo" + "\t\t" + "DNI" + "\n");
         for (Map.Entry<Integer, Participante> entry : carrera.getParticipantes().entrySet()) {
             Participante participante = entry.getValue();
-            fsalida.write(participante.getNombre() + ",");
-            fsalida.write(participante.getDorsal() + ",");
-            fsalida.write(participante.getTiempo() + ",");
+            fsalida.write(participante.getNombre() + ", \t");
+            fsalida.write(participante.getDorsal() + ", \t");
+            fsalida.write(participante.getTiempo() + ", \t");
             fsalida.write(participante.getDni() + "\n");
         }
         fsalida.close();

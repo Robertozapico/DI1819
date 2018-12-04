@@ -99,6 +99,7 @@ public class EstadoCarrera extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCorredoresTiempo = new javax.swing.JTable();
         jLabelNombreCarrera = new javax.swing.JLabel();
+        jButtonCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -123,6 +124,13 @@ public class EstadoCarrera extends javax.swing.JDialog {
         jLabelNombreCarrera.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabelNombreCarrera.setText(org.openide.util.NbBundle.getMessage(EstadoCarrera.class, "EstadoCarrera.jLabelNombreCarrera.text")); // NOI18N
 
+        jButtonCerrar.setText(org.openide.util.NbBundle.getMessage(EstadoCarrera.class, "EstadoCarrera.jButtonCerrar.text")); // NOI18N
+        jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -137,7 +145,11 @@ public class EstadoCarrera extends javax.swing.JDialog {
                         .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonCerrar)
+                                .addGap(8, 8, 8)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,7 +161,9 @@ public class EstadoCarrera extends javax.swing.JDialog {
                 .addComponent(tempoCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                .addGap(92, 92, 92))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonCerrar)
+                .addGap(51, 51, 51))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -166,8 +180,13 @@ public class EstadoCarrera extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButtonCerrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCerrar;
     private javax.swing.JLabel jLabelNombreCarrera;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

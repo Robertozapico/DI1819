@@ -1,6 +1,5 @@
 package digrafico.Logica;
 
-import digrafico.Logica.ClaseAnhadirObjectOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,23 +34,6 @@ public class MetodosGestionFicherosObjetos {
         } catch (IOException ex) {
             System.out.println("Error en la apertura del fichero de escritura");
 
-        }
-    }
-
-    //apertura ficheros de objetos para añadir
-    public void abrirFicheroParaAnhadirObjetos(String f) {
-        try {
-            oos = new ClaseAnhadirObjectOutputStream(new FileOutputStream(f, true));
-        } catch (IOException ex) {
-            System.out.println("Error en la apertura del fichero de escritura");
-        }
-    }
-
-    public void abrirFicheroParaAnhadirObjetos(File f) {
-        try {
-            oos = new ClaseAnhadirObjectOutputStream(new FileOutputStream(f, true));
-        } catch (IOException ex) {
-            System.out.println("Error en la apertura del fichero de escritura");
         }
     }
 
