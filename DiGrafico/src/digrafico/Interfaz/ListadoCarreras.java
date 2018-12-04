@@ -44,14 +44,20 @@ public class ListadoCarreras extends javax.swing.JDialog {
     }
 
     private void rellenarTablaCarreras() {
-        String[] columnas = {"Nombre", "Fecha", "Lugar", "Num Max Participantes"};
+        String[] columnas = {"Nombre", "Fecha", "Lugar", "Num Max Participantes", "Estado"};
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
+        String estado = "";
         for (Carrera carrera : logicaMetodos.getCarreras()) {
-            String[] a = new String[4];
+            estado = "";
+            if (carrera.isCarreraTerminada()) {
+                estado = "terminada";
+            }
+            String[] a = new String[5];
             a[0] = carrera.getNombreDeCarrera();
             a[1] = getSdf().format(carrera.getFechaDeCarrera());
             a[2] = carrera.getLugarDeCarrera();
             a[3] = Integer.toString(carrera.getNumMaxParticipantes());
+            a[4] = estado;
             dtm.addRow(a);
         }
         jTableCarreras.setModel(dtm);
@@ -76,8 +82,8 @@ public class ListadoCarreras extends javax.swing.JDialog {
         jButtonEliminarCarrera = new javax.swing.JButton();
         jButtonGestionCorredores = new javax.swing.JButton();
         jbComenzarCarrera = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonFinalizar = new javax.swing.JButton();
+        jButtonExportarResultados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -139,9 +145,14 @@ public class ListadoCarreras extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setText("Finalizar Carrera");
+        jButtonFinalizar.setText("Finalizar Carrera");
+        jButtonFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFinalizarActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Exportar resultados");
+        jButtonExportarResultados.setText("Exportar resultados");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,22 +166,25 @@ public class ListadoCarreras extends javax.swing.JDialog {
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 526, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonAltaCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbComenzarCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(55, 55, 55)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButtonGestionCorredores, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButtonModificarCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButtonEliminarCarrera)))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButtonExportarResultados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonAltaCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbComenzarCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(19, 19, 19)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jButtonFinalizar, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jButtonModificarCarrera)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(jButtonEliminarCarrera))))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jButtonGestionCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,11 +202,11 @@ public class ListadoCarreras extends javax.swing.JDialog {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonGestionCorredores)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonExportarResultados))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbComenzarCarrera)
-                    .addComponent(jButton2)
+                    .addComponent(jButtonFinalizar)
                     .addComponent(jButtonCerrar))
                 .addGap(38, 38, 38))
         );
@@ -268,15 +282,31 @@ public class ListadoCarreras extends javax.swing.JDialog {
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
         EstadoCarrera estadoCarrera = new EstadoCarrera(this, true, logicaMetodos.getCarreras().get(carreraSeleccionada), logicaMetodos);
         estadoCarrera.setVisible(true);
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
     }//GEN-LAST:event_jbComenzarCarreraActionPerformed
+
+    private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
+        int carreraSeleccionada = jTableCarreras.getSelectedRow();
+        logicaMetodos.getCarreras().get(carreraSeleccionada).setCarreraTerminada(true);
+        rellenarTablaCarreras();
+        File fichero = new File("gestionCarreras.dat");
+        fichero.delete();
+        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+        mgfo.cerrarFicherosEscrituraObjetos();
+    }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAltaCarrera;
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonEliminarCarrera;
+    private javax.swing.JButton jButtonExportarResultados;
+    private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JButton jButtonGestionCorredores;
     private javax.swing.JButton jButtonModificarCarrera;
     private javax.swing.JLabel jLabel1;

@@ -322,7 +322,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldTelefonoCorredorActionPerformed
 
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
-        Corredor corredorNuevo;
+
         if (corredorModificable == null) {
             String dni = jTextFieldDniNumeroCorredor.getText() + jTextFieldDniLetraCorredor.getText();
             logicaMetodos.annadirCorredorLista(jTextFieldNombreCorredor.getText(), dni, (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));

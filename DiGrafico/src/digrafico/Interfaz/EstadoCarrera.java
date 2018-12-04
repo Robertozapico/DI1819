@@ -8,7 +8,12 @@ package digrafico.Interfaz;
 import crono.CronometroListener;
 import digrafico.Logica.LogicaAplicacion;
 import digrafico.Modelo.Carrera;
+import digrafico.Modelo.Corredor;
+import digrafico.Modelo.Participante;
 import java.awt.Dialog;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -30,11 +35,54 @@ public class EstadoCarrera extends javax.swing.JDialog {
     public EstadoCarrera(Dialog owner, boolean modal, Carrera carrera, LogicaAplicacion logicaMetodos) {
         super(owner, modal);
         this.carrera = carrera;
-        this.logicaMetodos=logicaMetodos;
+        this.logicaMetodos = logicaMetodos;
         initComponents();
         jLabelNombreCarrera.setText(carrera.getNombreDeCarrera());
-        
-        //tempoCarrera.annadirListener();
+        tempoCarrera.annadirListener(new CronometroListener() {
+            @Override
+            public void annadirCorredor(String dorsal, int segundos, int minutos, int horas) {
+
+                dorsal = JOptionPane.showInputDialog("Introduce dorsal");
+                //System.out.println(Integer.parseInt(dorsalCorredor));
+                carrera.getParticipantes().get(Integer.parseInt(dorsal));
+
+                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempo(tempoCarrera.getTiempo());
+                //System.out.println(carrera.getParticipantes().get(Integer.parseInt(dorsalCorredor)).getTiempo());
+                rellenarTablaCarreras();
+            }
+        });
+    }
+
+    private void rellenarTablaCarreras() {
+        String nombre = "";
+        String corredorTiempo = "";
+        String participanteDorsal = "";
+        String[] columnas = {"Nombre", "Dorsal", "Tiempo"};
+        DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
+        for (Corredor corredor : logicaMetodos.getCorredores()) {
+            nombre = "";
+            corredorTiempo = "";
+            participanteDorsal = "";
+            for (Map.Entry<Integer, Participante> entry : carrera.getParticipantes().entrySet()) {
+                Participante participante = entry.getValue();
+                if (participante.getDni().equals(corredor.getDni())) {
+                    if (participante.getTiempo() != null) {
+                        System.out.println(participante.getTiempo());
+                        nombre = participante.getNombre();
+                        participanteDorsal = Integer.toString(participante.getDorsal());
+                        corredorTiempo = participante.getTiempo();
+
+                        String[] a = new String[3];
+                        a[0] = nombre;
+                        a[1] = participanteDorsal;
+                        a[2] = corredorTiempo;
+                        dtm.addRow(a);
+                    }
+                }
+            }
+
+        }
+        jTableCorredoresTiempo.setModel(dtm);
     }
 
     /**

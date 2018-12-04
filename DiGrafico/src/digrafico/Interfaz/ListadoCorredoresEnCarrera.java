@@ -183,17 +183,20 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
 
     private void rellenarTablaCarreras() {
         String inscripcion = "";
-        String[] columnas = {"Nombre", "Dni", "Dorsal", "Inscrito"};
+        String corredorTiempo = "";
+        String[] columnas = {"Nombre", "Dni", "Dorsal", "Inscrito", "Tiempo"};
         DefaultTableModel dtm = new DefaultTableModel(columnas, 0);
         String dorsalesAsignados = "";
         for (Corredor corredor : logicaMetodos.getCorredores()) {
             inscripcion = "no";
             dorsalesAsignados = "";
+            corredorTiempo="";
             for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
                 int dorsal = entry.getKey();
                 Participante participante = entry.getValue();
                 if (participante.getDni().equals(corredor.getDni())) {
                     inscripcion = "si";
+                    corredorTiempo=participante.getTiempo();
                     dorsalesAsignados = Integer.toString(carreraEscogida.getParticipantes().get(dorsal).getDorsal());
                 }
             }
@@ -202,7 +205,7 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
             a[1] = corredor.getDni();
             a[2] = dorsalesAsignados;
             a[3] = inscripcion;
-            a[4] = "0:0:0";
+            a[4] = corredorTiempo;
             dtm.addRow(a);
         }
         jTableCorredoresCarrera.setModel(dtm);
