@@ -11,5 +11,5 @@ package crono;
  * @author zapia
  */
 public interface CronometroListener {
-     public void annadirCorredor(int dorsal, int segundos, int minutos, int horas);
+     public void annadirCorredor(String dorsal, int segundos, int minutos, int horas);
 }

@@ -1,7 +1,8 @@
 package crono;
 
-
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,6 +25,7 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
     private Timer timer;
     private String tiempo;
     private CronometroListener cronometroListener;
+    private String dorsal;
 
     /**
      * Creates new form Tempo
@@ -32,6 +34,31 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
         initComponents();
         tiempo = "H:" + h + "-m:" + m + "-s:" + s;
         jLabelTiempo.setText(tiempo);
+        jLabelTiempo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                if (cronometroListener != null) {
+                    cronometroListener.annadirCorredor(dorsal, s, m, h);
+                }
+            }
+
+        });
+    }
+
+    public int getS() {
+        return s;
+    }
+
+    public int getM() {
+        return m;
+    }
+
+    public int getH() {
+        return h;
+    }
+
+    public String getTiempo() {
+        return tiempo;
     }
 
     /**
