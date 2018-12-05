@@ -90,6 +90,8 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Tiempo:");
 
+        jLabelTiempo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+
         jbAccion.setText("Comenzar!");
         jbAccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

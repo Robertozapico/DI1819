@@ -59,6 +59,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelTiempo">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="18" style="1"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="jbAccion">
       <Properties>
