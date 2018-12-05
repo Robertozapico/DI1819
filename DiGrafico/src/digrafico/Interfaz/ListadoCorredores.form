@@ -51,15 +51,11 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="jScrollPane2" min="-2" pref="739" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
-                                          <Component id="jButtonModificar" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="jButtonDarAltaCorredor" alignment="0" min="-2" pref="181" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="jButtonDarAltaCorredor" min="-2" pref="181" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jButtonImportarCorredores" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <Component id="jButtonModificar" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jButtonImportarCorredores" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jButtonEliminarCorredor" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
@@ -69,7 +65,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="308" max="-2" attributes="0"/>
-                          <Component id="jLabelListado" min="-2" pref="159" max="-2" attributes="0"/>
+                          <Component id="jLabelListado" min="-2" pref="192" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="104" max="32767" attributes="0"/>

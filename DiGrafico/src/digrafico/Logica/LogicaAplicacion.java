@@ -145,4 +145,15 @@ public class LogicaAplicacion implements Serializable {
         }
         return ficheroEscogido;
     }
+
+    public void borrarCorredoresDeTodasLasCarreras(Corredor corredor) {
+        for (Carrera carrera : carreras) {
+            for (Map.Entry<Integer, Participante> entry : carrera.getParticipantes().entrySet()) {
+                Participante participante = entry.getValue();
+                if (corredor.getDni().equals(participante.getDni())) {
+                    carrera.getParticipantes().remove(participante.getDorsal());
+                }
+            }
+        }
+    }
 }

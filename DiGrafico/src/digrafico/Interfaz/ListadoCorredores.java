@@ -140,20 +140,18 @@ public class ListadoCorredores extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(206, 206, 206)
-                                        .addComponent(jButtonModificar))
-                                    .addComponent(jButtonDarAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButtonDarAltaCorredor, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonImportarCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonImportarCorredores)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonEliminarCorredor)
                                 .addGap(44, 44, 44)
                                 .addComponent(jButtonCerrar))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(308, 308, 308)
-                        .addComponent(jLabelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -246,6 +244,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecciona un corredor", "Selecciona un corredor", JOptionPane.ERROR_MESSAGE);
         } else {
             Corredor corredorAModificar = logicaMetodos.getCorredores().get(corredorSeleccionado);
+            logicaMetodos.borrarCorredoresDeTodasLasCarreras(corredorAModificar);
             logicaMetodos.eliminarCorredor(corredorAModificar);
 
             JOptionPane.showMessageDialog(this, "Corredor borrado");

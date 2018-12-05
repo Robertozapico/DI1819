@@ -45,13 +45,12 @@ public class EstadoCarrera extends javax.swing.JDialog {
         jLabelNombreCarrera.setText(carrera.getNombreDeCarrera());
         tempoCarrera.annadirListener(new CronometroListener() {
             @Override
-            public void annadirCorredor(String dorsal, int segundos, int minutos, int horas) {
+            public void annadirCorredor(String dorsal, String tiempo, int horas, int minutos, int segundos) {
                 boolean registrado = false;
                 //segundos = tempoCarrera.getS();
                 //minutos = tempoCarrera.getM();
                 //horas = tempoCarrera.getH();
-                dorsal = JOptionPane.showInputDialog("Introduce dorsal");
-                System.out.println(dorsal);
+                System.out.println(tiempo);
                 if (!carrera.getParticipantes().containsKey(Integer.parseInt(dorsal))) {
                     JOptionPane.showMessageDialog(EstadoCarrera.this, "El dorsal no existe", "Dorsal no existe", JOptionPane.ERROR_MESSAGE);
                     registrado = true;
@@ -61,7 +60,7 @@ public class EstadoCarrera extends javax.swing.JDialog {
                 }
                 if (!registrado) {
                     carrera.getParticipantes().get(Integer.parseInt(dorsal));
-                    carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempo(tempoCarrera.getTiempo());
+                    carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempo(tiempo);
                     carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoHoras(horas);
                     carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoMinutos(minutos);
                     carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoSegundos(segundos);
@@ -115,12 +114,12 @@ public class EstadoCarrera extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        tempoCarrera = new crono.Tempo();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCorredoresTiempo = new javax.swing.JTable();
         jLabelNombreCarrera = new javax.swing.JLabel();
         jButtonCerrar = new javax.swing.JButton();
         jButtonTerminar = new javax.swing.JButton();
+        tempoCarrera = new crono.Tempo();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -164,23 +163,21 @@ public class EstadoCarrera extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(tempoCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 161, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonTerminar)
-                                .addGap(29, 29, 29)
-                                .addComponent(jButtonCerrar)
-                                .addGap(8, 8, 8)))))
+                    .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonTerminar)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButtonCerrar)
+                        .addGap(8, 8, 8)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tempoCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
