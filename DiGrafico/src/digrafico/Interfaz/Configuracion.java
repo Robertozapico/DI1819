@@ -31,7 +31,7 @@ public class Configuracion extends javax.swing.JDialog {
         super(parent, modal);
         this.logicaMetodos = logicaMetodos;
         initComponents();
-        //UIManager.installLookAndFeel(new UIManager().LookAndFeelInfo("jTattoo", com.jtattoo.plaf.smart.SmartLookAndFeel.class.getName()));
+        this.setLocationRelativeTo(this);
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
         for (LookAndFeelInfo lfi : UIManager.getInstalledLookAndFeels()) {
             dcm.addElement(lfi.getName());

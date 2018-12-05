@@ -69,29 +69,7 @@ public class LogicaAplicacion implements Serializable {
 
         return true;
     }
-/*
-    public static boolean validarDni(String nif) {
-        //Si el largo del NIF es diferente a 9, acaba el método.
-        if (nif.length() != 9) {
-            return false;
-        }
 
-        String secuenciaLetrasNIF = "TRWAGMYFPDXBNJZSQVHLCKE";
-        nif = nif.toUpperCase();
-
-        //Posición inicial: 0 (primero en la cadena de texto).
-        //Longitud: cadena de texto menos última posición. Así obtenemos solo el número.
-        String numeroNIF = nif.substring(0, nif.length() - 1);
-
-        //Si es un NIE reemplazamos letra inicial por su valor numérico.
-        numeroNIF = numeroNIF.replace("X", "0").replace("Y", "1").replace("Z", "2");
-
-        //Obtenemos la letra con un char que nos servirá también para el índice de las secuenciaLetrasNIF
-        char letraNIF = nif.charAt(8);
-        int i = Integer.parseInt(numeroNIF) % 23;
-        return letraNIF == secuenciaLetrasNIF.charAt(i);
-    }
-*/
     public boolean annadirCarreraLista(String nombreDeCarrera, Date fechaCarrera, String lugarDeCarrera, int numMaxParticipantes) {
         Carrera nuevaCarrera = new Carrera(nombreDeCarrera, fechaCarrera, lugarDeCarrera, numMaxParticipantes);
         carreras.add(nuevaCarrera);
@@ -134,7 +112,7 @@ public class LogicaAplicacion implements Serializable {
         int dorsalABorrar = 0;
         for (int i = 0; i < intCorredoresSeleccionados.length; i++) {
             Corredor corredor = getCorredores().get(intCorredoresSeleccionados[i]);
-            System.out.println("corredor seleccionado: " + corredor);
+            //System.out.println("corredor seleccionado: " + corredor);
             for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
                 participante = entry.getValue();
                 if (corredor.getDni().equals(participante.getDni())) {

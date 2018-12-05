@@ -25,8 +25,6 @@ import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
 import javax.swing.ImageIcon;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import org.openide.util.Exceptions;
 
 /**
@@ -45,7 +43,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
-
+        this.setLocationRelativeTo(this);
         File fichero = new File("gestionCarreras.dat");
         if (!fichero.exists()) {
             mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");

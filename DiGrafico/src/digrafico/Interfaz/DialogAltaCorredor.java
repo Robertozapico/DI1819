@@ -14,6 +14,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
 import org.netbeans.validation.api.builtin.stringvalidation.ValidacionDNI;
+import org.netbeans.validation.api.builtin.stringvalidation.ValidacionTlfn;
 import org.netbeans.validation.api.ui.ValidationGroup;
 
 /**
@@ -31,6 +32,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     public DialogAltaCorredor(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
         this.logicaMetodos = logicaAplicacion;
         validarCorredor();
     }
@@ -38,6 +40,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(owner, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
         this.logicaMetodos = logicaAplicacion;
         validarCorredor();
     }
@@ -45,6 +48,7 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     public DialogAltaCorredor(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion, Corredor corredorAModificar) {
         super(owner, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
         this.logicaMetodos = logicaAplicacion;
         this.corredorModificable = corredorAModificar;
         jTextFieldNombreCorredor.setText(corredorModificable.getNombre());
@@ -56,17 +60,17 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
     }
 
     public void validarCorredor() {
-        jButtonDarAltaCorredor.setEnabled(false);
+        //jButtonDarAltaCorredor.setEnabled(false);
         ValidationGroup group = validationPanelUser.getValidationGroup();
 
-        group.add(jTextFieldTelefonoCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING, StringValidators.REQUIRE_NON_NEGATIVE_NUMBER, StringValidators.REQUIRE_VALID_INTEGER);
+        group.add(jTextFieldTelefonoCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING, StringValidators.REQUIRE_NON_NEGATIVE_NUMBER, StringValidators.REQUIRE_VALID_INTEGER, new ValidacionTlfn());
         group.add(jTextFieldNombreCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
         group.add(jTextFieldDireccionCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING);
         group.add(jTextFieldDniCorredor, StringValidators.REQUIRE_NON_EMPTY_STRING, new ValidacionDNI());
         validationPanelUser.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if (validationPanelUser.getProblem() == null ) {
+                if (validationPanelUser.getProblem() == null) {
                     jButtonDarAltaCorredor.setEnabled(true);
                 } else {
                     jButtonDarAltaCorredor.setEnabled(false);
@@ -275,18 +279,26 @@ public class DialogAltaCorredor extends javax.swing.JDialog {
 
     private void jButtonDarAltaCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDarAltaCorredorActionPerformed
 
-        if (corredorModificable == null) {
-
-            logicaMetodos.annadirCorredorLista(jTextFieldNombreCorredor.getText(), jTextFieldDniCorredor.getText(), (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
-
-        } else {
-            //System.out.println(corredorModificable.toString());
-            logicaMetodos.modificarCorredor(corredorModificable, jTextFieldNombreCorredor.getText(), jTextFieldDniCorredor.getText(), (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+        for (Corredor corredore : logicaMetodos.getCorredores()) {
+            if (corredorModificable != null) {
+                if (!corredorModificable.getDni().equals(corredore.getDni())) {
+                    if (corredore.getDni().equals(jTextFieldDniCorredor.getText())) {
+                        jButtonDarAltaCorredor.setEnabled(false);
+                        JOptionPane.showMessageDialog(this, "El DNI ya está registrado", "DNI Inválido", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
         }
-        JOptionPane.showMessageDialog(this, "Corredor añadido");
-        //Para cerrar la pantalla
-        dispose();
-
+        if (jButtonDarAltaCorredor.isEnabled()) {
+            if (corredorModificable == null) {
+                logicaMetodos.annadirCorredorLista(jTextFieldNombreCorredor.getText(), jTextFieldDniCorredor.getText(), (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+            } else {
+                logicaMetodos.modificarCorredor(corredorModificable, jTextFieldNombreCorredor.getText(), jTextFieldDniCorredor.getText(), (Date) jSpinnerFechaNacimientoCorredor.getValue(), jTextFieldDireccionCorredor.getText(), Integer.parseInt(jTextFieldTelefonoCorredor.getText()));
+            }
+            JOptionPane.showMessageDialog(this, "Corredor añadido");
+            //Para cerrar la pantalla
+            dispose();
+        }
     }//GEN-LAST:event_jButtonDarAltaCorredorActionPerformed
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed

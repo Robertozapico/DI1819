@@ -10,14 +10,9 @@ import digrafico.Logica.LogicaAplicacion;
 import static digrafico.Logica.LogicaAplicacion.getSdf;
 import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Carrera;
-import digrafico.Modelo.Corredor;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.openide.util.Exceptions;
@@ -40,6 +35,7 @@ public class ListadoCarreras extends javax.swing.JDialog {
     public ListadoCarreras(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
         this.logicaMetodos = logicaAplicacion;
         rellenarTablaCarreras();
     }
@@ -52,7 +48,7 @@ public class ListadoCarreras extends javax.swing.JDialog {
             estado = "";
             if (carrera.isCarreraTerminada()) {
                 estado = "Terminada";
-            }else{
+            } else {
                 estado = "Por comenzar";
             }
             String[] a = new String[5];
@@ -251,16 +247,19 @@ public class ListadoCarreras extends javax.swing.JDialog {
     private void jButtonModificarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarCarreraActionPerformed
 
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
-        Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
-        DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos, carreraAModificar);
-        pantallaDeFormulario.setVisible(true);
-        File fichero = new File("gestionCarreras.dat");
-        fichero.delete();
-        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
-        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-        mgfo.cerrarFicherosEscrituraObjetos();
-        rellenarTablaCarreras();
-
+        if (jTableCarreras.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una carrera", "Selecciona una carrera", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
+            DialogAltaCarrera pantallaDeFormulario = new DialogAltaCarrera(this, true, logicaMetodos, carreraAModificar);
+            pantallaDeFormulario.setVisible(true);
+            File fichero = new File("gestionCarreras.dat");
+            fichero.delete();
+            mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+            rellenarTablaCarreras();
+        }
     }//GEN-LAST:event_jButtonModificarCarreraActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
@@ -270,55 +269,85 @@ public class ListadoCarreras extends javax.swing.JDialog {
     private void jButtonEliminarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarCarreraActionPerformed
 
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
-        Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
-        logicaMetodos.eliminarCarrera(carreraAModificar);
+        if (jTableCarreras.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una carrera", "Selecciona una carrera", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Carrera carreraAModificar = logicaMetodos.getCarreras().get(carreraSeleccionada);
+            logicaMetodos.eliminarCarrera(carreraAModificar);
 
-        JOptionPane.showMessageDialog(this, "Carrera borrada");
-        File fichero = new File("gestionCarreras.dat");
-        fichero.delete();
-        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
-        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-        mgfo.cerrarFicherosEscrituraObjetos();
-        rellenarTablaCarreras();
-
+            JOptionPane.showMessageDialog(this, "Carrera borrada");
+            File fichero = new File("gestionCarreras.dat");
+            fichero.delete();
+            mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+            rellenarTablaCarreras();
+        }
     }//GEN-LAST:event_jButtonEliminarCarreraActionPerformed
 
     private void jButtonGestionCorredoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGestionCorredoresActionPerformed
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
-        ListadoCorredoresEnCarrera tablaCorredoresEnCarrera = new ListadoCorredoresEnCarrera(this, true, logicaMetodos, logicaMetodos.getCarreras().get(carreraSeleccionada));
-        tablaCorredoresEnCarrera.setVisible(true);
+        if (jTableCarreras.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una carrera", "Selecciona una carrera", JOptionPane.ERROR_MESSAGE);
+        } else {
+            ListadoCorredoresEnCarrera tablaCorredoresEnCarrera = new ListadoCorredoresEnCarrera(this, true, logicaMetodos, logicaMetodos.getCarreras().get(carreraSeleccionada));
+            tablaCorredoresEnCarrera.setVisible(true);
+        }
     }//GEN-LAST:event_jButtonGestionCorredoresActionPerformed
 
     private void jbComenzarCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComenzarCarreraActionPerformed
+
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
-        EstadoCarrera estadoCarrera = new EstadoCarrera(this, true, logicaMetodos.getCarreras().get(carreraSeleccionada), logicaMetodos);
-        estadoCarrera.setVisible(true);
-        File fichero = new File("gestionCarreras.dat");
-        fichero.delete();
-        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
-        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-        mgfo.cerrarFicherosEscrituraObjetos();
+        if (jTableCarreras.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una carrera", "Selecciona una carrera", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (logicaMetodos.getCarreras().get(carreraSeleccionada).isCarreraTerminada()) {
+                JOptionPane.showMessageDialog(this, "La carrera ya está terminada", "Carrera terminada", JOptionPane.ERROR_MESSAGE);
+            } else {
+                EstadoCarrera estadoCarrera = new EstadoCarrera(this, true, logicaMetodos.getCarreras().get(carreraSeleccionada), logicaMetodos);
+                estadoCarrera.setVisible(true);
+                File fichero = new File("gestionCarreras.dat");
+                fichero.delete();
+                mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+                mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+                mgfo.cerrarFicherosEscrituraObjetos();
+            }
+        }
     }//GEN-LAST:event_jbComenzarCarreraActionPerformed
 
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
-        logicaMetodos.getCarreras().get(carreraSeleccionada).setCarreraTerminada(true);
-        rellenarTablaCarreras();
-        File fichero = new File("gestionCarreras.dat");
-        fichero.delete();
-        mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
-        mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-        mgfo.cerrarFicherosEscrituraObjetos();
+        if (jTableCarreras.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una carrera", "Selecciona una carrera", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            if (logicaMetodos.getCarreras().get(carreraSeleccionada).isCarreraTerminada()) {
+                JOptionPane.showMessageDialog(this, "La carrera ya está terminada", "Carrera terminada", JOptionPane.ERROR_MESSAGE);
+            } else {
+                logicaMetodos.getCarreras().get(carreraSeleccionada).setCarreraTerminada(true);
+                rellenarTablaCarreras();
+                JOptionPane.showMessageDialog(this, "Se ha terminado la carrera");
+                File fichero = new File("gestionCarreras.dat");
+                fichero.delete();
+                mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+                mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+                mgfo.cerrarFicherosEscrituraObjetos();
+            }
+        }
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jButtonExportarResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarResultadosActionPerformed
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
-        try {
-            gcsv.grabarFicheroCSVCarreras(logicaMetodos.getCarreras().get(carreraSeleccionada));
-        } catch (ParseException ex) {
-            Exceptions.printStackTrace(ex);
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
+        if (jTableCarreras.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una carrera", "Selecciona una carrera", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                gcsv.grabarFicheroCSVCarreras(logicaMetodos.getCarreras().get(carreraSeleccionada));
+            } catch (ParseException ex) {
+                Exceptions.printStackTrace(ex);
+            } catch (IOException ex) {
+                Exceptions.printStackTrace(ex);
+            }
         }
     }//GEN-LAST:event_jButtonExportarResultadosActionPerformed
 

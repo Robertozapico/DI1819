@@ -7,7 +7,6 @@ package digrafico.Interfaz;
 
 import digrafico.Logica.GestionCSV;
 import digrafico.Logica.LogicaAplicacion;
-import static digrafico.Logica.LogicaAplicacion.getSdf;
 import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
@@ -15,13 +14,9 @@ import digrafico.Modelo.Participante;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.openide.util.Exceptions;
 
 /**
  *
@@ -41,22 +36,22 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
     public ListadoCorredoresEnCarrera(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     public ListadoCorredoresEnCarrera(Dialog owner, boolean modal, LogicaAplicacion logicaMetodos, Carrera carreraSeleccionada) {
         super(owner, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
         this.logicaMetodos = logicaMetodos;
         this.carreraEscogida = carreraSeleccionada;
         rellenarTablaCarreras();
-        if(carreraEscogida.isCarreraTerminada()){
+        if (carreraEscogida.isCarreraTerminada()) {
             jButtonAnnadirCorredor.setEnabled(false);
             jButtonEliminarCorredor.setEnabled(false);
             jLabelEstadoCarrera.setText("Carrera terminada");
             jLabelEstadoCarrera.setForeground(Color.red);
         }
-        //System.out.println(logicaMetodos.getCorredores());
-        //System.out.println(carreraEscogida.getCorredores());
     }
 
     /**
@@ -205,13 +200,13 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
         for (Corredor corredor : logicaMetodos.getCorredores()) {
             inscripcion = "no";
             dorsalesAsignados = "";
-            corredorTiempo="";
+            corredorTiempo = "";
             for (Map.Entry<Integer, Participante> entry : carreraEscogida.getParticipantes().entrySet()) {
                 int dorsal = entry.getKey();
                 Participante participante = entry.getValue();
                 if (participante.getDni().equals(corredor.getDni())) {
                     inscripcion = "si";
-                    corredorTiempo=participante.getTiempo();
+                    corredorTiempo = participante.getTiempo();
                     dorsalesAsignados = Integer.toString(carreraEscogida.getParticipantes().get(dorsal).getDorsal());
                 }
             }
@@ -244,7 +239,8 @@ public class ListadoCorredoresEnCarrera extends javax.swing.JDialog {
 
     private void jButtonAnnadirCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnadirCorredorActionPerformed
         int[] intCorredoresSeleccionados = jTableCorredoresCarrera.getSelectedRows();
-        if (carreraEscogida.getParticipantes().size() < carreraEscogida.getNumMaxParticipantes()) {
+        if (carreraEscogida.getParticipantes().size() < carreraEscogida.getNumMaxParticipantes()
+                && carreraEscogida.getNumMaxParticipantes() >= (carreraEscogida.getParticipantes().size() + intCorredoresSeleccionados.length)) {
             logicaMetodos.annadirCorredoresACarrera(carreraEscogida, intCorredoresSeleccionados);
             JOptionPane.showMessageDialog(this, "Corredor añadido");
             File fichero = new File("gestionCarreras.dat");

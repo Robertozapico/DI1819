@@ -30,6 +30,7 @@ public class EstadoCarrera extends javax.swing.JDialog {
     public EstadoCarrera(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     public EstadoCarrera(Dialog owner, boolean modal, Carrera carrera, LogicaAplicacion logicaMetodos) {
@@ -37,24 +38,30 @@ public class EstadoCarrera extends javax.swing.JDialog {
         this.carrera = carrera;
         this.logicaMetodos = logicaMetodos;
         initComponents();
+        this.setLocationRelativeTo(this);
         jLabelNombreCarrera.setText(carrera.getNombreDeCarrera());
         tempoCarrera.annadirListener(new CronometroListener() {
             @Override
             public void annadirCorredor(String dorsal, int segundos, int minutos, int horas) {
+                boolean registrado = false;
                 segundos = tempoCarrera.getS();
                 minutos = tempoCarrera.getM();
                 horas = tempoCarrera.getH();
                 dorsal = JOptionPane.showInputDialog("Introduce dorsal");
-                //System.out.println(Integer.parseInt(dorsalCorredor));
-                carrera.getParticipantes().get(Integer.parseInt(dorsal));
+                if (carrera.getParticipantes().get(Integer.parseInt(dorsal)).getTiempo() != null) {
+                    JOptionPane.showMessageDialog(EstadoCarrera.this, "El dorsal ya fue registrado", "Dorsal ya registrado", JOptionPane.ERROR_MESSAGE);
+                    registrado = true;
+                }
+                if (!registrado) {
+                    carrera.getParticipantes().get(Integer.parseInt(dorsal));
+                    carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempo(tempoCarrera.getTiempo());
+                    carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoHoras(horas);
+                    carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoMinutos(minutos);
+                    carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoSegundos(segundos);
 
-                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempo(tempoCarrera.getTiempo());
-                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoHoras(horas);
-                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoMinutos(minutos);
-                carrera.getParticipantes().get(Integer.parseInt(dorsal)).setTiempoSegundos(segundos);
-
-                //System.out.println(carrera.getParticipantes().get(Integer.parseInt(dorsalCorredor)).getTiempo());
-                rellenarTablaCarreras();
+                    rellenarTablaCarreras();
+                }
+                registrado = false;
             }
         });
     }
@@ -73,7 +80,7 @@ public class EstadoCarrera extends javax.swing.JDialog {
                 Participante participante = entry.getValue();
                 if (participante.getDni().equals(corredor.getDni())) {
                     if (participante.getTiempo() != null) {
-                        System.out.println(participante.getTiempo());
+                        //System.out.println(participante.getTiempo());
                         nombre = participante.getNombre();
                         participanteDorsal = Integer.toString(participante.getDorsal());
                         corredorTiempo = participante.getTiempo();
