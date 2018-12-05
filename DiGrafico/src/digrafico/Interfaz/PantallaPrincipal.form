@@ -58,7 +58,7 @@
                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jButtonCorredoresListado" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonListadoCarrera" min="-2" pref="123" max="-2" attributes="0"/>
+                              <Component id="jButtonListadoCarrera" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
