@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.io.Serializable;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JOptionPane;
 
 
 /*
@@ -23,9 +24,12 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
     private int m = 0;
     private int h = 0;
     private Timer timer;
-    private String tiempo;
+    private String tiempo, tiempoCorredor;
     private CronometroListener cronometroListener;
     private String dorsal;
+    private int segundosCorredor = 0;
+    private int minutosCorredor = 0;
+    private int horasCorredor = 0;
 
     /**
      * Creates new form Tempo
@@ -34,6 +38,7 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
         initComponents();
         String cadenaSegundos = "";
         String cadenaMinutos = "";
+
         if (s < 10) {
             cadenaSegundos = "0" + s;
         } else {
@@ -46,11 +51,24 @@ public class Tempo extends javax.swing.JPanel implements Serializable {
         }
         tiempo = h + ":" + cadenaMinutos + ":" + cadenaSegundos;
         jLabelTiempo.setText(tiempo);
+
         jLabelTiempo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
                 if (cronometroListener != null) {
-                    cronometroListener.annadirCorredor(dorsal, s, m, h);
+                    
+                    horasCorredor = h;
+                    minutosCorredor = m;
+                    segundosCorredor = s;
+                    tiempoCorredor=tiempo;
+                    dorsal = JOptionPane.showInputDialog("Introduce dorsal");
+                    if (dorsal == null) {
+                        //nada
+                    } else if (!dorsal.equals("")) {
+                        cronometroListener.annadirCorredor(dorsal, tiempoCorredor, segundosCorredor, minutosCorredor, horasCorredor);
+                    } else {
+                        JOptionPane.showMessageDialog(Tempo.this, "El dorsal no puede ir vacio", "Dorsal no existe", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
 
