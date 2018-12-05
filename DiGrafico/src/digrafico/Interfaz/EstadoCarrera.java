@@ -7,10 +7,12 @@ package digrafico.Interfaz;
 
 import crono.CronometroListener;
 import digrafico.Logica.LogicaAplicacion;
+import digrafico.Logica.MetodosGestionFicherosObjetos;
 import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
 import digrafico.Modelo.Participante;
 import java.awt.Dialog;
+import java.io.File;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,6 +25,7 @@ public class EstadoCarrera extends javax.swing.JDialog {
 
     private Carrera carrera;
     private LogicaAplicacion logicaMetodos;
+    private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
 
     /**
      * Creates new form EstadoCarrera
@@ -44,11 +47,15 @@ public class EstadoCarrera extends javax.swing.JDialog {
             @Override
             public void annadirCorredor(String dorsal, int segundos, int minutos, int horas) {
                 boolean registrado = false;
-                segundos = tempoCarrera.getS();
-                minutos = tempoCarrera.getM();
-                horas = tempoCarrera.getH();
+                //segundos = tempoCarrera.getS();
+                //minutos = tempoCarrera.getM();
+                //horas = tempoCarrera.getH();
                 dorsal = JOptionPane.showInputDialog("Introduce dorsal");
-                if (carrera.getParticipantes().get(Integer.parseInt(dorsal)).getTiempo() != null) {
+                System.out.println(dorsal);
+                if (!carrera.getParticipantes().containsKey(Integer.parseInt(dorsal))) {
+                    JOptionPane.showMessageDialog(EstadoCarrera.this, "El dorsal no existe", "Dorsal no existe", JOptionPane.ERROR_MESSAGE);
+                    registrado = true;
+                } else if (carrera.getParticipantes().get(Integer.parseInt(dorsal)).getTiempo() != null) {
                     JOptionPane.showMessageDialog(EstadoCarrera.this, "El dorsal ya fue registrado", "Dorsal ya registrado", JOptionPane.ERROR_MESSAGE);
                     registrado = true;
                 }
@@ -113,6 +120,7 @@ public class EstadoCarrera extends javax.swing.JDialog {
         jTableCorredoresTiempo = new javax.swing.JTable();
         jLabelNombreCarrera = new javax.swing.JLabel();
         jButtonCerrar = new javax.swing.JButton();
+        jButtonTerminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -144,6 +152,13 @@ public class EstadoCarrera extends javax.swing.JDialog {
             }
         });
 
+        jButtonTerminar.setText(org.openide.util.NbBundle.getMessage(EstadoCarrera.class, "EstadoCarrera.jButtonTerminar.text")); // NOI18N
+        jButtonTerminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTerminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -161,6 +176,8 @@ public class EstadoCarrera extends javax.swing.JDialog {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonTerminar)
+                                .addGap(29, 29, 29)
                                 .addComponent(jButtonCerrar)
                                 .addGap(8, 8, 8)))))
                 .addContainerGap())
@@ -175,7 +192,9 @@ public class EstadoCarrera extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonCerrar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCerrar)
+                    .addComponent(jButtonTerminar))
                 .addGap(51, 51, 51))
         );
 
@@ -197,9 +216,26 @@ public class EstadoCarrera extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButtonCerrarActionPerformed
 
+    private void jButtonTerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerminarActionPerformed
+        if (carrera.isCarreraTerminada()) {
+            JOptionPane.showMessageDialog(this, "La carrera ya está terminada", "Carrera terminada", JOptionPane.ERROR_MESSAGE);
+        } else {
+
+            carrera.setCarreraTerminada(true);
+            rellenarTablaCarreras();
+            JOptionPane.showMessageDialog(this, "Se ha terminado la carrera");
+            File fichero = new File("gestionCarreras.dat");
+            fichero.delete();
+            mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
+        }
+    }//GEN-LAST:event_jButtonTerminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCerrar;
+    private javax.swing.JButton jButtonTerminar;
     private javax.swing.JLabel jLabelNombreCarrera;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

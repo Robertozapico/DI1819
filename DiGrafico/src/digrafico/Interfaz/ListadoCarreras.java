@@ -28,6 +28,7 @@ public class ListadoCarreras extends javax.swing.JDialog {
     private LogicaAplicacion logicaMetodos;
     private GestionCSV gcsv = new GestionCSV();
     private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
+//METER EL BOTON DE TERMINAR CARRERA EN LA VENTANA DE ESTADOCARRERA
 
     /**
      * Creates new form ListadoCarreras
@@ -81,7 +82,6 @@ public class ListadoCarreras extends javax.swing.JDialog {
         jButtonEliminarCarrera = new javax.swing.JButton();
         jButtonGestionCorredores = new javax.swing.JButton();
         jbComenzarCarrera = new javax.swing.JButton();
-        jButtonFinalizar = new javax.swing.JButton();
         jButtonExportarResultados = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -144,13 +144,6 @@ public class ListadoCarreras extends javax.swing.JDialog {
             }
         });
 
-        jButtonFinalizar.setText("Finalizar Carrera");
-        jButtonFinalizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFinalizarActionPerformed(evt);
-            }
-        });
-
         jButtonExportarResultados.setText("Exportar resultados");
         jButtonExportarResultados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,12 +167,9 @@ public class ListadoCarreras extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButtonFinalizar, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jButtonModificarCarrera)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButtonEliminarCarrera))))
+                                .addComponent(jButtonModificarCarrera)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonEliminarCarrera))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonGestionCorredores, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)))))
@@ -213,7 +203,6 @@ public class ListadoCarreras extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbComenzarCarrera)
-                    .addComponent(jButtonFinalizar)
                     .addComponent(jButtonCerrar))
                 .addGap(38, 38, 38))
         );
@@ -306,35 +295,16 @@ public class ListadoCarreras extends javax.swing.JDialog {
             } else {
                 EstadoCarrera estadoCarrera = new EstadoCarrera(this, true, logicaMetodos.getCarreras().get(carreraSeleccionada), logicaMetodos);
                 estadoCarrera.setVisible(true);
-                File fichero = new File("gestionCarreras.dat");
-                fichero.delete();
-                mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
-                mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-                mgfo.cerrarFicherosEscrituraObjetos();
+
+                rellenarTablaCarreras();
             }
+            File fichero = new File("gestionCarreras.dat");
+            fichero.delete();
+            mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
+            mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
+            mgfo.cerrarFicherosEscrituraObjetos();
         }
     }//GEN-LAST:event_jbComenzarCarreraActionPerformed
-
-    private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
-        int carreraSeleccionada = jTableCarreras.getSelectedRow();
-        if (jTableCarreras.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona una carrera", "Selecciona una carrera", JOptionPane.ERROR_MESSAGE);
-        } else {
-
-            if (logicaMetodos.getCarreras().get(carreraSeleccionada).isCarreraTerminada()) {
-                JOptionPane.showMessageDialog(this, "La carrera ya está terminada", "Carrera terminada", JOptionPane.ERROR_MESSAGE);
-            } else {
-                logicaMetodos.getCarreras().get(carreraSeleccionada).setCarreraTerminada(true);
-                rellenarTablaCarreras();
-                JOptionPane.showMessageDialog(this, "Se ha terminado la carrera");
-                File fichero = new File("gestionCarreras.dat");
-                fichero.delete();
-                mgfo.abrirFicheroEscrituraObjetos("gestionCarreras.dat");
-                mgfo.grabarObjetoFicheroObjetos(logicaMetodos);
-                mgfo.cerrarFicherosEscrituraObjetos();
-            }
-        }
-    }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     private void jButtonExportarResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarResultadosActionPerformed
         int carreraSeleccionada = jTableCarreras.getSelectedRow();
@@ -349,6 +319,7 @@ public class ListadoCarreras extends javax.swing.JDialog {
                 Exceptions.printStackTrace(ex);
             }
         }
+        rellenarTablaCarreras();
     }//GEN-LAST:event_jButtonExportarResultadosActionPerformed
 
 
@@ -357,7 +328,6 @@ public class ListadoCarreras extends javax.swing.JDialog {
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonEliminarCarrera;
     private javax.swing.JButton jButtonExportarResultados;
-    private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JButton jButtonGestionCorredores;
     private javax.swing.JButton jButtonModificarCarrera;
     private javax.swing.JLabel jLabel1;
