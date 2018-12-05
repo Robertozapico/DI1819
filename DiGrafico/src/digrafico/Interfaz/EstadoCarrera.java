@@ -50,7 +50,6 @@ public class EstadoCarrera extends javax.swing.JDialog {
                 //segundos = tempoCarrera.getS();
                 //minutos = tempoCarrera.getM();
                 //horas = tempoCarrera.getH();
-                System.out.println(tiempo);
                 if (!carrera.getParticipantes().containsKey(Integer.parseInt(dorsal))) {
                     JOptionPane.showMessageDialog(EstadoCarrera.this, "El dorsal no existe", "Dorsal no existe", JOptionPane.ERROR_MESSAGE);
                     registrado = true;
