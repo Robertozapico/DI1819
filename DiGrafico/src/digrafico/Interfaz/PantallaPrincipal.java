@@ -119,6 +119,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabelCarreras = new javax.swing.JLabel();
         jLabelSettings = new javax.swing.JLabel();
         jButtonAyuda = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuExamen = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,7 +207,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(jLabelCarreras)
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -212,6 +215,20 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(jButtonListadoCarrera))
                 .addGap(84, 84, 84))
         );
+
+        jMenuExamen.setText("Examen1Eval>Ejercicio1");
+
+        jMenuItem1.setText("Examen1Eval>Ejercicio1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuExamen.add(jMenuItem1);
+
+        jMenuBar1.add(jMenuExamen);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -268,6 +285,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.cerrarFicherosEscrituraObjetos();
     }//GEN-LAST:event_jButtonCarreraAltaActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        Examen1Eval_Ejercicio1 dialogoExamen = new Examen1Eval_Ejercicio1(this, true, logicaMetodos);
+        dialogoExamen.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -320,6 +343,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCorredores;
     private javax.swing.JLabel jLabelGestionCorredores;
     private javax.swing.JLabel jLabelSettings;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuExamen;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

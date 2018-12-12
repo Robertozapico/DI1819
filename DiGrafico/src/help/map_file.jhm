@@ -4,4 +4,5 @@
    <mapID target="ventana_carreras" url="html/listado_carreras.html" />
    <mapID target="ventana_corredoresEnCarrera" url="html/listado_corredoresEnCarrera.html" />
    <mapID target="ventana_temporizador" url="html/comenzar_carrera.html" />
+   <mapID target="Examen" url="html/Examen.html" />
 </map>

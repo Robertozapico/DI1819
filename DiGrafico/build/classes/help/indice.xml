@@ -4,4 +4,5 @@
    <indexitem text="Ventana carreras" target="ventana_carreras"/>
    <indexitem text="Ventana corredores de la carrera" target="ventana_corredoresEnCarrera"/>
    <indexitem text="Ventana temporizador" target="ventana_temporizador"/>
+   <indexitem text="Examen1Eval" target="Examen"/>
 </index>

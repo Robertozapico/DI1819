@@ -4,5 +4,6 @@
       <tocitem text="Ventana carreras" target="ventana_carreras"/>
       <tocitem text="Ventana corredores de la carrera" target="ventana_corredoresEnCarrera"/>
       <tocitem text="Ventana temporizador" target="ventana_temporizador"/>
+      <tocitem text="Examen1Eval" target="Examen"/>
    </tocitem>
 </toc>
