@@ -1,0 +1,13 @@
+﻿<Window x:Class="formulario.interfaz.cantidadProducto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="cantidadProducto" Height="300" Width="300">
+    <Grid>
+        <ComboBox HorizontalAlignment="Left" Margin="62,32,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="153,189,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="btAnnadir" Content="Añadir Productos" HorizontalAlignment="Left" Margin="38,189,0,0" VerticalAlignment="Top" Width="99"/>
+        <TextBox x:Name="tbCantidad" HorizontalAlignment="Left" Height="23" Margin="134,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"/>
+        <Label x:Name="LabelCantidad" Content="Cantidad" HorizontalAlignment="Left" Margin="62,84,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

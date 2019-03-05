@@ -1,0 +1,17 @@
+﻿<Window x:Class="formulario.PantallaProducto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Window1" Height="315" Width="325.5">
+    <Grid>
+        <Label x:Name="labelNombreProducto" Content="Nombre producto" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelTipoProducto" Content="Tipo" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelPrecio" Content="Precio" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TBNombreProducto" Validation.Error ="Validation_Error" Text="{Binding Path=productoNuevo.Nombre, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="23" Margin="134,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="TBPrecio" Validation.Error ="Validation_Error" Text="{Binding Path=productoNuevo.Precio, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="23" Margin="134,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btAnnadir" Content="Aceptar" HorizontalAlignment="Left" Margin="44,214,0,0" VerticalAlignment="Top" Width="98" Click="btAnnadir_Click"/>
+        <Button x:Name="btCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="166,214,0,0" VerticalAlignment="Top" Width="74" Click="btCancelar_Click"/>
+        <ComboBox x:Name="cbTipo"  Validation.Error ="Validation_Error" ItemsSource="{Binding Path=tiposProductos}" SelectedItem="{Binding Path=productoNuevo.Tipo}" HorizontalAlignment="Left" Margin="134,77,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged_1" />
+        <Label x:Name="lbCantidad" Content="Cantidad" HorizontalAlignment="Left" Margin="15,161,0,0" VerticalAlignment="Top" Width="101"/>
+        <TextBox x:Name="TBCantidad" Validation.Error ="Validation_Error" Text="{Binding Path=productoNuevo.Cantidad, NotifyOnValidationError=True, ValidatesOnDataErrors=True}" HorizontalAlignment="Left" Height="23" Margin="134,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    </Grid>
+</Window>

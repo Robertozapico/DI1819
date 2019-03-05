@@ -1,0 +1,65 @@
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\bin\Debug\formulario.exe.config
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\bin\Debug\formulario.exe
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\bin\Debug\formulario.pdb
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\formulario.csprojResolveAssemblyReference.cache
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\App.g.cs
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\formulario_MarkupCompile.cache
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\formulario.g.resources
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\formulario.Properties.Resources.resources
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\formulario.csproj.GenerateResource.Cache
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\formulario.exe
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\formulario.pdb
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\interfaz\cantidadProducto.baml
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\interfaz\MainWindow.baml
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\interfaz\cantidadProducto.g.cs
+c:\users\alumno\documents\visual studio 2012\Projects\formulario\formulario\obj\Debug\interfaz\MainWindow.g.cs
+C:\Users\alumno\Documents\Visual Studio 2012\Projects\formulario\formulario\obj\Debug\interfaz\PantallaProducto.baml
+C:\Users\alumno\Documents\Visual Studio 2012\Projects\formulario\formulario\obj\Debug\interfaz\PantallaProducto.g.cs
+D:\FP\cesharp\formulario\formulario\bin\Debug\formulario.exe.config
+D:\FP\cesharp\formulario\formulario\obj\Debug\formulario.exe
+D:\FP\cesharp\formulario\formulario\obj\Debug\formulario.pdb
+D:\FP\cesharp\formulario\formulario\obj\Debug\formulario.csprojResolveAssemblyReference.cache
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaProducto.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaProducto.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\App.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\formulario_MarkupCompile.cache
+D:\FP\cesharp\formulario\formulario\obj\Debug\formulario.g.resources
+D:\FP\cesharp\formulario\formulario\obj\Debug\formulario.Properties.Resources.resources
+D:\FP\cesharp\formulario\formulario\obj\Debug\formulario.csproj.GenerateResource.Cache
+D:\FP\cesharp\formulario\formulario\bin\Debug\formulario.exe
+D:\FP\cesharp\formulario\formulario\bin\Debug\formulario.pdb
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\PantallaProducto.baml
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\PantallaProducto.g.cs
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\App.g.cs
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\formulario_MarkupCompile.cache
+C:\Users\alumno\Documents\formulario\formulario\bin\Debug\formulario.exe.config
+C:\Users\alumno\Documents\formulario\formulario\bin\Debug\formulario.exe
+C:\Users\alumno\Documents\formulario\formulario\bin\Debug\formulario.pdb
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\formulario.g.resources
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\formulario.Properties.Resources.resources
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\formulario.csproj.GenerateResource.Cache
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\formulario.exe
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\formulario.pdb
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\PantallaAltaAvituallamiento.baml
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\PantallaAltaAvituallamiento.g.cs
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\Main.baml
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\Main.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\Main.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaAltaAvituallamiento.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\Main.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaAltaAvituallamiento.g.cs
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\TablaProductos.baml
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\TablaProductos.g.cs
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\formulario.csprojResolveAssemblyReference.cache
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\gestionProductos.baml
+C:\Users\alumno\Documents\formulario\formulario\obj\Debug\interfaz\gestionProductos.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\gestionProductos.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\TablaProductos.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\gestionProductos.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\TablaProductos.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaAvituallamientosCarrera.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaCarreras.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaAvituallamientosCarrera.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaCarreras.g.cs
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaCrearCarrera.baml
+D:\FP\cesharp\formulario\formulario\obj\Debug\interfaz\PantallaCrearCarrera.g.cs
