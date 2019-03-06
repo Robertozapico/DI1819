@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -155,5 +156,17 @@ public class LogicaAplicacion implements Serializable {
                 }
             }
         }
+    }
+//Segunda Evaluacion
+    public List<Carrera> obtenerCarrerasNoFinalizadas() {
+        List<Carrera> listaCarrerasNoFinalizadas = new ArrayList<Carrera>();
+
+        for (Iterator<Carrera> iterator = this.carreras.iterator(); iterator.hasNext();) {
+            Carrera next = iterator.next();
+            if (!next.isCarreraTerminada()) {
+                listaCarrerasNoFinalizadas.add(next);
+            }
+        }
+        return listaCarrerasNoFinalizadas;
     }
 }

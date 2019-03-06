@@ -118,9 +118,6 @@ public class GestionCSV implements Serializable {
         fw = new FileWriter(carrera.getNombreDeCarrera() + ".csv");
         fsalida = new BufferedWriter(fw);
         List<Participante> participantesOrdenadosPorLlegada = new ArrayList<>(carrera.getParticipantes().values());
-        Collections.sort(participantesOrdenadosPorLlegada, Comparator.comparing(Participante::getTiempoSegundos));
-        Collections.sort(participantesOrdenadosPorLlegada, Comparator.comparing(Participante::getTiempoMinutos));
-        Collections.sort(participantesOrdenadosPorLlegada, Comparator.comparing(Participante::getTiempoHoras));
         fsalida.write("Nombre de la carrera" + "\t" + carrera.getNombreDeCarrera() + "\n"
                 + "Fecha de la carrera" + "\t" + carrera.getFechaDeCarrera() + "\n"
                 + "Corredores" + "\n" + "Dorsal" + "\t" + "Tiempo" + "\t\t" + "Nombre" + "\n");

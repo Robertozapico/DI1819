@@ -119,6 +119,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabelCarreras = new javax.swing.JLabel();
         jLabelSettings = new javax.swing.JLabel();
         jButtonAyuda = new javax.swing.JButton();
+        jbInformes = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuExamen = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -162,6 +163,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabelCarreras.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelCarreras.setText("Carreras");
 
+        jbInformes.setText("Informes");
+        jbInformes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbInformesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -178,17 +186,22 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                             .addComponent(jButtonCorredoresListado)
                             .addComponent(jButtonListadoCarrera)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addComponent(jLabelCarreras))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelCorredores)
-                            .addComponent(jLabelGestionCorredores))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelGestionCorredores)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addComponent(jLabelCorredores)))
                         .addGap(101, 101, 101)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabelCarreras))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(161, 161, 161)
+                        .addComponent(jbInformes)))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -201,19 +214,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButtonAyuda, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabelSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelCorredores)
-                .addGap(27, 27, 27)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonDarAltaCorredor)
                     .addComponent(jButtonCorredoresListado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jLabelCarreras)
-                .addGap(48, 48, 48)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCarreraAlta)
                     .addComponent(jButtonListadoCarrera))
-                .addGap(84, 84, 84))
+                .addGap(39, 39, 39)
+                .addComponent(jbInformes)
+                .addGap(22, 22, 22))
         );
 
         jMenuExamen.setText("Examen1Eval>Ejercicio1");
@@ -290,7 +305,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         dialogoExamen.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    
+    private void jbInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInformesActionPerformed
+        DialogInformes informes = new DialogInformes(this, true, logicaMetodos);
+        informes.setVisible(true);
+    }//GEN-LAST:event_jbInformesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,5 +366,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuExamen;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbInformes;
     // End of variables declaration//GEN-END:variables
 }

@@ -36,7 +36,7 @@ public class EstadoCarrera extends javax.swing.JDialog {
         this.setLocationRelativeTo(this);
     }
 
-    public EstadoCarrera(Dialog owner, boolean modal, Carrera carrera, LogicaAplicacion logicaMetodos) {
+    public EstadoCarrera(Dialog owner, boolean modal, final Carrera carrera, LogicaAplicacion logicaMetodos) {
         super(owner, modal);
         this.carrera = carrera;
         this.logicaMetodos = logicaMetodos;

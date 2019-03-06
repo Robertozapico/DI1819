@@ -212,7 +212,7 @@ public class Examen1Eval_Ejercicio1 extends java.awt.Dialog {
             }
         }
         int tamannoArrayList = carrerasLista.size();
-        String[] stringsCarrera = new String[tamannoArrayList];
+        final String[] stringsCarrera = new String[tamannoArrayList];
         for (int i = 0; i < stringsCarrera.length; i++) {
             stringsCarrera[i] = carrerasLista.get(i);
 

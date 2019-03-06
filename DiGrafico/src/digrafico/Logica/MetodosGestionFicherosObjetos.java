@@ -95,7 +95,7 @@ public class MetodosGestionFicherosObjetos {
         }
     }
 
-    public void ejecutarAutoguardado(String ruta, int tiempo, LogicaAplicacion logicaMetodos) {
+    public void ejecutarAutoguardado(final String ruta, int tiempo, final LogicaAplicacion logicaMetodos) {
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
