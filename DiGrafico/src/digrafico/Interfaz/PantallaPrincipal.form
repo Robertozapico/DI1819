@@ -198,6 +198,9 @@
         <Component class="javax.swing.JLabel" name="jLabelSettings">
         </Component>
         <Component class="javax.swing.JButton" name="jButtonAyuda">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAyudaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jbInformes">
           <Properties>

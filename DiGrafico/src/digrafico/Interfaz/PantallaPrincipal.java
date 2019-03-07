@@ -21,6 +21,8 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.help.HelpBroker;
 import javax.help.HelpSet;
 import javax.help.HelpSetException;
@@ -78,25 +80,25 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     private void ejecutarAyuda() {
+
         try {
-            URL ayuda = getClass().getResource("/help/help_set.hs");
-            File ficheroAyuda = new File(ayuda.toURI());
-            URI hsURL = ficheroAyuda.toURI();
+            File fichero = new File("help/help_set.hs");
+            URL hsURL = fichero.toURI().toURL();
+            
 
             //Crea el HelpSet y el HelpBroker
-            HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL.toURL());
+            HelpSet helpset = new HelpSet(getClass().getClassLoader(), hsURL);
             HelpBroker hb = helpset.createHelpBroker();
 
             hb.enableHelpOnButton(jButtonAyuda, "aplicacion", helpset);
             //Al pulsar F1 salta la ayuda
             hb.enableHelpKey(getRootPane(), "aplicacion", helpset);
-        } catch (URISyntaxException ex) {
-            Exceptions.printStackTrace(ex);
         } catch (MalformedURLException ex) {
             Exceptions.printStackTrace(ex);
         } catch (HelpSetException ex) {
             Exceptions.printStackTrace(ex);
         }
+
 
     }
 
@@ -162,6 +164,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jLabelCarreras.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelCarreras.setText("Carreras");
+
+        jButtonAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAyudaActionPerformed(evt);
+            }
+        });
 
         jbInformes.setText("Informes");
         jbInformes.addActionListener(new java.awt.event.ActionListener() {
@@ -309,6 +317,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DialogInformes informes = new DialogInformes(this, true, logicaMetodos);
         informes.setVisible(true);
     }//GEN-LAST:event_jbInformesActionPerformed
+
+    private void jButtonAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAyudaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonAyudaActionPerformed
 
     /**
      * @param args the command line arguments
