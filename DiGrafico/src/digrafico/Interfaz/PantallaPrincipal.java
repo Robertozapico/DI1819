@@ -56,12 +56,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         mgfo.cerrarFicherosLecturaObjetos();
         mgfo.ejecutarAutoguardado("", 1, logicaMetodos);
 
-        ImageIcon interrogante = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/interrogante.png")));
+        ImageIcon interrogante = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/digrafico/img/interrogante.png")));
         Image imgInterrogante = interrogante.getImage();
         Image imgInterroganteEscalado = imgInterrogante.getScaledInstance(jButtonAyuda.getWidth(), jButtonAyuda.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon iconoInterrogante = new ImageIcon(imgInterroganteEscalado);
         jButtonAyuda.setIcon(iconoInterrogante);
-        ImageIcon settings = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../img/settings.png")));
+        ImageIcon settings = new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/digrafico/img/settings.png")));
         Image imgSettings = settings.getImage();
         Image imgSettingsEscalado = imgSettings.getScaledInstance(jLabelSettings.getWidth(), jLabelSettings.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon iconoSettings = new ImageIcon(imgSettingsEscalado);
