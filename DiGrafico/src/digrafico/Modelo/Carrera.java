@@ -25,10 +25,11 @@ public class Carrera implements Serializable {
     private String lugarDeCarrera;
     private int numMaxParticipantes;
     private String tiempoCarrera;
-    private boolean carreraTerminada=false;
+    private boolean carreraTerminada = false;
     //private LinkedHashSet<Integer> dorsales = new LinkedHashSet<Integer>();
     private List<Corredor> corredores;
     private Map<Integer, Participante> participantes = new HashMap<Integer, Participante>();
+    private List<Participante> listaParticipantes = new ArrayList<Participante>();
 
     public Carrera(String nombreDeCarrera, Date fechaCarrera, String lugarDeCarrera, int numMaxParticipantes) {
         this.nombreDeCarrera = nombreDeCarrera;
@@ -46,6 +47,14 @@ public class Carrera implements Serializable {
         this.numMaxParticipantes = numMaxParticipantes;
         this.corredores = corredores;
 
+    }
+
+    public List<Participante> getListaParticipantes() {
+        return listaParticipantes;
+    }
+
+    public void setListaParticipantes(List<Participante> listaParticipantes) {
+        this.listaParticipantes = listaParticipantes;
     }
 
     public boolean isCarreraTerminada() {

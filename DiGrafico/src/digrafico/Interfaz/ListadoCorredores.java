@@ -9,12 +9,27 @@ import digrafico.Logica.GestionCSV;
 import digrafico.Logica.LogicaAplicacion;
 import static digrafico.Logica.LogicaAplicacion.getSdf;
 import digrafico.Logica.MetodosGestionFicherosObjetos;
+import digrafico.Modelo.Carrera;
 import digrafico.Modelo.Corredor;
+import digrafico.Modelo.Participante;
+import java.awt.Component;
+import java.awt.Dialog;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.openide.util.Exceptions;
 
 /**
@@ -26,12 +41,24 @@ public class ListadoCorredores extends javax.swing.JDialog {
     private LogicaAplicacion logicaMetodos;
     private GestionCSV gcsv = new GestionCSV();
     private MetodosGestionFicherosObjetos mgfo = new MetodosGestionFicherosObjetos();
+    private JRDataSource dataSource;
+    private Map parametros;
+    private JasperPrint print;
 
     /**
      * Creates new form ListadoCorredores
      */
     public ListadoCorredores(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaAplicacion) {
         super(parent, modal);
+        initComponents();
+        this.setLocationRelativeTo(this);
+        this.logicaMetodos = logicaAplicacion;
+        rellenarTablaCorredores();
+
+    }
+
+    public ListadoCorredores(Dialog owner, boolean modal, LogicaAplicacion logicaAplicacion) {
+        super(owner, modal);
         initComponents();
         this.setLocationRelativeTo(this);
         this.logicaMetodos = logicaAplicacion;
@@ -74,6 +101,7 @@ public class ListadoCorredores extends javax.swing.JDialog {
         jButtonModificar = new javax.swing.JButton();
         jButtonEliminarCorredor = new javax.swing.JButton();
         jButtonImportarCorredores = new javax.swing.JButton();
+        jBInforme = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -129,6 +157,13 @@ public class ListadoCorredores extends javax.swing.JDialog {
             }
         });
 
+        jBInforme.setText("Informe");
+        jBInforme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBInformeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -145,6 +180,8 @@ public class ListadoCorredores extends javax.swing.JDialog {
                                 .addComponent(jButtonModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonImportarCorredores)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jBInforme)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButtonEliminarCorredor)
                                 .addGap(44, 44, 44)
@@ -167,7 +204,8 @@ public class ListadoCorredores extends javax.swing.JDialog {
                     .addComponent(jButtonCerrar)
                     .addComponent(jButtonModificar)
                     .addComponent(jButtonEliminarCorredor)
-                    .addComponent(jButtonImportarCorredores))
+                    .addComponent(jButtonImportarCorredores)
+                    .addComponent(jBInforme))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -282,11 +320,59 @@ public class ListadoCorredores extends javax.swing.JDialog {
         rellenarTablaCorredores();
     }//GEN-LAST:event_jButtonImportarCorredoresActionPerformed
 
+    private void jBInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInformeActionPerformed
+        if (jTableCorredores.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona un corredor", "Selecciona un corredor", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                /*logicaMetodos.obtenerCarrera(jTableCorredores.getSelectedRow()).setListaParticipantes(new ArrayList<Participante>());
+                for (Map.Entry<Integer, Participante> entry : logicaMetodos.obtenerCarrera(jTableCorredores.getSelectedRow()).getParticipantes().entrySet()) {
+                    Participante value = entry.getValue();
+                    logicaMetodos.obtenerCarrera(jTableCorredores.getSelectedRow()).getListaParticipantes().add(value);
+                }
+                List<Corredor> corredorEscogido = new ArrayList<Corredor>();
+                corredorEscogido.add(logicaMetodos.getCorredores().get(jTableCorredores.getSelectedRow()));*/
+
+                //dataSource = new JRBeanCollectionDataSource(logicaMetodos.obtenerCarrerasNoFinalizadas());
+                List<Carrera> carrerasCorredor = logicaMetodos.obtenerDatosCorredor(jTableCorredores.getSelectedRow());
+                if (carrerasCorredor.size() < 1 || carrerasCorredor == null) {
+                    System.out.println("Este corredor no participa en ninguna carrera");
+                } else {
+                    dataSource = new JRBeanCollectionDataSource(carrerasCorredor);
+                    parametros = new HashMap();
+                    parametros.put("nombre", logicaMetodos.getCorredores().get(jTableCorredores.getSelectedRow()).getNombre()+ "");
+                    parametros.put("dni", logicaMetodos.getCorredores().get(jTableCorredores.getSelectedRow()).getDni()+ "");
+                    parametros.put("fechaNac", logicaMetodos.getCorredores().get(jTableCorredores.getSelectedRow()).getFechaNacimiento()+ "");
+                    parametros.put("tel", logicaMetodos.getCorredores().get(jTableCorredores.getSelectedRow()).getTelefono()+ "");
+                    parametros.put("dir", logicaMetodos.getCorredores().get(jTableCorredores.getSelectedRow()).getDireccion()+ "");
+                    
+                    print = JasperFillManager.fillReport("reports/jasper/reportCorredor.jasper", parametros, dataSource);
+                    JasperExportManager.exportReportToPdfFile(print, fileChooser(this)
+                            + File.separator + "informeCorredor" + ".pdf");
+                    JOptionPane.showMessageDialog(this, "Informe guardado con éxito");
+                }
+            } catch (JRException ex) {
+                Exceptions.printStackTrace(ex);
+            }
+        }
+    }//GEN-LAST:event_jBInformeActionPerformed
+    public String fileChooser(Component pantalla) {
+        File file = null;
+        JFileChooser jc = new JFileChooser();
+        this.setLocationRelativeTo(null);
+        jc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int seleccion = jc.showOpenDialog(pantalla);
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            file = jc.getSelectedFile();
+        }
+        return file.getAbsolutePath();
+    }
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBInforme;
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonDarAltaCorredor;
     private javax.swing.JButton jButtonEliminarCorredor;

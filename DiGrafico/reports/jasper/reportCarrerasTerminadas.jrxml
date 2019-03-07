@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportCarrerasTerminadas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6188d7dc-49fd-4353-bd4b-4e2be7cd05ca">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\FP\\NetBeans 8.2\\proyectos\\FPSegundo\\DI1819\\DiGrafico\\reports\\jasper\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombreDeCarrera" class="java.lang.String">
+		<fieldDescription><![CDATA[nombreDeCarrera]]></fieldDescription>
+	</field>
+	<field name="listaParticipantes" class="java.util.List">
+		<fieldDescription><![CDATA[listaParticipantes]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="99" y="0" width="401" height="49" uuid="ac5ae935-92b7-473f-99ca-3d0217edde14"/>
+				<textElement>
+					<font size="24" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[INFORME CARRERA TERMINADA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="235" y="38" width="187" height="41" uuid="9a67389f-093f-4c3b-94ba-cb6f5250b8e3"/>
+				<textElement>
+					<font size="24" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreDeCarrera}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="100" height="20" uuid="bde0e7ed-8189-4896-b79d-860472b261b7"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Clasificación]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="99" y="28" width="100" height="20" uuid="401eb4cb-b3bd-4ba2-9533-0c135a31c4b6"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="245" y="28" width="100" height="20" uuid="62d57210-e7f9-439c-a611-23a6c0e41b31"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Dorsal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="28" width="100" height="20" uuid="39c10586-1043-4482-8f53-38177414d77c"/>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Tiempo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<subreport>
+				<reportElement x="99" y="0" width="391" height="125" uuid="6c771e80-f394-4e4e-9173-b29b47a03baf"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaParticipantes})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reportCarrerasTerminadas_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

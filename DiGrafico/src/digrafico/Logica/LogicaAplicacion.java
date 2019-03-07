@@ -158,6 +158,7 @@ public class LogicaAplicacion implements Serializable {
         }
     }
 //Segunda Evaluacion
+
     public List<Carrera> obtenerCarrerasNoFinalizadas() {
         List<Carrera> listaCarrerasNoFinalizadas = new ArrayList<Carrera>();
 
@@ -168,5 +169,29 @@ public class LogicaAplicacion implements Serializable {
             }
         }
         return listaCarrerasNoFinalizadas;
+    }
+
+    public Carrera obtenerCarrera(int index) {
+        return carreras.get(index);
+    }
+
+    public List<Carrera> obtenerDatosCorredor(int index) {
+        Corredor corredorEscogido = corredores.get(index);
+        List<Carrera> listaCarrerasCorredor = new ArrayList<>();
+        boolean agregar;
+        for (Carrera carrera : carreras) {
+            agregar = false;
+            for (Map.Entry<Integer, Participante> entry : carrera.getParticipantes().entrySet()) {
+                Participante value = entry.getValue();
+                if (value.getDni().equals(corredorEscogido.getDni())) {
+                    agregar = true;
+                }
+            }
+            if (agregar) {
+                listaCarrerasCorredor.add(carrera);
+            }
+        }
+        return listaCarrerasCorredor;
+
     }
 }

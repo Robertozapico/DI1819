@@ -9,10 +9,13 @@ import digrafico.Logica.LogicaAplicacion;
 import digrafico.Modelo.Carrera;
 import java.awt.Component;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -31,7 +34,6 @@ public class DialogInformes extends javax.swing.JDialog {
     private JRDataSource dataSource;
     private Map parametros;
     private JasperPrint print;
-
     /**
      * Creates new form DialogInformes
      */
@@ -44,7 +46,7 @@ public class DialogInformes extends javax.swing.JDialog {
     public DialogInformes(java.awt.Frame parent, boolean modal, LogicaAplicacion logicaMetodos) {
         super(parent, modal);
         this.logicaMetodos = logicaMetodos;
-        this.setLocationRelativeTo(parent);
+        this.setLocationRelativeTo(parent);     
         initComponents();
     }
 
@@ -60,6 +62,9 @@ public class DialogInformes extends javax.swing.JDialog {
         jPanelGeneral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jBCarreraNoFinalizada = new javax.swing.JButton();
+        btCerrar = new javax.swing.JButton();
+        jBCarreras = new javax.swing.JButton();
+        jbCorredor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -73,19 +78,49 @@ public class DialogInformes extends javax.swing.JDialog {
             }
         });
 
+        btCerrar.setText(org.openide.util.NbBundle.getMessage(DialogInformes.class, "DialogInformes.btCerrar.text")); // NOI18N
+        btCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCerrarActionPerformed(evt);
+            }
+        });
+
+        jBCarreras.setText(org.openide.util.NbBundle.getMessage(DialogInformes.class, "DialogInformes.jBCarreras.text")); // NOI18N
+        jBCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCarrerasActionPerformed(evt);
+            }
+        });
+
+        jbCorredor.setText(org.openide.util.NbBundle.getMessage(DialogInformes.class, "DialogInformes.jbCorredor.text")); // NOI18N
+        jbCorredor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCorredorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelGeneralLayout = new javax.swing.GroupLayout(jPanelGeneral);
         jPanelGeneral.setLayout(jPanelGeneralLayout);
         jPanelGeneralLayout.setHorizontalGroup(
             jPanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelGeneralLayout.createSequentialGroup()
                 .addGroup(jPanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelGeneralLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btCerrar))
                     .addGroup(jPanelGeneralLayout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelGeneralLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jBCarreraNoFinalizada)))
-                .addContainerGap(153, Short.MAX_VALUE))
+                        .addGroup(jPanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelGeneralLayout.createSequentialGroup()
+                                .addGap(127, 127, 127)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelGeneralLayout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addGroup(jPanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jBCarreraNoFinalizada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jBCarreras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbCorredor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 143, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelGeneralLayout.setVerticalGroup(
             jPanelGeneralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,7 +129,13 @@ public class DialogInformes extends javax.swing.JDialog {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCarreraNoFinalizada)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jBCarreras)
+                .addGap(18, 18, 18)
+                .addComponent(jbCorredor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(btCerrar)
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -112,19 +153,34 @@ public class DialogInformes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBCarreraNoFinalizadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCarreraNoFinalizadaActionPerformed
-        
+
         try {
             dataSource = new JRBeanCollectionDataSource(logicaMetodos.obtenerCarrerasNoFinalizadas());
             parametros = new HashMap();
             print = JasperFillManager.fillReport("reports/jasper/carrerasSinTerminar.jasper", parametros, dataSource);
             JasperExportManager.exportReportToPdfFile(print, fileChooser(this)
                     + File.separator + "listaCarrerasNofinalizadas" + ".pdf");
+            JOptionPane.showMessageDialog(this, "Informe guardado con éxito");
         } catch (JRException ex) {
             Exceptions.printStackTrace(ex);
         }
-        
+
     }//GEN-LAST:event_jBCarreraNoFinalizadaActionPerformed
-public String fileChooser(Component pantalla) {
+
+    private void btCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btCerrarActionPerformed
+
+    private void jBCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCarrerasActionPerformed
+        ListadoCarreras listadoCarreras = new ListadoCarreras(this, true, logicaMetodos);
+        listadoCarreras.setVisible(true);
+    }//GEN-LAST:event_jBCarrerasActionPerformed
+
+    private void jbCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCorredorActionPerformed
+        ListadoCorredores listadoCorredores = new ListadoCorredores(this, true, logicaMetodos);
+        listadoCorredores.setVisible(true);
+    }//GEN-LAST:event_jbCorredorActionPerformed
+    public String fileChooser(Component pantalla) {
         File file = null;
         JFileChooser jc = new JFileChooser();
         this.setLocationRelativeTo(null);
@@ -135,11 +191,14 @@ public String fileChooser(Component pantalla) {
         }
         return file.getAbsolutePath();
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCerrar;
     private javax.swing.JButton jBCarreraNoFinalizada;
+    private javax.swing.JButton jBCarreras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelGeneral;
+    private javax.swing.JButton jbCorredor;
     // End of variables declaration//GEN-END:variables
 }
